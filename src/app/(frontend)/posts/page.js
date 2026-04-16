@@ -2,6 +2,7 @@ import Link from "next/link";
 // import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { PostCard } from "@/components/postCard";
 
 // const options = { next: { revalidate: 60 } };
 
@@ -15,12 +16,13 @@ export default async function Page() {
       <ul className="grid grid-cols-1 divide-y divide-blue-100">
         {posts.map((post) => (
           <li key={post._id}>
-            <Link
+            <PostCard {...post} />
+            {/* <Link
               className="block p-4 hover:text-blue-500"
               href={`/posts/${post?.slug?.current}`}
             >
               {post?.title}
-            </Link>
+            </Link> */}
           </li>
         ))}
       </ul>

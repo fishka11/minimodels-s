@@ -1,10 +1,5 @@
 import "./globals.css";
 
-export const metadata = {
-  title: "Minimodels",
-  description: "Minimodels",
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="pl">
