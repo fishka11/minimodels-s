@@ -6,6 +6,7 @@ import { POST_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
 import { components } from "@/sanity/portableTextComponents";
+import { Post } from "@/components/post";
 
 export default async function Page({ params }) {
   const { data: post } = await sanityFetch({
@@ -19,7 +20,8 @@ export default async function Page({ params }) {
 
   return (
     <main className="container mx-auto grid grid-cols-1 gap-6 p-12">
-      {post?.mainImage ? (
+      <Post {...post} />
+      {/* {post?.mainImage ? (
         <Image
           className="w-full aspect-800/300"
           src={urlFor(post.mainImage)
@@ -40,7 +42,7 @@ export default async function Page({ params }) {
         </div>
       ) : null}
       <hr />
-      <Link href="/posts">&larr; Return to index</Link>
+      <Link href="/posts">&larr; Return to index</Link> */}
     </main>
   );
 }

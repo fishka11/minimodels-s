@@ -1,4 +1,5 @@
 import { SanityLive } from "@/sanity/lib/live";
+import { Header } from "@/components/header";
 
 export const metadata = {
   title: "Minimodels",
@@ -7,11 +8,10 @@ export const metadata = {
 
 export default function FrontendLayout({ children }) {
   return (
-    <html lang="pl">
-      <body>
-        {children}
-        <SanityLive />
-      </body>
-    </html>
+    <section className="bg-white min-h-screen">
+      <Header />
+      {children}
+      <SanityLive />
+    </section>
   );
 }
