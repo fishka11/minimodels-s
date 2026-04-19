@@ -6,7 +6,11 @@ import { PostCard } from "@/components/postCard";
 
 export default async function Page() {
   //   const posts = await client.fetch(POSTS_QUERY, {}, options);
-  const posts = await sanityFetch({ query: POSTS_QUERY, revalidate: 3600 });
+  const posts = await sanityFetch({
+    query: POSTS_QUERY,
+    // revalidate: 3600,
+    tags: ["post", "author", "category"],
+  });
 
   return (
     <main className="container mx-auto grid grid-cols-1 gap-6 p-12">

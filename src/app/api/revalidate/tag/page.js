@@ -1,10 +1,8 @@
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
 export async function POST(req) {
-  console.log("Webhook Request: ", req);
-
   try {
     if (!process.env.SANITY_REVALIDATE_SECRET) {
       return new Response(
@@ -24,15 +22,16 @@ export async function POST(req) {
       return new Response(JSON.stringify({ message, isValidSignature, body }), {
         status: 401,
       });
-    } else if (!body?.path) {
+    } else if (!Array.isArray(body?.tags) || !body.tags.length) {
       const message = "Bad Request";
       return new Response(JSON.stringify({ message, body }), { status: 400 });
     }
 
-    console.log("Revalidating path: ", body.path);
-    revalidatePath(body.path);
-    const message = `Updated route: ${body.path}`;
-    return NextResponse.json({ body, message });
+    body.tags.forEach((tag) => {
+      revalidateTag(tag);
+    });
+
+    return NextResponse.json({ body });
   } catch (err) {
     console.error(err);
     return new Response(err.message, { status: 500 });
