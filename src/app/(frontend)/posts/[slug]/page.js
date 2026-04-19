@@ -12,11 +12,12 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
+  const { slug } = await params;
   const post = await sanityFetch({
     query: POST_QUERY,
-    params: await params,
+    params: { slug },
     // revalidate: 3600,
-    tags: [`post:${params.slug}`, "author", "category"],
+    tags: [`post:${slug}`, "author", "category"],
   });
 
   if (!post) {
