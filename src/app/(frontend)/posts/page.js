@@ -1,14 +1,12 @@
 import Link from "next/link";
 // import { client } from "@/sanity/lib/client";
-import { sanityFetch } from "@/sanity/lib/live";
+import { sanityFetch } from "@/sanity/lib/client";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import { PostCard } from "@/components/postCard";
 
-// const options = { next: { revalidate: 60 } };
-
 export default async function Page() {
   //   const posts = await client.fetch(POSTS_QUERY, {}, options);
-  const { data: posts } = await sanityFetch({ query: POSTS_QUERY });
+  const posts = await sanityFetch({ query: POSTS_QUERY, revalidate: 3600 });
 
   return (
     <main className="container mx-auto grid grid-cols-1 gap-6 p-12">
@@ -17,12 +15,6 @@ export default async function Page() {
         {posts.map((post) => (
           <li key={post._id}>
             <PostCard {...post} />
-            {/* <Link
-              className="block p-4 hover:text-blue-500"
-              href={`/posts/${post?.slug?.current}`}
-            >
-              {post?.title}
-            </Link> */}
           </li>
         ))}
       </ul>
