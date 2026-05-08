@@ -1,0 +1,50 @@
+// src/app/[locale]/mini-boys/[slug]/page.js
+import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
+import {
+  MODEL_QUERY,
+  ALL_MINIBOYS_SLUGS_QUERY,
+  MODEL_SIBLINGS_QUERY,
+} from "@/sanity/lib/queries";
+import { notFound } from "next/navigation";
+import { Model } from "@/components/model";
+import { LOCALES } from "@/lib/locales";
+
+export async function generateStaticParams() {
+  const models = await client.fetch(ALL_MINIBOYS_SLUGS_QUERY);
+
+  return models.flatMap(({ slug }) =>
+    LOCALES.map((locale) => ({ locale, slug })),
+  );
+}
+
+export default async function ModelPage({ params }) {
+  const { locale, slug } = await params;
+
+  if (!LOCALES.includes(locale)) notFound();
+
+  const cutoffDate = new Date();
+  cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
+
+  const { data: model } = await sanityFetch({
+    query: MODEL_QUERY,
+    params: { slug },
+    tags: [`mini-boys:${slug}`],
+  });
+
+  if (!model) notFound();
+
+  const { data: siblings } = await sanityFetch({
+    query: MODEL_SIBLINGS_QUERY,
+    params: {
+      category: model.category,
+      birthDate: model.birthDate,
+      cutoffDate: cutoffDate.toISOString(),
+    },
+    tags: [`mini-boys`],
+  });
+
+  return (
+    <Model model={model} locale={locale} slug={slug} siblings={siblings} />
+  );
+}

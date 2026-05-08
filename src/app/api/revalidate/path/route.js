@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
 export async function POST(req) {
-  console.log("Webhook Request: ", req);
-
   try {
     if (!process.env.SANITY_REVALIDATE_SECRET) {
       return new Response(
@@ -29,7 +27,6 @@ export async function POST(req) {
       return new Response(JSON.stringify({ message, body }), { status: 400 });
     }
 
-    console.log("Revalidating path: ", body.path);
     revalidatePath(body.path);
     const message = `Updated route: ${body.path}`;
     return NextResponse.json({ body, message });

@@ -1,6 +1,10 @@
+import { lora } from "@/lib/fonts";
+
 export function Title(props) {
   return (
-    <h1 className="text-2xl md:text-4xl lg:text-6xl font-semibold text-slate-800 text-pretty max-w-3xl">
+    <h1
+      className={`${lora.className} text-4xl md:text-5xl font-regular text-center py-3 text-slate-700`}
+    >
       {props.children}
     </h1>
   );

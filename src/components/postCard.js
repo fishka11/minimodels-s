@@ -1,16 +1,16 @@
+// src/components/postCard.js
 import Link from "next/link";
 import Image from "next/image";
-
 import { Author } from "@/components/author";
 import { Categories } from "@/components/categories";
 import { PublishedAt } from "@/components/publishedAt";
 import { urlFor } from "@/sanity/lib/image";
 
 export function PostCard(props) {
-  const { title, author, mainImage, publishedAt, categories } = props;
+  const { title, author, mainImage, publishedAt, categories, locale } = props;
 
   return (
-    <Link className="group" href={`/posts/${props.slug.current}`}>
+    <Link className="group" href={`/${locale}/posts/${props.slug.current}`}>
       <article className="flex flex-col-reverse gap-4 md:grid md:grid-cols-12 md:gap-0 my-4">
         <div className="md:col-span-2 md:pt-1">
           <Categories categories={categories} />

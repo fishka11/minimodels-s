@@ -160,6 +160,79 @@ export type Category = {
   description?: string;
 };
 
+export type ModelCategoryReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "modelCategory";
+};
+
+export type Model = {
+  _id: string;
+  _type: "model";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  category: ModelCategoryReference;
+  birthDate: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  eyeColor?: "blue" | "green" | "brown" | "grey" | "hazel";
+  hairColor?:
+    | "light-blonde"
+    | "blonde"
+    | "dark-blonde"
+    | "brown"
+    | "black"
+    | "red";
+  hairLength?: "short" | "medium" | "long";
+  hairType?: "straight" | "wavy" | "curly";
+  active?: boolean;
+  contractDate?: string;
+};
+
+export type ModelCategory = {
+  _id: string;
+  _type: "modelCategory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: "baby" | "mini-girls" | "mini-boys" | "teens";
+  slug: Slug;
+  inMenu?: boolean;
+  displayName?: {
+    pl: string;
+    en: string;
+  };
+  seo_pl?: {
+    title?: string;
+    description?: string;
+    keywords?: Array<string>;
+  };
+  seo_en?: {
+    title?: string;
+    description?: string;
+    keywords?: Array<string>;
+  };
+};
+
 export type MediaTag = {
   _id: string;
   _type: "media.tag";
@@ -277,6 +350,9 @@ export type AllSanitySchemaTypes =
   | Author
   | Slug
   | Category
+  | ModelCategoryReference
+  | Model
+  | ModelCategory
   | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -286,6 +362,213 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: BABIES_QUERY
+// Query: *[_type == "model"     && category->title == "baby"     && active == true    && defined(contractDate)    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)  ] | order(birthDate desc) {    _id, name, slug, birthDate, profileImage, "category": category->title  }
+export type BABIES_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  birthDate: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  category: "baby" | "mini-boys" | "mini-girls" | "teens";
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MINIBOYS_QUERY
+// Query: *[_type == "model"    && category->title == "mini-boys"    && active == true    && defined(contractDate)    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {  _id, name, slug, birthDate, profileImage, "category": category->title}
+export type MINIBOYS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  birthDate: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  category: "baby" | "mini-boys" | "mini-girls" | "teens";
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MINIGIRLS_QUERY
+// Query: *[_type == "model"    && category->title == "mini-girls"    && active == true    && defined(contractDate)    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {  _id, name, slug, birthDate, profileImage, "category": category->title}
+export type MINIGIRLS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  birthDate: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  category: "baby" | "mini-boys" | "mini-girls" | "teens";
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: TEENS_QUERY
+// Query: *[_type == "model"    && category->title == "teens"    && active == true    && defined(contractDate)    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {  _id, name, slug, birthDate, profileImage, "category": category->title}
+export type TEENS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  birthDate: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  category: "baby" | "mini-boys" | "mini-girls" | "teens";
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MODEL_QUERY
+// Query: *[_type == "model" && slug.current == $slug][0] {  name,  birthDate,  "category": category->slug.current,  profileImage, gallery[defined(asset)] {  asset-> {    _id,    url,    alt,    metadata {      dimensions {        width,        height,        aspectRatio      }    }  },  _key,  _type,  alt}, eyeColor, hairColor, hairLength, hairType}
+export type MODEL_QUERY_RESULT = {
+  name: string;
+  birthDate: string;
+  category: string;
+  profileImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  gallery: Array<{
+    asset: {
+      _id: string;
+      url: string;
+      alt: null;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+          aspectRatio: number;
+        } | null;
+      } | null;
+    };
+    _key: string;
+    _type: "image";
+    alt: string | null;
+  }> | null;
+  eyeColor: "blue" | "brown" | "green" | "grey" | "hazel" | null;
+  hairColor:
+    | "black"
+    | "blonde"
+    | "brown"
+    | "dark-blonde"
+    | "light-blonde"
+    | "red"
+    | null;
+  hairLength: "long" | "medium" | "short" | null;
+  hairType: "curly" | "straight" | "wavy" | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MODEL_SIBLINGS_QUERY
+// Query: {    "next": *[_type == "model"       && category->slug.current == $category       && active == true      && defined(contractDate)      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)      && birthDate < $birthDate    ] | order(birthDate desc)[0] {      name,      slug,      profileImage    },    "prev": *[_type == "model"      && category->slug.current == $category      && active == true      && defined(contractDate)      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)      && birthDate > $birthDate    ] | order(birthDate asc)[0] {      name,      slug,      profileImage    }  }
+export type MODEL_SIBLINGS_QUERY_RESULT = {
+  next: {
+    name: string;
+    slug: Slug;
+    profileImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  } | null;
+  prev: {
+    name: string;
+    slug: Slug;
+    profileImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  } | null;
+};
+
+// Source: src/sanity/lib/queries.ts
+// Variable: ALL_BABY_SLUGS_QUERY
+// Query: *[_type == "model" && category->title == "baby" && active == true && defined(slug.current)] {    "slug": slug.current  }
+export type ALL_BABY_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: ALL_MINIBOYS_SLUGS_QUERY
+// Query: *[_type == "model" && category->title == "mini-boys" && active == true && defined(slug.current)] {    "slug": slug.current  }
+export type ALL_MINIBOYS_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: ALL_MINIGIRLS_SLUGS_QUERY
+// Query: *[_type == "model" && category->title == "mini-girls" && active == true && defined(slug.current)] {    "slug": slug.current  }
+export type ALL_MINIGIRLS_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: ALL_TEENS_SLUGS_QUERY
+// Query: *[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {    "slug": slug.current  }
+export type ALL_TEENS_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MENU_MODEL_CATEGORIES_QUERY
+// Query: *[_type == "modelCategory" && inMenu == true] | order(title asc) {    _id,    inMenu,    "slug": slug.current,    "displayName": displayName  }
+export type MENU_MODEL_CATEGORIES_QUERY_RESULT = Array<{
+  _id: string;
+  inMenu: true;
+  slug: string;
+  displayName: {
+    pl: string;
+    en: string;
+  } | null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: MODEL_CATEGORIES_QUERY
+// Query: *[_type == "modelCategory" && title == $category][0] {    title,    "seo": seo_pl, // lub dynamicznie    "seoTitle": select(      $locale == "pl" => seo_pl.title,      $locale == "en" => seo_en.title,    ),    "seoDescription": select(      $locale == "pl" => seo_pl.description,      $locale == "en" => seo_en.description,    ),    "seoKeywords": select(      $locale == "pl" => seo_pl.keywords,      $locale == "en" => seo_en.keywords,    ),  }
+export type MODEL_CATEGORIES_QUERY_RESULT = {
+  title: "baby" | "mini-boys" | "mini-girls" | "teens";
+  seo: {
+    title?: string;
+    description?: string;
+    keywords?: Array<string>;
+  } | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  seoKeywords: Array<string> | null;
+} | null;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -369,6 +652,18 @@ export type POST_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    '\n  *[_type == "model" \n    && category->title == "baby" \n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n  ] | order(birthDate desc) {\n    _id, name, slug, birthDate, profileImage, "category": category->title\n  }\n': BABIES_QUERY_RESULT;
+    '*[_type == "model"\n    && category->title == "mini-boys"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': MINIBOYS_QUERY_RESULT;
+    '*[_type == "model"\n    && category->title == "mini-girls"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': MINIGIRLS_QUERY_RESULT;
+    '*[_type == "model"\n    && category->title == "teens"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': TEENS_QUERY_RESULT;
+    '*[_type == "model" && slug.current == $slug][0] {\n  name,\n  birthDate,\n  "category": category->slug.current,\n  profileImage, gallery[defined(asset)] {\n  asset-> {\n    _id,\n    url,\n    alt,\n    metadata {\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  _key,\n  _type,\n  alt\n}, eyeColor, hairColor, hairLength, hairType\n}': MODEL_QUERY_RESULT;
+    '\n  {\n    "next": *[_type == "model" \n      && category->slug.current == $category \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && birthDate < $birthDate\n    ] | order(birthDate desc)[0] {\n      name,\n      slug,\n      profileImage\n    },\n    "prev": *[_type == "model"\n      && category->slug.current == $category\n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && birthDate > $birthDate\n    ] | order(birthDate asc)[0] {\n      name,\n      slug,\n      profileImage\n    }\n  }\n': MODEL_SIBLINGS_QUERY_RESULT;
+    '*[_type == "model" && category->title == "baby" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_BABY_SLUGS_QUERY_RESULT;
+    '*[_type == "model" && category->title == "mini-boys" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIBOYS_SLUGS_QUERY_RESULT;
+    '*[_type == "model" && category->title == "mini-girls" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIGIRLS_SLUGS_QUERY_RESULT;
+    '*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_TEENS_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "modelCategory" && inMenu == true] | order(title asc) {\n    _id,\n    inMenu,\n    "slug": slug.current,\n    "displayName": displayName\n  }\n': MENU_MODEL_CATEGORIES_QUERY_RESULT;
+    '\n  *[_type == "modelCategory" && title == $category][0] {\n    title,\n    "seo": seo_pl, // lub dynamicznie\n    "seoTitle": select(\n      $locale == "pl" => seo_pl.title,\n      $locale == "en" => seo_en.title,\n    ),\n    "seoDescription": select(\n      $locale == "pl" => seo_pl.description,\n      $locale == "en" => seo_en.description,\n    ),\n    "seoKeywords": select(\n      $locale == "pl" => seo_pl.keywords,\n      $locale == "en" => seo_en.keywords,\n    ),\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
     '*[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0...12]{\n  _id, title, slug,\n  body,\n  mainImage,\n  publishedAt,\n  "categories": coalesce(\n    categories[]->{\n      _id,\n      slug,\n      title\n    },\n    []\n  ),\n  author->{\n    name,\n    image\n  }\n}': POSTS_QUERY_RESULT;
     '*[_type == "post" && defined(slug.current)]{ \n  "slug": slug.current\n}': POSTS_SLUGS_QUERY_RESULT;
     '*[_type == "post" && slug.current == $slug][0]{\n    _id,\n  title,\n  body,\n  mainImage,\n  publishedAt,\n  "categories": coalesce(\n    categories[]->{\n      _id,\n      slug,\n      title\n    },\n    []\n  ),\n  author->{\n    name,\n    image\n  }\n}': POST_QUERY_RESULT;

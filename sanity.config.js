@@ -18,6 +18,14 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   plugins: [
