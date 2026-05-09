@@ -62,34 +62,12 @@ export default function Menu({ locale, modelCategories }) {
     inMenu: true,
   };
 
-  const brandStartPage = {
-    id: "brandStartPage",
-    slug: `/`,
-    displayName: "Start",
-    inMenu: true,
-  };
-
   const categoryPages = modelCategories.map((cat) => ({
     id: cat._id,
     slug: cat.slug,
     displayName: cat.displayName?.[locale] ?? cat.slug,
     inMenu: cat.inMenu,
   }));
-
-  const staticPages = [
-    {
-      id: "posts",
-      slug: `/posts`,
-      displayName: "Posts",
-      inMenu: true,
-    },
-    {
-      id: "studio",
-      slug: "/studio",
-      displayName: "Studio",
-      inMenu: true,
-    },
-  ];
 
   const leftSideItems = [startPage, ...categoryPages].filter(
     (page) => page.inMenu,
@@ -110,7 +88,7 @@ export default function Menu({ locale, modelCategories }) {
   }
 
   return (
-    <nav className="w-screen" aria-label="Menu główne">
+    <nav className="w-screen z-50" aria-label="Menu główne">
       <div className="lg:container grid grid-cols-2 lg:max-w-8xl lg:mx-auto lg:flex lg:w-full">
         <Link href={`/${locale}`}>
           <div className="lg:hidden h-14 flex items-center" aria-hidden>
