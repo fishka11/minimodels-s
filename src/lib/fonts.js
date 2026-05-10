@@ -3,7 +3,6 @@ import { Open_Sans, Lora, Shadows_Into_Light_Two } from "next/font/google";
 export const openSans = Open_Sans({
   subsets: ["latin", "latin-ext"],
   variable: "--font-open-sans",
-  display: "swap",
 });
 
 export const lora = Lora({

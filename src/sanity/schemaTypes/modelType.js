@@ -78,6 +78,7 @@ export const modelType = defineType({
           { title: "Niebieskie / Blue", value: "blue" },
           { title: "Zielone / Green", value: "green" },
           { title: "Brązowe / Brown", value: "brown" },
+          { title: "Ciemnobrązowe / Dark Brown", value: "dark-brown" },
           { title: "Szare / Grey", value: "grey" },
           { title: "Piwne / Hazel", value: "hazel" },
         ],

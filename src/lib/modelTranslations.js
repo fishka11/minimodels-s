@@ -7,6 +7,7 @@ export const modelTranslations = {
       blue: "Niebieskie",
       green: "Zielone",
       brown: "Brązowe",
+      "dark-brown": "Ciemnobrązowe",
       grey: "Szare",
       hazel: "Piwne",
     },

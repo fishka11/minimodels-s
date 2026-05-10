@@ -7,7 +7,6 @@ import { ShareOnX } from "@/components/shareOnX";
 import { ModelSiblings } from "@/components/modelSiblings";
 
 export function Model({ model, locale, slug, siblings }) {
-  console.log("Model component received model:", model);
   return (
     <main>
       <article className="bg-white mx-auto mt-14 md:mt-20 pt-24 pb-12">
