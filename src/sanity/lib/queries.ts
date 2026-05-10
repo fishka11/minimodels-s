@@ -6,7 +6,7 @@ export const BABIES_QUERY = defineQuery(`
     && active == true
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-  ] | order(birthDate desc) {
+  ] | order(_createdAt desc) {
     _id, name, slug, birthDate, profileImage, "category": category->title
   }
 `);
@@ -15,7 +15,7 @@ export const MINIBOYS_QUERY = defineQuery(`*[_type == "model"
     && category->title == "mini-boys"
     && active == true
     && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {
+    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
   _id, name, slug, birthDate, profileImage, "category": category->title
 }`);
 
@@ -23,7 +23,7 @@ export const MINIGIRLS_QUERY = defineQuery(`*[_type == "model"
     && category->title == "mini-girls"
     && active == true
     && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {
+    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
   _id, name, slug, birthDate, profileImage, "category": category->title
 }`);
 
@@ -31,12 +31,13 @@ export const TEENS_QUERY = defineQuery(`*[_type == "model"
     && category->title == "teens"
     && active == true
     && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(birthDate desc) {
+    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
   _id, name, slug, birthDate, profileImage, "category": category->title
 }`);
 
 export const MODEL_QUERY =
   defineQuery(`*[_type == "model" && slug.current == $slug][0] {
+  _createdAt,
   name,
   birthDate,
   "category": category->slug.current,
@@ -61,24 +62,24 @@ export const MODEL_QUERY =
 
 export const MODEL_SIBLINGS_QUERY = defineQuery(`
   {
-    "next": *[_type == "model" 
+    "prev": *[_type == "model" 
       && category->slug.current == $category 
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-      && birthDate < $birthDate
-    ] | order(birthDate desc)[0] {
+      && _createdAt > $createdAt
+    ] | order(_createdAt asc)[0] {
       name,
       slug,
       profileImage
     },
-    "prev": *[_type == "model"
+    "next": *[_type == "model"
       && category->slug.current == $category
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-      && birthDate > $birthDate
-    ] | order(birthDate asc)[0] {
+      && _createdAt < $createdAt
+    ] | order(_createdAt desc)[0] {
       name,
       slug,
       profileImage
@@ -131,5 +132,41 @@ export const MODEL_CATEGORIES_QUERY = defineQuery(`
       $locale == "pl" => seo_pl.keywords,
       $locale == "en" => seo_en.keywords,
     ),
+  }
+`);
+
+export const HOME_PAGE_QUERY = defineQuery(`
+  *[_type == "homePage" && _id == "homePage"][0] {
+    title,
+    sections[] {
+      sectionTitle,
+      texts,
+      backgroundImage {
+        asset-> {
+          url,
+          metadata {
+            dimensions {
+              width,
+              height
+            }
+          }
+        },
+        alt
+      },
+      pictures[] {
+        asset-> {
+          url,
+          metadata {
+            dimensions {
+              width,
+              height
+            }
+          }
+        },
+        alt
+      },
+      button,
+      videoUrl
+    }
   }
 `);

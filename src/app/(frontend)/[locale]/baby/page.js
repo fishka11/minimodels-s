@@ -1,5 +1,6 @@
 // src/app/[locale]/baby/page.js
 import { lora } from "@/lib/fonts";
+import { getCutoffDate } from "@/lib/cutoffDate";
 import { sanityFetch } from "@/sanity/lib/live";
 import { BABIES_QUERY, MODEL_CATEGORIES_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -48,14 +49,9 @@ export default async function BabyPage({ params }) {
 
   const tr = translations[locale];
 
-  // Data sprzed roku
-  const cutoffDate = new Date();
-  cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
-  const cutoffDateString = cutoffDate.toISOString();
-
   const { data: models } = await sanityFetch({
     query: BABIES_QUERY,
-    params: { cutoffDate: cutoffDateString },
+    params: { cutoffDate: getCutoffDate() },
     tags: ["baby"],
   });
 
