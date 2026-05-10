@@ -38,7 +38,7 @@ export default async function ModelPage({ params }) {
     query: MODEL_SIBLINGS_QUERY,
     params: {
       category: model.category,
-      birthDate: model.birthDate,
+      createdAt: model._createdAt,
       cutoffDate: cutoffDate.toISOString(),
     },
     tags: [`mini-girls`],

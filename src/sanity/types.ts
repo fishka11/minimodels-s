@@ -233,6 +233,65 @@ export type ModelCategory = {
   };
 };
 
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo_pl?: {
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: Array<string>;
+  };
+  seo_en?: {
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: Array<string>;
+  };
+  sections?: Array<{
+    sectionTitle: string;
+    texts?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    backgroundImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: {
+        pl?: string;
+        en?: string;
+      };
+      _type: "image";
+    };
+    pictures?: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: {
+        pl?: string;
+        en?: string;
+      };
+      _type: "image";
+      _key: string;
+    }>;
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    videoUrl?: string;
+    _type: "section";
+    _key: string;
+  }>;
+};
+
 export type MediaTag = {
   _id: string;
   _type: "media.tag";
@@ -353,6 +412,7 @@ export type AllSanitySchemaTypes =
   | ModelCategoryReference
   | Model
   | ModelCategory
+  | HomePage
   | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -570,6 +630,58 @@ export type MODEL_CATEGORIES_QUERY_RESULT = {
   seoKeywords: Array<string> | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: HOME_PAGE_QUERY
+// Query: *[_type == "homePage" && _id == "homePage"][0] {    title,    sections[] {      sectionTitle,      texts,      backgroundImage {        asset-> {          url,          metadata {            dimensions {              width,              height            }          }        },        alt      },      pictures[] {        asset-> {          url,          metadata {            dimensions {              width,              height            }          }        },        alt      },      button,      videoUrl    }  }
+export type HOME_PAGE_QUERY_RESULT = {
+  title: string | null;
+  sections: Array<{
+    sectionTitle: string;
+    texts: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    } | null;
+    backgroundImage: {
+      asset: {
+        url: string;
+        metadata: {
+          dimensions: {
+            width: number;
+            height: number;
+          } | null;
+        } | null;
+      } | null;
+      alt: {
+        pl?: string;
+        en?: string;
+      } | null;
+    };
+    pictures: Array<{
+      asset: {
+        url: string;
+        metadata: {
+          dimensions: {
+            width: number;
+            height: number;
+          } | null;
+        } | null;
+      } | null;
+      alt: {
+        pl?: string;
+        en?: string;
+      } | null;
+    }> | null;
+    button: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    } | null;
+    videoUrl: string | null;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -586,5 +698,6 @@ declare module "@sanity/client" {
     '*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_TEENS_SLUGS_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && inMenu == true] | order(title asc) {\n    _id,\n    inMenu,\n    "slug": slug.current,\n    "displayName": displayName\n  }\n': MENU_MODEL_CATEGORIES_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && title == $category][0] {\n    title,\n    "seo": seo_pl, // lub dynamicznie\n    "seoTitle": select(\n      $locale == "pl" => seo_pl.title,\n      $locale == "en" => seo_en.title,\n    ),\n    "seoDescription": select(\n      $locale == "pl" => seo_pl.description,\n      $locale == "en" => seo_en.description,\n    ),\n    "seoKeywords": select(\n      $locale == "pl" => seo_pl.keywords,\n      $locale == "en" => seo_en.keywords,\n    ),\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
+    '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    sections[] {\n      sectionTitle,\n      texts,\n      backgroundImage {\n        asset-> {\n          url,\n          metadata {\n            dimensions {\n              width,\n              height\n            }\n          }\n        },\n        alt\n      },\n      pictures[] {\n        asset-> {\n          url,\n          metadata {\n            dimensions {\n              width,\n              height\n            }\n          }\n        },\n        alt\n      },\n      button,\n      videoUrl\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
   }
 }
