@@ -1,6 +1,6 @@
 // src/sanity/schemaTypes/modelType.js
-import { defineField, defineType } from "sanity"
-import { UserIcon } from "@sanity/icons"
+import { defineField, defineType } from "sanity";
+import { UserIcon } from "@sanity/icons";
 
 export const modelType = defineType({
   name: "model",
@@ -89,12 +89,14 @@ export const modelType = defineType({
       type: "string",
       options: {
         list: [
+          { title: "Białe / White", value: "white" },
           { title: "Jasny blond / Light blonde", value: "light-blonde" },
           { title: "Blond / Blonde", value: "blonde" },
           { title: "Ciemny blond / Dark blonde", value: "dark-blonde" },
-          { title: "Brązowe / Brown", value: "brown" },
-          { title: "Czarne / Black", value: "black" },
           { title: "Rude / Red", value: "red" },
+          { title: "Jasnobrązowe / Light brown", value: "light-brown" },
+          { title: "Ciemnobrązowe / Dark brown", value: "dark-brown" },
+          { title: "Czarne / Black", value: "black" },
         ],
       },
     }),
@@ -105,7 +107,7 @@ export const modelType = defineType({
       options: {
         list: [
           { title: "Krótkie / Short", value: "short" },
-          { title: "Średnie / Medium", value: "medium" },
+          { title: "Półdługie / Medium-length", value: "medium" },
           { title: "Długie / Long", value: "long" },
         ],
       },
@@ -117,8 +119,13 @@ export const modelType = defineType({
       options: {
         list: [
           { title: "Proste / Straight", value: "straight" },
+          {
+            title: "Podatne na kręcenie / Prone to curling",
+            value: "prone-to-curling",
+          },
           { title: "Falowane / Wavy", value: "wavy" },
           { title: "Kręcone / Curly", value: "curly" },
+          { title: "Loki / Curls", value: "curls" },
         ],
       },
     }),
@@ -134,7 +141,6 @@ export const modelType = defineType({
       type: "date",
       options: { dateFormat: "DD-MM-YYYY" },
     }),
-
   ],
   preview: {
     select: {
@@ -143,4 +149,4 @@ export const modelType = defineType({
       media: "profileImage",
     },
   },
-})
+});
