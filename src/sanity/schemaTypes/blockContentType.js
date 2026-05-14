@@ -57,6 +57,71 @@ export const blockContentType = defineType({
               },
             ],
           },
+          // Kolor tekstu
+          {
+            title: "Kolor tekstu",
+            name: "textColor",
+            type: "object",
+            fields: [
+              {
+                title: "Kolor",
+                name: "color",
+                type: "string",
+                options: {
+                  list: [
+                    { title: "Różowy", value: "text-pink-500" },
+                    { title: "Niebieski", value: "text-blue-400" },
+                    { title: "Szary", value: "text-slate-500" },
+                    { title: "Biały", value: "text-white" },
+                    { title: "Czarny", value: "text-black" },
+                  ],
+                },
+              },
+            ],
+          },
+          // Font weight
+          {
+            title: "Grubość czcionki",
+            name: "fontWeight",
+            type: "object",
+            fields: [
+              {
+                title: "Grubość",
+                name: "weight",
+                type: "string",
+                options: {
+                  list: [
+                    { title: "Light", value: "font-light" },
+                    { title: "Normal", value: "font-normal" },
+                    { title: "Medium", value: "font-medium" },
+                    { title: "Semibold", value: "font-semibold" },
+                    { title: "Bold", value: "font-bold" },
+                    { title: "Black", value: "font-black" },
+                  ],
+                },
+              },
+            ],
+          },
+          // Czcionka
+          {
+            title: "Czcionka",
+            name: "fontFamily",
+            type: "object",
+            fields: [
+              {
+                title: "Czcionka",
+                name: "font",
+                type: "string",
+                options: {
+                  list: [
+                    { title: "Open Sans", value: "font-sans" },
+                    { title: "Serif", value: "font-serif" },
+                    { title: "Mono", value: "font-mono" },
+                  ],
+                },
+              },
+            ],
+          },
         ],
       },
     }),

@@ -30,9 +30,9 @@ export default async function FrontendLayout({ children, params }) {
     notFound();
   }
   return (
-    <section className="bg-white min-h-screen">
+    <section className="min-h-screen">
       <Header locale={locale} />
-      {children}
+      <div className="relative">{children}</div>
     </section>
   );
 }

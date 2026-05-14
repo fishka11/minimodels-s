@@ -141,31 +141,32 @@ export const HOME_PAGE_QUERY = defineQuery(`
     sections[] {
       sectionTitle,
       texts,
-      backgroundImage {
-        asset-> {
-          url,
-          metadata {
-            dimensions {
-              width,
-              height
-            }
-          }
-        },
-        alt
-      },
-      pictures[] {
-        asset-> {
-          url,
-          metadata {
-            dimensions {
-              width,
-              height
-            }
-          }
-        },
-        alt
-      },
-      button,
+      // body,
+      // backgroundImage {
+      //   asset-> {
+      //     url,
+      //     metadata {
+      //       dimensions {
+      //         width,
+      //         height
+      //       }
+      //     }
+      //   },
+      //   alt
+      // },
+      // pictures[] {
+      //   asset-> {
+      //     url,
+      //     metadata {
+      //       dimensions {
+      //         width,
+      //         height
+      //       }
+      //     }
+      //   },
+      //   alt
+      // },
+      // button,
       videoUrl
     }
   }

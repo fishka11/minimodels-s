@@ -14,7 +14,7 @@ export function ModelHeader({ model, locale }) {
       <div className="mb-10">
         <div className="text-center flex flex-row justify-center">
           <p
-            className={`${shadowsIntoLightTwo.className} flex flex-row gap-3 bg-[#e91687] py-1.5 px-6 text-white text-lg uppercase translate-y-1/2`}
+            className={`${shadowsIntoLightTwo.className} flex flex-row gap-3 bg-pink-500 py-1.5 px-6 text-white text-lg uppercase translate-y-1/2`}
           >
             <span>
               <Calendar1 />

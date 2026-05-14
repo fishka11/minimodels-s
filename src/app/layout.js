@@ -4,7 +4,7 @@ import { openSans } from "@/lib/fonts";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pl" className={openSans.className}>
+    <html lang="pl" className={`${openSans.className} scroll-smooth`}>
       <body>
         {children}
         <SanityLive />

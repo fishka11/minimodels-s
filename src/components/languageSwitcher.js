@@ -26,13 +26,13 @@ export function LanguageSwitcher({ locale }) {
         <Image
           src={placeHolderPl}
           alt="Minimodels - Wersja polska"
-          className="opacity-75 group-hover:opacity-100 transition-all"
+          className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
         />
       ) : (
         <Image
           src={placeHolderEn}
           alt="Minimodels - English version"
-          className="opacity-75 group-hover:opacity-100 transition-all"
+          className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
         />
       )}
     </Link>

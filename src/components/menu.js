@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@/components/menuItem";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Logo } from "./logo";
+import { LogoDesktop } from "@/components/logoDesktop";
+import { LogoMobile } from "@/components/logoMobile";
 
 export default function Menu({ locale, modelCategories }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +82,7 @@ export default function Menu({ locale, modelCategories }) {
     return (
       <nav className="w-screen py-2.5 transition-all" aria-label="Menu główne">
         <div className="container flex max-w-8xl flex-col flex-nowrap items-center">
-          {/* <Brand /> */}
+          <LogoDesktop />
         </div>
       </nav>
     );
@@ -91,9 +92,7 @@ export default function Menu({ locale, modelCategories }) {
     <nav className="w-screen z-50" aria-label="Menu główne">
       <div className="lg:container grid grid-cols-2 lg:max-w-8xl lg:mx-auto lg:flex lg:w-full">
         <Link href={`/${locale}`}>
-          <div className="lg:hidden h-14 flex items-center" aria-hidden>
-            <Logo />
-          </div>
+          <LogoMobile />
         </Link>
         <div className="lg:w-full lg:flex lg:justify-between">
           <div className="mx-auto flex flex-col lg:block lg:w-full px-4 lg:px-0">
@@ -167,12 +166,7 @@ export default function Menu({ locale, modelCategories }) {
                   })}
                 </ul>
                 <Link href={`/${locale}`}>
-                  <div
-                    className="max-lg:hidden h-20 w-full lg:w-56 lg:flex lg:justify-center xl:w-auto flex items-center"
-                    aria-hidden
-                  >
-                    <Logo />
-                  </div>
+                  <LogoDesktop />
                 </Link>
                 <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end">
                   {rightSideItems?.map((item) => {

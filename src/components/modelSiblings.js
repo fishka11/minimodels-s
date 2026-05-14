@@ -4,13 +4,13 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const translations = {
+const t = {
   pl: { prev: "Poprzedni", next: "Następny" },
   en: { prev: "Previous", next: "Next" },
 };
 
 export function ModelSiblings({ siblings, locale, category }) {
-  const tr = translations[locale] ?? translations.pl;
+  const tr = t[locale] ?? t.pl;
   const { prev, next } = siblings ?? {};
 
   return (

@@ -9,7 +9,7 @@ import { ModelCard } from "@/components/modelCard";
 // -------------------------------------------------------
 // Tłumaczenia UI
 // -------------------------------------------------------
-const translations = {
+const t = {
   pl: {
     pageTitle: "Baby",
     noModels: "Brak modeli w tej kategorii.",
@@ -47,7 +47,7 @@ export default async function BabyPage({ params }) {
 
   if (!["pl", "en"].includes(locale)) notFound();
 
-  const tr = translations[locale];
+  const tr = t[locale];
 
   const { data: models } = await sanityFetch({
     query: BABIES_QUERY,

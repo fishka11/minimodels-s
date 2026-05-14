@@ -92,7 +92,7 @@ export const homePageType = defineType({
               name: "sectionTitle",
               title: "Nazwa sekcji (wewnętrzna)",
               type: "string",
-              description: 'np. "Baby", "Mini Girls"',
+              description: 'np. "Sekcja#1"',
               validation: (rule) => rule.required(),
             }),
 
@@ -119,97 +119,102 @@ export const homePageType = defineType({
               ],
             }),
 
-            // Obrazek tła
-            defineField({
-              name: "backgroundImage",
-              title: "Obrazek tła / Background image",
-              type: "image",
-              options: { hotspot: true },
-              fields: [
-                defineField({
-                  name: "alt",
-                  title: "Tekst alternatywny / Alt text",
-                  type: "object",
-                  fields: [
-                    defineField({
-                      name: "pl",
-                      title: "Polski",
-                      type: "string",
-                    }),
-                    defineField({
-                      name: "en",
-                      title: "English",
-                      type: "string",
-                    }),
-                  ],
-                }),
-              ],
-              validation: (rule) => rule.required(),
-            }),
+            // defineField({
+            //   name: "body",
+            //   type: "blockContent",
+            // }),
+
+            // // Obrazek tła
+            // defineField({
+            //   name: "backgroundImage",
+            //   title: "Obrazek tła / Background image",
+            //   type: "image",
+            //   options: { hotspot: true },
+            //   fields: [
+            //     defineField({
+            //       name: "alt",
+            //       title: "Tekst alternatywny / Alt text",
+            //       type: "object",
+            //       fields: [
+            //         defineField({
+            //           name: "pl",
+            //           title: "Polski",
+            //           type: "string",
+            //         }),
+            //         defineField({
+            //           name: "en",
+            //           title: "English",
+            //           type: "string",
+            //         }),
+            //       ],
+            //     }),
+            //   ],
+            //   validation: (rule) => rule.required(),
+            // }),
 
             // Zdjęcia
-            defineField({
-              name: "pictures",
-              title: "Zdjęcia / Pictures",
-              type: "array",
-              of: [
-                defineArrayMember({
-                  type: "image",
-                  options: { hotspot: true },
-                  fields: [
-                    defineField({
-                      name: "alt",
-                      title: "Tekst alternatywny / Alt text",
-                      type: "object",
-                      fields: [
-                        defineField({
-                          name: "pl",
-                          title: "Polski",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "en",
-                          title: "English",
-                          type: "string",
-                        }),
-                      ],
-                    }),
-                  ],
-                }),
-              ],
-            }),
+            // defineField({
+            //   name: "pictures",
+            //   title: "Zdjęcia / Pictures",
+            //   type: "array",
+            //   of: [
+            //     defineArrayMember({
+            //       type: "image",
+            //       options: { hotspot: true },
+            //       fields: [
+            //         defineField({
+            //           name: "alt",
+            //           title: "Tekst alternatywny / Alt text",
+            //           type: "object",
+            //           fields: [
+            //             defineField({
+            //               name: "pl",
+            //               title: "Polski",
+            //               type: "string",
+            //             }),
+            //             defineField({
+            //               name: "en",
+            //               title: "English",
+            //               type: "string",
+            //             }),
+            //           ],
+            //         }),
+            //       ],
+            //     }),
+            //   ],
+            // }),
 
             // Przycisk
-            defineField({
-              name: "button",
-              title: "Przycisk / Button",
-              type: "object",
-              fields: [
-                defineField({
-                  name: "label",
-                  title: "Tekst przycisku / Button label",
-                  type: "object",
-                  fields: [
-                    defineField({
-                      name: "pl",
-                      title: "Polski",
-                      type: "string",
-                    }),
-                    defineField({
-                      name: "en",
-                      title: "English",
-                      type: "string",
-                    }),
-                  ],
-                }),
-                defineField({
-                  name: "url",
-                  title: "URL",
-                  type: "string",
-                  description: 'np. "/baby" lub "https://..."',
-                }),
-              ],
-            }),
+            // defineField({
+            //   name: "button",
+            //   title: "Przycisk / Button",
+            //   type: "object",
+            //   fields: [
+            //     defineField({
+            //       name: "label",
+            //       title: "Tekst przycisku / Button label",
+            //       type: "object",
+            //       fields: [
+            //         defineField({
+            //           name: "pl",
+            //           title: "Polski",
+            //           type: "string",
+            //         }),
+            //         defineField({
+            //           name: "en",
+            //           title: "English",
+            //           type: "string",
+            //         }),
+            //       ],
+            //     }),
+            //     defineField({
+            //       name: "url",
+            //       title: "URL",
+            //       type: "string",
+            //       description: 'np. "/baby" lub "https://..."',
+            //     }),
+            //   ],
+            // }),
 
             // Link do video
             defineField({
@@ -222,7 +227,7 @@ export const homePageType = defineType({
           preview: {
             select: {
               title: "sectionTitle",
-              media: "backgroundImage",
+              // media: "backgroundImage",
             },
           },
         }),

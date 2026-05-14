@@ -1,7 +1,7 @@
 import Image from "next/image";
 import placeHolder from "@/assets/images/mapa.png";
 
-const translations = {
+const t = {
   pl: {
     workPlace: "Miejsce pracy",
   },
@@ -11,7 +11,7 @@ const translations = {
 };
 
 export function ModelWorkPlace({ locale }) {
-  const tr = translations[locale] ?? translations.pl;
+  const tr = t[locale] ?? t.pl;
   return (
     <section className="container bg-white max-w-7xl mx-auto py-4 md:py-6">
       <div className="flex flex-col items-center gap-3">

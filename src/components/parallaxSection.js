@@ -1,14 +1,30 @@
 // src/components/parallaxSection.js
-export function ParallaxSection({ imageUrl, children }) {
+
+export function ParallaxSection({
+  bgImage,
+  parralaxAnchor,
+  sectionEnlargment,
+  children,
+}) {
+  console.log("sectionEnlargment: ", sectionEnlargment);
+
   return (
     <div
-      className="relative flex items-center justify-center bg-fixed bg-cover bg-center"
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className={`relative min-h-dvh lg:min-h-(--sh) grid place-items-center bg-fixed bg-cover bg-top`}
+      style={{
+        backgroundImage: `url(${bgImage.src})`,
+        "--sh": `calc(100dvh + ${sectionEnlargment}px)`,
+      }}
     >
-      <div className="absolute inset-0 bg-black/40" />
-      <div className="relative z-10 text-white text-center px-4">
-        {children}
-      </div>
+      <div
+        id={parralaxAnchor}
+        className="absolute bottom-10/12 sm:top-1/5 md:top-1/4 lg:top-5/12 xl:top-1/3 w-full"
+      />
+      {/* Overlay */}
+      {/* <div className="[grid-area:1/1] w-full min-h-screen bg-black/40" /> */}
+
+      {/* Treść */}
+      <div className="[grid-area:1/1] h-full text-white w-full">{children}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-const translations = {
+const t = {
   pl: {
     postOnX: "Opublikuj na",
   },
@@ -9,7 +9,7 @@ const translations = {
 
 export function ShareOnX({ text, url, locale }) {
   const shareUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-  const tr = translations[locale] ?? translations.pl;
+  const tr = t[locale] ?? t.pl;
 
   return (
     <section className="container bg-white max-w-7xl mx-auto py-4 md:py-6">

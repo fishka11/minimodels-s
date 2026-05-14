@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { MENU_MODEL_CATEGORIES_QUERY } from "@/sanity/lib/queries";
 import Menu from "@/components/menu";
 import { IconsBar } from "@/components/iconsBar";
+import { ReportYourChild } from "@/components/reportYourChild";
 
 export async function Header({ locale }) {
   const { data: modelCategories } = await sanityFetch({
@@ -11,9 +12,10 @@ export async function Header({ locale }) {
   });
 
   return (
-    <header className="fixed top-0 z-50 h-14 lg:h-20 w-screen bg-black shadow-md border-b border-slate-200/50 flex flex-col items-center justify-center">
+    <header className="fixed top-0 z-50 h-14 lg:h-20 w-screen bg-sky-500 shadow-lg flex flex-col items-center justify-center">
       <Menu locale={locale} modelCategories={modelCategories} />
       <IconsBar locale={locale} />
+      <ReportYourChild locale={locale} />
     </header>
   );
 }
