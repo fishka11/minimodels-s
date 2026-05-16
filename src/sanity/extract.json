@@ -792,6 +792,10 @@
             },
             {
               "type": "string",
+              "value": "brown"
+            },
+            {
+              "type": "string",
               "value": "dark-brown"
             },
             {

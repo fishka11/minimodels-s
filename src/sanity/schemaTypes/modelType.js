@@ -96,6 +96,7 @@ export const modelType = defineType({
           { title: "Ciemny blond / Dark blonde", value: "dark-blonde" },
           { title: "Rude / Red", value: "red" },
           { title: "Jasnobrązowe / Light brown", value: "light-brown" },
+          { title: "Brązowe / Brown", value: "brown" },
           { title: "Ciemnobrązowe / Dark brown", value: "dark-brown" },
           { title: "Czarne / Black", value: "black" },
         ],

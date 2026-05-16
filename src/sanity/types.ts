@@ -138,6 +138,7 @@ export type Model = {
     | "dark-blonde"
     | "red"
     | "light-brown"
+    | "brown"
     | "dark-brown"
     | "black";
   hairLength?: "short" | "medium" | "long";
@@ -445,6 +446,7 @@ export type MODEL_QUERY_RESULT = {
   hairColor:
     | "black"
     | "blonde"
+    | "brown"
     | "dark-blonde"
     | "dark-brown"
     | "light-blonde"
