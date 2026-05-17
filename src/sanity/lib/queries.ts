@@ -37,6 +37,7 @@ export const TEENS_QUERY = defineQuery(`*[_type == "model"
 
 export const MODEL_QUERY =
   defineQuery(`*[_type == "model" && slug.current == $slug][0] {
+  _id,    
   _createdAt,
   name,
   birthDate,

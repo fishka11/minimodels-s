@@ -48,7 +48,7 @@ export async function GET(req) {
     if (!expiredModels.length) {
       return NextResponse.json({
         status: "ok",
-        message: "Brak modeli do usunięcia",
+        message: "Brak modeli do dezaktywowania",
       });
     }
 
