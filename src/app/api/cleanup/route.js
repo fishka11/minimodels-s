@@ -7,8 +7,9 @@ import { EXPIRED_MODELS_QUERY } from "@/sanity/lib/queries";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const token = process.env.SANITY_WRITE_TOKEN;
+const cleanupSecret = process.env.CLEANUP_SECRET;
 
-if (!projectId || !dataset || !token) {
+if (!projectId || !dataset || !token || !cleanupSecret) {
   throw new Error("Missing Sanity environment variables");
 }
 
@@ -23,7 +24,13 @@ const client = createClient({
 // Klient Resend (powiadomienia)
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function GET() {
+export async function GET(req) {
+  // Autoryzacja tokenem
+  const secret = req.headers.get("x-cleanup-secret");
+  if (!secret || secret !== cleanupSecret) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   // 1 rok
   const now = new Date();
   const limitDate = new Date(
