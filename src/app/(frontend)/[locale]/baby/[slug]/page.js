@@ -1,7 +1,7 @@
 // src/app/[locale]/baby/[slug]/page.js
 import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
-import { isBot } from "@/lib/isBot";
+import { trackView } from "@/lib/trackView";
 import {
   MODEL_QUERY,
   ALL_BABY_SLUGS_QUERY,
@@ -35,18 +35,8 @@ export default async function ModelPage({ params }) {
 
   if (!model) notFound();
 
-  // TRACKING — działa na serwerze, bez klienta
-  const h = headers();
-  const ua = h.get("user-agent") || "";
-  const bot = isBot(ua);
-
-  await client
-    .patch(model._id)
-    .inc({
-      viewsAll: 1,
-      viewsHuman: bot ? 0 : 1,
-    })
-    .commit();
+  // Tracking — działa po stronie serwera tylko podczas requestu, nie podczas prerenderingu
+  await trackView(model._id);
 
   const { data: siblings } = await sanityFetch({
     query: MODEL_SIBLINGS_QUERY,
