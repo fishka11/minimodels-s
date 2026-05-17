@@ -185,36 +185,36 @@ export const homePageType = defineType({
             // }),
 
             // Przycisk
-            // defineField({
-            //   name: "button",
-            //   title: "Przycisk / Button",
-            //   type: "object",
-            //   fields: [
-            //     defineField({
-            //       name: "label",
-            //       title: "Tekst przycisku / Button label",
-            //       type: "object",
-            //       fields: [
-            //         defineField({
-            //           name: "pl",
-            //           title: "Polski",
-            //           type: "string",
-            //         }),
-            //         defineField({
-            //           name: "en",
-            //           title: "English",
-            //           type: "string",
-            //         }),
-            //       ],
-            //     }),
-            //     defineField({
-            //       name: "url",
-            //       title: "URL",
-            //       type: "string",
-            //       description: 'np. "/baby" lub "https://..."',
-            //     }),
-            //   ],
-            // }),
+            defineField({
+              name: "button",
+              title: "Przycisk / Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "label",
+                  title: "Tekst przycisku / Button label",
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "pl",
+                      title: "Polski",
+                      type: "string",
+                    }),
+                    defineField({
+                      name: "en",
+                      title: "English",
+                      type: "string",
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: "url",
+                  title: "URL",
+                  type: "string",
+                  description: 'np. "/baby" lub "https://..."',
+                }),
+              ],
+            }),
 
             // Link do video
             defineField({
@@ -222,6 +222,25 @@ export const homePageType = defineType({
               title: "Link do video / Video URL",
               type: "url",
               description: "YouTube, Vimeo lub inny link do video",
+            }),
+
+            // Tytuł video
+            defineField({
+              name: "videoTitle",
+              title: "Tytuł video / Video title",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "pl",
+                  title: "Polski",
+                  type: "string",
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "string",
+                }),
+              ],
             }),
           ],
           preview: {

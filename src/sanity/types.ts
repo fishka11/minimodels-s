@@ -145,6 +145,8 @@ export type Model = {
   hairType?: "straight" | "prone-to-curling" | "wavy" | "curly" | "curls";
   active?: boolean;
   contractDate?: string;
+  viewsAll?: number;
+  viewsHuman?: number;
 };
 
 export type ModelCategory = {
@@ -201,7 +203,18 @@ export type HomePage = {
       pl?: Array<string>;
       en?: Array<string>;
     };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
     videoUrl?: string;
+    videoTitle?: {
+      pl?: string;
+      en?: string;
+    };
     _type: "section";
     _key: string;
   }>;
@@ -546,7 +559,7 @@ export type MODEL_CATEGORIES_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "homePage" && _id == "homePage"][0] {    title,    sections[] {      sectionTitle,      texts,      // body,      // backgroundImage {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      // pictures[] {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      // button,      videoUrl    }  }
+// Query: *[_type == "homePage" && _id == "homePage"][0] {    title,    sections[] {      sectionTitle,      texts,      // body,      // backgroundImage {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      // pictures[] {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      button,      videoUrl,      videoTitle    }  }
 export type HOME_PAGE_QUERY_RESULT = {
   title: string | null;
   sections: Array<{
@@ -555,9 +568,29 @@ export type HOME_PAGE_QUERY_RESULT = {
       pl?: Array<string>;
       en?: Array<string>;
     } | null;
+    button: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    } | null;
     videoUrl: string | null;
+    videoTitle: {
+      pl?: string;
+      en?: string;
+    } | null;
   }> | null;
 } | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: EXPIRED_MODELS_QUERY
+// Query: *[_type == "model" && contractDate < $limitDate && active == true]{    _id,    name,    contractDate  }
+export type EXPIRED_MODELS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  contractDate: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -575,6 +608,7 @@ declare module "@sanity/client" {
     '*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_TEENS_SLUGS_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && inMenu == true] | order(title asc) {\n    _id,\n    inMenu,\n    "slug": slug.current,\n    "displayName": displayName\n  }\n': MENU_MODEL_CATEGORIES_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && title == $category][0] {\n    title,\n    "seo": seo_pl, // lub dynamicznie\n    "seoTitle": select(\n      $locale == "pl" => seo_pl.title,\n      $locale == "en" => seo_en.title,\n    ),\n    "seoDescription": select(\n      $locale == "pl" => seo_pl.description,\n      $locale == "en" => seo_en.description,\n    ),\n    "seoKeywords": select(\n      $locale == "pl" => seo_pl.keywords,\n      $locale == "en" => seo_en.keywords,\n    ),\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
-    '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    sections[] {\n      sectionTitle,\n      texts,\n      // body,\n      // backgroundImage {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      // pictures[] {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      // button,\n      videoUrl\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    sections[] {\n      sectionTitle,\n      texts,\n      // body,\n      // backgroundImage {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      // pictures[] {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      button,\n      videoUrl,\n      videoTitle\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "model" && contractDate < $limitDate && active == true]{\n    _id,\n    name,\n    contractDate\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
   }
 }

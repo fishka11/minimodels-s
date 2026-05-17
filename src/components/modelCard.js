@@ -14,8 +14,8 @@ export function ModelCard({ model, locale, category }) {
       className="group flex flex-col items-center text-center overflow-clip p-3"
     >
       {/* Zdjęcie */}
-      <div className="relative">
-        <div className="aspect-2/3 h-82.5">
+      <div className="">
+        <div className="relative aspect-2/3 h-82.5">
           {profileImage ? (
             <Image
               src={urlFor(profileImage)
@@ -26,7 +26,7 @@ export function ModelCard({ model, locale, category }) {
                 .url()}
               alt={profileImage?.alt || name}
               fill
-              className="mx-auto w-55 h-82.5 border border-gray-200 group-hover:scale-105 transition-transform duration-300 ease-out"
+              className="mx-auto w-55 h-82.5 group-hover:scale-105 transition-transform duration-300 ease-out"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
             />
           ) : (

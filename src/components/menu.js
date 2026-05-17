@@ -81,7 +81,7 @@ export default function Menu({ locale, modelCategories }) {
   if (!modelCategories || modelCategories.length === 0) {
     return (
       <nav className="w-screen py-2.5 transition-all" aria-label="Menu główne">
-        <div className="container flex max-w-8xl flex-col flex-nowrap items-center">
+        <div className="container flex max-w-7xl flex-col flex-nowrap items-center">
           <LogoDesktop />
         </div>
       </nav>
@@ -90,7 +90,7 @@ export default function Menu({ locale, modelCategories }) {
 
   return (
     <nav className="w-screen z-50" aria-label="Menu główne">
-      <div className="lg:container grid grid-cols-2 lg:max-w-8xl lg:mx-auto lg:flex lg:w-full">
+      <div className="lg:container grid grid-cols-2 lg:max-w-7xl lg:mx-auto lg:flex lg:w-full">
         <Link href={`/${locale}`}>
           <LogoMobile />
         </Link>

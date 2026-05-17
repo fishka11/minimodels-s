@@ -56,7 +56,7 @@ export default async function MiniBoysPage({ params }) {
   });
 
   return (
-    <main className="container max-w-8xl mx-auto min-h-screen bg-white mt-14 md:mt-20 pt-24 pb-12">
+    <main className="container max-w-7xl mx-auto min-h-screen bg-white mt-14 md:mt-20 pt-24 pb-12">
       {/* Header */}
       <div className="py-6 md:py-10">
         <div className="mx-auto">
@@ -75,7 +75,7 @@ export default async function MiniBoysPage({ params }) {
         {models?.length === 0 ? (
           <p className="text-center text-slate-400 py-20">{tr.noModels}</p>
         ) : (
-          <div className="flex flex-row flex-wrap justify-center gap-5 transition-all duration-300">
+          <div className="flex flex-row flex-wrap justify-center gap-2 transition-all duration-300">
             {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"> */}
             {models?.map((model) => (
               <ModelCard

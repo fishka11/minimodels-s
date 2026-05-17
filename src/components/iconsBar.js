@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function IconsBar({ locale }) {
   return (
-    <div className="absolute top-20 lg:top-24 left-0 right-0 mx-auto container max-w-8xl">
+    <div className="absolute top-20 lg:top-24 left-0 right-0 mx-auto container max-w-7xl">
       <div className="w-full flex gap-4 lg:gap-3 px-2 xl:px-3 justify-center lg:justify-end">
         <a
           href="https://www.facebook.com/minimodels.babymodelsagency"

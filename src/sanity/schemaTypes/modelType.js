@@ -143,12 +143,48 @@ export const modelType = defineType({
       type: "date",
       options: { dateFormat: "DD-MM-YYYY" },
     }),
+    defineField({
+      name: "viewsAll",
+      title: "All views / Wszystkie wejścia",
+      type: "number",
+      initialValue: 0,
+      readOnly: true,
+    }),
+
+    defineField({
+      name: "viewsHuman",
+      title: "Human views / Wejścia (bez botów)",
+      type: "number",
+      initialValue: 0,
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {
       title: "name",
-      subtitle: "category.title",
-      media: "profileImage",
+      categoryTitle: "category.title",
+      media: "profileImage", // Pobranie pola z grafiką
+      createdAt: "_createdAt",
+    },
+    prepare(selection) {
+      const { title, categoryTitle, media, createdAt } = selection;
+
+      // Formatowanie daty (RRRR-MM-DD)
+      const date = createdAt
+        ? new Date(createdAt).toLocaleDateString("pl-PL")
+        : "";
+
+      // Budowanie podtytułu
+      const categoryLabel = categoryTitle
+        ? `[${categoryTitle}]`
+        : "[Brak kategorii]";
+      const dateLabel = date ? `Utworzono: ${date}` : "";
+
+      return {
+        title: title,
+        subtitle: `${categoryLabel} ${dateLabel}`.trim(),
+        media: media, // Przekazanie grafiki/ikony do wyświetlenia obok elementu
+      };
     },
   },
 });

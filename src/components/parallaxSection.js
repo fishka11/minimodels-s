@@ -6,8 +6,6 @@ export function ParallaxSection({
   sectionEnlargment,
   children,
 }) {
-  console.log("sectionEnlargment: ", sectionEnlargment);
-
   return (
     <div
       className={`relative min-h-dvh lg:min-h-(--sh) grid place-items-center bg-fixed bg-cover bg-top`}

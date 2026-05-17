@@ -166,8 +166,17 @@ export const HOME_PAGE_QUERY = defineQuery(`
       //   },
       //   alt
       // },
-      // button,
-      videoUrl
+      button,
+      videoUrl,
+      videoTitle
     }
+  }
+`);
+
+export const EXPIRED_MODELS_QUERY = defineQuery(`
+  *[_type == "model" && contractDate < $limitDate && active == true]{
+    _id,
+    name,
+    contractDate
   }
 `);
