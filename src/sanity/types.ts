@@ -424,8 +424,9 @@ export type TEENS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: MODEL_QUERY
-// Query: *[_type == "model" && slug.current == $slug][0] {  _createdAt,  name,  birthDate,  "category": category->slug.current,  profileImage, gallery[defined(asset)] {  asset-> {    _id,    url,    alt,    metadata {      dimensions {        width,        height,        aspectRatio      }    }  },  _key,  _type,  alt}, eyeColor, hairColor, hairLength, hairType}
+// Query: *[_type == "model" && slug.current == $slug][0] {  _id,      _createdAt,  name,  birthDate,  "category": category->slug.current,  profileImage, gallery[defined(asset)] {  asset-> {    _id,    url,    alt,    metadata {      dimensions {        width,        height,        aspectRatio      }    }  },  _key,  _type,  alt}, eyeColor, hairColor, hairLength, hairType}
 export type MODEL_QUERY_RESULT = {
+  _id: string;
   _createdAt: string;
   name: string;
   birthDate: string;
@@ -600,7 +601,7 @@ declare module "@sanity/client" {
     '*[_type == "model"\n    && category->title == "mini-boys"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': MINIBOYS_QUERY_RESULT;
     '*[_type == "model"\n    && category->title == "mini-girls"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': MINIGIRLS_QUERY_RESULT;
     '*[_type == "model"\n    && category->title == "teens"\n    && active == true\n    && defined(contractDate)\n    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {\n  _id, name, slug, birthDate, profileImage, "category": category->title\n}': TEENS_QUERY_RESULT;
-    '*[_type == "model" && slug.current == $slug][0] {\n  _createdAt,\n  name,\n  birthDate,\n  "category": category->slug.current,\n  profileImage, gallery[defined(asset)] {\n  asset-> {\n    _id,\n    url,\n    alt,\n    metadata {\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  _key,\n  _type,\n  alt\n}, eyeColor, hairColor, hairLength, hairType\n}': MODEL_QUERY_RESULT;
+    '*[_type == "model" && slug.current == $slug][0] {\n  _id,    \n  _createdAt,\n  name,\n  birthDate,\n  "category": category->slug.current,\n  profileImage, gallery[defined(asset)] {\n  asset-> {\n    _id,\n    url,\n    alt,\n    metadata {\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  _key,\n  _type,\n  alt\n}, eyeColor, hairColor, hairLength, hairType\n}': MODEL_QUERY_RESULT;
     '\n  {\n    "prev": *[_type == "model" \n      && category->slug.current == $category \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && _createdAt > $createdAt\n    ] | order(_createdAt asc)[0] {\n      name,\n      slug,\n      profileImage\n    },\n    "next": *[_type == "model"\n      && category->slug.current == $category\n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && _createdAt < $createdAt\n    ] | order(_createdAt desc)[0] {\n      name,\n      slug,\n      profileImage\n    }\n  }\n': MODEL_SIBLINGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "baby" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_BABY_SLUGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "mini-boys" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIBOYS_SLUGS_QUERY_RESULT;

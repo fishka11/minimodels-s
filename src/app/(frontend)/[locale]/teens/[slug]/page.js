@@ -1,4 +1,5 @@
 // src/app/[locale]/mini-girls/[slug]/page.js
+import { headers } from "next/headers";
 import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
 import { trackView } from "@/lib/trackView";
@@ -36,7 +37,9 @@ export default async function ModelPage({ params }) {
   if (!model) notFound();
 
   // Tracking — działa po stronie serwera tylko podczas requestu, nie podczas prerenderingu
-  await trackView(model._id);
+  const h = await headers();
+  const ua = h.get("user-agent") || "";
+  await trackView(model._id, ua);
 
   const { data: siblings } = await sanityFetch({
     query: MODEL_SIBLINGS_QUERY,

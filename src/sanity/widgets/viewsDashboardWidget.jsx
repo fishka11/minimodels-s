@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useClient } from "sanity";
 
 export function viewsDashboardWidget() {
@@ -12,6 +12,8 @@ export function viewsDashboardWidget() {
 function ViewsDashboard() {
   const client = useClient();
   const [models, setModels] = useState([]);
+  const [sortField, setSortField] = useState("viewsAll");
+  const [sortDir, setSortDir] = useState("desc");
 
   useEffect(() => {
     async function load() {
@@ -29,6 +31,31 @@ function ViewsDashboard() {
     load();
   }, []);
 
+  // Funkcja sortująca
+  const sorted = useMemo(() => {
+    return [...models].sort((a, b) => {
+      const A = a[sortField] ?? 0;
+      const B = b[sortField] ?? 0;
+
+      if (A < B) return sortDir === "asc" ? -1 : 1;
+      if (A > B) return sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [models, sortField, sortDir]);
+
+  // Kliknięcie w nagłówek kolumny
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortDir("desc");
+    }
+  };
+
+  const arrow = (field) =>
+    sortField === field ? (sortDir === "asc" ? "▲" : "▼") : "";
+
   return (
     <div style={{ padding: "1rem" }}>
       <h2>Statystyki odsłon modeli</h2>
@@ -38,14 +65,22 @@ function ViewsDashboard() {
       >
         <thead>
           <tr>
-            <th style={th}>Model</th>
-            <th style={th}>Slug</th>
-            <th style={th}>Wszystkie wejścia</th>
-            <th style={th}>Wejścia (bez botów)</th>
+            <th style={th} onClick={() => handleSort("name")}>
+              Model {arrow("name")}
+            </th>
+            <th style={th} onClick={() => handleSort("slug")}>
+              Slug {arrow("slug")}
+            </th>
+            <th style={th} onClick={() => handleSort("viewsAll")}>
+              Wszystkie wejścia {arrow("viewsAll")}
+            </th>
+            <th style={th} onClick={() => handleSort("viewsHuman")}>
+              Wejścia (bez botów) {arrow("viewsHuman")}
+            </th>
           </tr>
         </thead>
         <tbody>
-          {models.map((m) => (
+          {sorted.map((m) => (
             <tr key={m._id}>
               <td style={td}>{m.name}</td>
               <td style={td}>{m.slug?.current}</td>

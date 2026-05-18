@@ -1,30 +1,16 @@
-import { headers } from "next/headers";
 import { isBot } from "@/lib/isBot";
-import { client } from "@/sanity/lib/client";
+import { writeClient } from "@/sanity/lib/writeClient";
 
-export async function trackView(modelId) {
-  let ua = "";
-  let isBuild = false;
+export async function trackView(modelId, userAgent) {
+  console.log("🔥 TRACKVIEW FIRED FOR:", modelId);
 
-  // Próba pobrania nagłówków — działa tylko podczas requestu
-  try {
-    const h = headers();
-    ua = h.get("user-agent") || "";
-  } catch {
-    // Podczas prerenderingu headers() nie istnieje
-    isBuild = true;
-  }
+  const bot = isBot(userAgent);
 
-  // Jeśli to prerendering — NIE liczymy wejścia
-  if (isBuild) return;
-
-  const bot = isBot(ua);
-
-  await client
+  await writeClient
     .patch(modelId)
-    .inc({
-      viewsAll: 1,
-      viewsHuman: bot ? 0 : 1,
-    })
+    .setIfMissing({ viewsAll: 0, viewsHuman: 0 })
+    .inc({ viewsAll: 1, viewsHuman: bot ? 0 : 1 })
     .commit();
+
+  console.log("✅ TRACKING SAVED");
 }
