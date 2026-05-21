@@ -21,7 +21,7 @@ export function ModelSiblings({ siblings, locale, category }) {
             href={`/${locale}/${category}/${prev.slug.current}`}
             className="flex items-center gap-3 group"
           >
-            <ChevronLeft className="w-5 h-5 text-slate-400 group-hover:text-pink-500 transition-colors" />
+            <ChevronLeft className="w-5 h-5 text-slate-400 group-hover:text-pink-500 transition-colors duration-200 ease-in" />
             {prev.profileImage && (
               <Image
                 src={urlFor(prev.profileImage)
@@ -37,7 +37,7 @@ export function ModelSiblings({ siblings, locale, category }) {
             )}
             <div>
               <p className="text-xs text-slate-500">{tr.prev}</p>
-              <p className="text-sm font-semibold text-slate-800 group-hover:text-pink-500 transition-colors">
+              <p className="text-sm font-semibold text-slate-800 group-hover:text-pink-500 transition-colors duration-200 ease-in">
                 {prev.name}
               </p>
             </div>
@@ -53,7 +53,7 @@ export function ModelSiblings({ siblings, locale, category }) {
           >
             <div>
               <p className="text-xs text-slate-400">{tr.next}</p>
-              <p className="text-sm font-semibold text-slate-700 group-hover:text-pink-500 transition-colors">
+              <p className="text-sm font-semibold text-slate-700 group-hover:text-pink-500 transition-colors duration-200 ease-in">
                 {next.name}
               </p>
             </div>
@@ -70,7 +70,7 @@ export function ModelSiblings({ siblings, locale, category }) {
                 className="rounded-full object-cover"
               />
             )}
-            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-pink-500 transition-colors" />
+            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-pink-500 transition-colors duration-200 ease-in" />
           </Link>
         ) : (
           <div />

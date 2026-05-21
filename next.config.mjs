@@ -8,7 +8,7 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    qualities: [75, 85, 95, 100],
+    qualities: [75, 80, 85, 95, 100],
     remotePatterns: [
       {
         protocol: "https",

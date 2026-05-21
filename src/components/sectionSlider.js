@@ -24,7 +24,7 @@ export function SectionSlider({ slides, locale }) {
       <div className="overflow-hidden select-none">
         {/* Slajdy */}
         <div
-          className="flex transition-transform duration-500 ease-in-out max-w-full"
+          className="flex transition-transform duration-200 ease-in max-w-full"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
           {slides.map((slide, i) => (
@@ -54,7 +54,7 @@ export function SectionSlider({ slides, locale }) {
       <button
         onClick={prev}
         aria-label="Poprzedni slajd"
-        className="absolute -left-10 top-1/2 -translate-y-1/2 hover:bg-sky-500/60 bg-sky-500/20 transition-colors rounded-full p-2 shadow-md cursor-pointer"
+        className="absolute -left-10 top-1/2 -translate-y-1/2 hover:bg-sky-500/60 bg-sky-500/20 transition-colors duration-200 ease-in rounded-full p-2 shadow-md cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5 text-slate-700" />
       </button>
@@ -62,7 +62,7 @@ export function SectionSlider({ slides, locale }) {
       <button
         onClick={next}
         aria-label="Następny slajd"
-        className="absolute -right-10 top-1/2 -translate-y-1/2 hover:bg-sky-500/60 bg-sky-500/20 transition-colors rounded-full p-2 shadow-md cursor-pointer"
+        className="absolute -right-10 top-1/2 -translate-y-1/2 hover:bg-sky-500/60 bg-sky-500/20 transition-colors duration-200 ease-in rounded-full p-2 shadow-md cursor-pointer"
       >
         <ChevronRight className="w-5 h-5 text-slate-700" />
       </button>
@@ -74,7 +74,7 @@ export function SectionSlider({ slides, locale }) {
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Slajd ${i + 1}`}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ease-in ${
               i === current ? "bg-sky-500/60" : "bg-sky-500/20"
             }`}
           />

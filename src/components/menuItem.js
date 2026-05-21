@@ -16,7 +16,7 @@ export default function MenuItem({ slug, display, toggle, isActive }) {
         href={slug}
         onClick={toggle}
         aria-current={isActive ? "page" : undefined}
-        className={`${isActive ? "lg:text-black block bg-gray-950 lg:bg-transparent text-right text-sm" : "text-white block text-right text-sm hover:bg-gray-950"} " lg:hover:bg-transparent lg:hover:text-black whitespace-nowrap px-8 lg:px-2 xl:px-3 py-4 transition-colors duration-300 ease"`}
+        className={`${isActive ? "lg:text-black block bg-gray-950 lg:bg-transparent text-right text-sm" : "text-white block text-right text-sm hover:bg-gray-950"} " lg:hover:bg-transparent lg:hover:text-black whitespace-nowrap px-8 lg:px-2 xl:px-3 py-4 transition-colors duration-200 ease-in"`}
       >
         {display}
       </Link>

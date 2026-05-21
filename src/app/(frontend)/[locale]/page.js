@@ -17,11 +17,9 @@ import imgSection3Bg from "@/assets/images/marzenia.jpg";
 import imgSection4Bg from "@/assets/images/zaufanie.jpg";
 import imgSection5Bg from "@/assets/images/slawa.jpg";
 import imgSection6Bg from "@/assets/images/szansa.jpg";
-import { ArrowDown } from "@/components/arrowDown";
 import { SectionContent } from "@/components/sectionContent";
 import { slides } from "@/lib/logotypes";
-import { getText } from "@/lib/getText";
-import { lora } from "@/lib/fonts";
+import { Hero } from "@/components/hero";
 
 // -------------------------------------------------------
 // Metadata
@@ -50,70 +48,18 @@ export default async function Page({ params }) {
 
   const [section1, section2, section3, section4, section5, section6] =
     homePage?.sections ?? [];
-  const t = (section, i) => getText(section?.texts, locale, i);
 
   return (
-    <main className="">
-      <div
-        className={`relative grid place-items-center bg-fixed bg-cover bg-top`}
-        style={{
-          backgroundImage: `url(${imgSection1Bg.src})`,
-        }}
-      >
-        <div className="[grid-area:1/1] h-full text-white w-full">
-          <div className="mx-auto h-full grid grid-cols-1 place-content-between text-center gap-2 pt-22 lg:pt-0">
-            <div className="sm:min-w-md max-w-md md:max-w-lg lg:max-w-xl mx-auto container px-4 pt-14 lg:pt-32">
-              <iframe
-                src={`https://www.youtube.com/embed/${getYoutubeId(section1?.videoUrl)}`}
-                title={
-                  locale === "pl"
-                    ? section1?.videoTitle.pl
-                    : section1?.videoTitle.en ||
-                      "Minimodels, bo warto być z nami..."
-                }
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                className="w-full h-auto aspect-video"
-              ></iframe>
-            </div>
-            <div className="relative container max-w-7xl mx-auto px-4">
-              <hr className="before:content-[''] before:absolute before:block before:w-2 before:h-2 before:bg-white before:rotate-45 before:-top-1 before:left-1/2" />
-            </div>
-
-            <div className="container max-w-7xl mx-auto px-4 flex flex-col">
-              <h1 className="text-xl font-bold uppercase  mx-auto">
-                {t(section1, 0)}
-              </h1>
-              <p className="text-lg lg:text-xl font-light uppercase mx-auto">
-                {t(section1, 1)}
-              </p>
-              <p className="text-lg lg:text-xl font-light uppercase mx-auto mt-6">
-                {t(section1, 2)}
-                <br />
-                <span>{t(section1, 3)}</span>{" "}
-                <span
-                  className={`${lora.className} uppercase font-bold text-pink-500`}
-                >
-                  {t(section1, 4)}
-                </span>
-              </p>
-            </div>
-            <ArrowDown anchor="section2" />
-            <div className="flex flex-col gap-5">
-              <p className="text-lg lg:text-xl mx-auto px-4">
-                {t(section1, 5)}
-              </p>
-              <div className="">
-                <Image
-                  src={imgPartnersUp}
-                  alt={`${locale === "pl" ? "Logotypy partnerów Minimodels" : "Logos of Minimodels partners"}`}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <main>
+      <Hero
+        locale={locale}
+        texts={section1?.texts}
+        videoUrl={`https://www.youtube.com/embed/${getYoutubeId(section1?.videoUrl)}`}
+        videoTitle={section1?.videoTitle}
+        bgImage={imgSection1Bg}
+        image={imgPartnersUp}
+        button={section1?.button}
+      />
       <ParallaxSection
         bgImage={imgSection2Bg}
         parralaxAnchor="section2"
@@ -134,6 +80,7 @@ export default async function Page({ params }) {
             imageLeft={true}
             loraFontFirst={false}
             anchor="section3"
+            textBreak={false}
           />
         </div>
       </ParallaxSection>
@@ -151,6 +98,7 @@ export default async function Page({ params }) {
             imageLeft={false}
             loraFontFirst={false}
             anchor="section4"
+            textBreak={false}
           />
         </div>
       </ParallaxSection>
@@ -167,6 +115,7 @@ export default async function Page({ params }) {
             imageLeft={true}
             loraFontFirst={false}
             anchor="section5"
+            textBreak={false}
           />
         </div>
       </ParallaxSection>
@@ -183,7 +132,9 @@ export default async function Page({ params }) {
             imageAlt={locale === "pl" ? "Show Business" : "Show Business"}
             imageLeft={false}
             loraFontFirst={false}
+            button={section5?.button}
             anchor="section6"
+            textBreak={false}
           />
         </div>
       </ParallaxSection>
@@ -201,6 +152,7 @@ export default async function Page({ params }) {
             imageLeft={true}
             loraFontFirst={true}
             anchor="section7"
+            textBreak={true}
           />
         </div>
       </ParallaxSection>

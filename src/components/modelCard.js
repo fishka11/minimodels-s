@@ -4,7 +4,7 @@ import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import { formatBirthDateLong, translateLabel } from "@/lib/modelTranslations";
 
-export function ModelCard({ model, locale, category }) {
+export function ModelCard({ model, locale, category, nameColor }) {
   const { _id, name, slug, birthDate, profileImage } = model;
 
   return (
@@ -26,7 +26,7 @@ export function ModelCard({ model, locale, category }) {
                 .url()}
               alt={profileImage?.alt || name}
               fill
-              className="mx-auto w-55 h-82.5 group-hover:scale-105 transition-transform duration-300 ease-out"
+              className="mx-auto w-55 h-82.5 group-hover:scale-105 transition-transform duration-200 ease-in"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
             />
           ) : (
@@ -52,13 +52,17 @@ export function ModelCard({ model, locale, category }) {
 
       {/* Dane */}
       <div className="m-4 px-1">
-        <h2 className="text-2xl font-normal text-gray-700 group-hover:text-pink-500 transition-colors duration-200 leading-tight">
+        <h2
+          className={`text-xl font-normal text-[${nameColor}] group-hover:text-black transition-colors duration-200 ease-in leading-tight`}
+        >
           {name}
         </h2>
         {birthDate && (
-          <div className="m-3 text-md font-bold text-gray-700">
+          <div className="m-3 text-md font-bold text-[13px] text-gray-700 leading-relaxed">
             <p>{translateLabel(locale, "birthDate")}:</p>
-            <p>{formatBirthDateLong(birthDate, locale)}</p>
+            <p className={`text-[${nameColor}]`}>
+              {formatBirthDateLong(birthDate, locale)}
+            </p>
           </div>
         )}
       </div>

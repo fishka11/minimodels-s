@@ -7,7 +7,10 @@ export const BABIES_QUERY = defineQuery(`
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
   ] | order(_createdAt desc) {
-    _id, name, slug, birthDate, profileImage, "category": category->title
+    _id, name, slug, birthDate, profileImage, "category": {
+      "title": category->title,
+      "displayName": category->displayName
+    }
   }
 `);
 
@@ -16,7 +19,10 @@ export const MINIBOYS_QUERY = defineQuery(`*[_type == "model"
     && active == true
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": category->title
+  _id, name, slug, birthDate, profileImage, "category": {
+      "title": category->title,
+      "displayName": category->displayName
+    }
 }`);
 
 export const MINIGIRLS_QUERY = defineQuery(`*[_type == "model"
@@ -24,7 +30,10 @@ export const MINIGIRLS_QUERY = defineQuery(`*[_type == "model"
     && active == true
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": category->title
+  _id, name, slug, birthDate, profileImage, "category": {
+      "title": category->title,
+      "displayName": category->displayName
+    }
 }`);
 
 export const TEENS_QUERY = defineQuery(`*[_type == "model"
@@ -32,7 +41,10 @@ export const TEENS_QUERY = defineQuery(`*[_type == "model"
     && active == true
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": category->title
+  _id, name, slug, birthDate, profileImage, "category": {
+      "title": category->title,
+      "displayName": category->displayName
+    }
 }`);
 
 export const MODEL_QUERY =
@@ -109,7 +121,7 @@ export const ALL_TEENS_SLUGS_QUERY =
   }`);
 
 export const MENU_MODEL_CATEGORIES_QUERY = defineQuery(`
-  *[_type == "modelCategory" && inMenu == true] | order(title asc) {
+  *[_type == "modelCategory" && inMenu == true] | order(menuOrder asc) {
     _id,
     inMenu,
     "slug": slug.current,
@@ -119,20 +131,10 @@ export const MENU_MODEL_CATEGORIES_QUERY = defineQuery(`
 
 export const MODEL_CATEGORIES_QUERY = defineQuery(`
   *[_type == "modelCategory" && title == $category][0] {
+    _id,
     title,
-    "seo": seo_pl, // lub dynamicznie
-    "seoTitle": select(
-      $locale == "pl" => seo_pl.title,
-      $locale == "en" => seo_en.title,
-    ),
-    "seoDescription": select(
-      $locale == "pl" => seo_pl.description,
-      $locale == "en" => seo_en.description,
-    ),
-    "seoKeywords": select(
-      $locale == "pl" => seo_pl.keywords,
-      $locale == "en" => seo_en.keywords,
-    ),
+    displayName,
+    seo
   }
 `);
 

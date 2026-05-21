@@ -80,7 +80,10 @@ export default function Menu({ locale, modelCategories }) {
   // Zabezpieczenie przed brakiem danych
   if (!modelCategories || modelCategories.length === 0) {
     return (
-      <nav className="w-screen py-2.5 transition-all" aria-label="Menu główne">
+      <nav
+        className="w-screen py-2.5 transition-all duration-200 ease-in"
+        aria-label="Menu główne"
+      >
         <div className="container flex max-w-7xl flex-col flex-nowrap items-center">
           <LogoDesktop />
         </div>
@@ -119,19 +122,19 @@ export default function Menu({ locale, modelCategories }) {
                         isOpen
                           ? "rotate-45 top-2.5 left-0 w-full"
                           : "w-8 top-0 left-0"
-                      } absolute block w-8 h-1 bg-current rounded-sm transition-all ease-in-out duration-300`}
+                      } absolute block w-8 h-1 bg-current rounded-sm transition-all ease-in duration-200`}
                     ></span>
                     <span
                       className={`${
                         isOpen ? "w-0" : "w-8 group-hover:w-5"
-                      } absolute top-2.5 left-0 block h-1 bg-current rounded-sm transition-all ease-in-out duration-300`}
+                      } absolute top-2.5 left-0 block h-1 bg-current rounded-sm transition-all ease-in duration-200`}
                     ></span>
                     <span
                       className={`${
                         isOpen
                           ? "-rotate-45 top-2.5 left-0 w-full"
                           : "w-8 top-5 left-0"
-                      } absolute block h-1 bg-current rounded-sm transition-all ease-in-out duration-300`}
+                      } absolute block h-1 bg-current rounded-sm transition-all ease-in duration-200`}
                     ></span>
                   </div>
                 </div>
@@ -143,7 +146,7 @@ export default function Menu({ locale, modelCategories }) {
                 isOpen
                   ? "absolute top-0 right-0 "
                   : "absolute top-0 -right-full"
-              } h-dvh lg:h-fit w-2/3 lg:w-auto lg:static bg-linear-to-r from-gray-950 to-gray-800 lg:from-transparent lg:to-transparent lg:bg-transparent shadow-2xl lg:shadow-none text-white transition-all duration-300 ease-in-out`}
+              } h-dvh lg:h-fit w-2/3 lg:w-auto lg:static bg-linear-to-r from-gray-950 to-gray-800 lg:from-transparent lg:to-transparent lg:bg-transparent shadow-2xl lg:shadow-none text-white transition-all duration-200 ease-in-out`}
               id="main-menu"
             >
               <div className="flex flex-col lg:flex-row xl:grid xl:grid-cols-3 xl:w-full py-20 lg:py-0 uppercase font-bold">

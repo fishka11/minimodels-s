@@ -20,7 +20,7 @@ export function IconsBar({ locale }) {
           <Image
             src={placeHolderFacebook}
             alt="Minimodels - Facebook"
-            className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
+            className="opacity-75 group-hover:opacity-100 transition-all duration-200 ease-in w-10 lg:w-12"
           />
         </a>
         <a
@@ -33,7 +33,7 @@ export function IconsBar({ locale }) {
           <Image
             src={placeHolderInstagram}
             alt="Minimodels - Instagram"
-            className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
+            className="opacity-75 group-hover:opacity-100 transition-all duration-200 ease-in w-10 lg:w-12"
           />
         </a>
         <a
@@ -46,7 +46,7 @@ export function IconsBar({ locale }) {
           <Image
             src={placeHolderYoutube}
             alt="Minimodels - Yotube"
-            className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
+            className="opacity-75 group-hover:opacity-100 transition-all duration-200 ease-in w-10 lg:w-12"
           />
         </a>
         <Link
@@ -57,7 +57,7 @@ export function IconsBar({ locale }) {
           <Image
             src={placeHolderFAQ}
             alt={locale === "pl" ? "Minimodels - Pomoc" : "Minimodels - FAQ"}
-            className="opacity-75 group-hover:opacity-100 transition-all w-10 lg:w-12"
+            className="opacity-75 group-hover:opacity-100 transition-all duration-200 ease-in w-10 lg:w-12"
           />
         </Link>
         <LanguageSwitcher locale={locale} />

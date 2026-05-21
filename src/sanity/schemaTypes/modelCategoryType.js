@@ -36,6 +36,13 @@ export const modelCategoryType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "menuOrder",
+      title: "Kolejność w menu / Menu order",
+      type: "number",
+      description: "Niższa liczba = wyżej w menu (np. 1, 2, 3...)",
+      initialValue: 99,
+    }),
+    defineField({
       name: "displayName",
       title: "Nazwa wyświetlana / Display name",
       type: "object",
@@ -57,65 +64,72 @@ export const modelCategoryType = defineType({
       ],
     }),
 
-    // SEO — wersja polska
+    // SEO
     defineField({
-      name: "seo_pl",
-      title: "SEO — Polski",
+      name: "seo",
+      title: "SEO",
       type: "object",
       fields: [
         defineField({
-          name: "title",
-          title: "SEO Title",
-          type: "string",
-          description: "Tytuł strony dla wyszukiwarek (ok. 60 znaków)",
-          validation: (rule) => rule.max(60),
+          name: "pl",
+          title: "Polski",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "SEO Title",
+              type: "string",
+              description: "Tytuł strony dla wyszukiwarek (ok. 60 znaków)",
+              validation: (rule) => rule.max(60),
+            }),
+            defineField({
+              name: "description",
+              title: "SEO Description",
+              type: "text",
+              rows: 3,
+              description: "Opis strony dla wyszukiwarek (ok. 155 znaków)",
+              validation: (rule) => rule.max(155),
+            }),
+            defineField({
+              name: "keywords",
+              title: "SEO Keywords",
+              type: "array",
+              of: [{ type: "string" }],
+              options: { layout: "tags" },
+            }),
+          ],
         }),
-        defineField({
-          name: "description",
-          title: "SEO Description",
-          type: "text",
-          rows: 3,
-          description: "Opis strony dla wyszukiwarek (ok. 155 znaków)",
-          validation: (rule) => rule.max(155),
-        }),
-        defineField({
-          name: "keywords",
-          title: "SEO Keywords",
-          type: "array",
-          of: [{ type: "string" }],
-          options: { layout: "tags" },
-        }),
-      ],
-    }),
 
-    // SEO — wersja angielska
-    defineField({
-      name: "seo_en",
-      title: "SEO — English",
-      type: "object",
-      fields: [
         defineField({
-          name: "title",
-          title: "SEO Title",
-          type: "string",
-          description: "Page title for search engines (approx. 60 characters)",
-          validation: (rule) => rule.max(60),
-        }),
-        defineField({
-          name: "description",
-          title: "SEO Description",
-          type: "text",
-          rows: 3,
-          description:
-            "Page description for search engines (approx. 155 characters)",
-          validation: (rule) => rule.max(155),
-        }),
-        defineField({
-          name: "keywords",
-          title: "SEO Keywords",
-          type: "array",
-          of: [{ type: "string" }],
-          options: { layout: "tags" },
+          name: "en",
+          title: "English",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "SEO Title",
+              type: "string",
+              description:
+                "Page title for search engines (approx. 60 characters)",
+              validation: (rule) => rule.max(60),
+            }),
+            defineField({
+              name: "description",
+              title: "SEO Description",
+              type: "text",
+              rows: 3,
+              description:
+                "Page description for search engines (approx. 155 characters)",
+              validation: (rule) => rule.max(155),
+            }),
+            defineField({
+              name: "keywords",
+              title: "SEO Keywords",
+              type: "array",
+              of: [{ type: "string" }],
+              options: { layout: "tags" },
+            }),
+          ],
         }),
       ],
     }),

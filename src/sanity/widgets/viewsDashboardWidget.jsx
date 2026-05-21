@@ -10,7 +10,7 @@ export function viewsDashboardWidget() {
 }
 
 function ViewsDashboard() {
-  const client = useClient();
+  const client = useClient({ apiVersion: "2025-02-10" });
   const [models, setModels] = useState([]);
   const [sortField, setSortField] = useState("viewsAll");
   const [sortDir, setSortDir] = useState("desc");
