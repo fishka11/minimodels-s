@@ -183,6 +183,84 @@ export type Slug = {
   source?: string;
 };
 
+export type FaqPage = {
+  _id: string;
+  _type: "faqPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+  };
+  sections?: Array<{
+    sectionTitle: string;
+    items?: Array<{
+      question?: {
+        pl?: string;
+        en?: string;
+      };
+      answer?: {
+        pl?: Array<string>;
+        en?: Array<string>;
+      };
+      _type: "faqItem";
+      _key: string;
+    }>;
+    _type: "faqSection";
+    _key: string;
+  }>;
+};
+
+export type CastingPage = {
+  _id: string;
+  _type: "castingPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo_pl?: {
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: Array<string>;
+  };
+  seo_en?: {
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: Array<string>;
+  };
+  sections?: Array<{
+    sectionTitle: string;
+    texts?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    videoUrl?: string;
+    videoTitle?: {
+      pl?: string;
+      en?: string;
+    };
+    _type: "section";
+    _key: string;
+  }>;
+};
+
 export type HomePage = {
   _id: string;
   _type: "homePage";
@@ -219,6 +297,59 @@ export type HomePage = {
       en?: string;
     };
     _type: "section";
+    _key: string;
+  }>;
+};
+
+export type CastingSection = {
+  _id: string;
+  _type: "castingSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  headline?: {
+    pl?: string;
+    en?: string;
+  };
+  subheadline?: {
+    pl?: string;
+    en?: string;
+  };
+  blocks?: Array<{
+    internalTitle?: string;
+    title?: {
+      pl?: string;
+      en?: string;
+    };
+    logo_pl?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    logoAlt_pl?: string;
+    logo_en?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    logoAlt_en?: string;
+    description?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    _type: "castingBlock";
     _key: string;
   }>;
 };
@@ -338,7 +469,10 @@ export type AllSanitySchemaTypes =
   | Model
   | ModelCategory
   | Slug
+  | FaqPage
+  | CastingPage
   | HomePage
+  | CastingSection
   | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette

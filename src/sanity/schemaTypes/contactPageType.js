@@ -2,9 +2,9 @@
 import { defineField, defineType, defineArrayMember } from "sanity";
 import { HomeIcon } from "@sanity/icons";
 
-export const homePageType = defineType({
-  name: "homePage",
-  title: "Strona główna / Home Page",
+export const contactPageType = defineType({
+  name: "contactPage",
+  title: "Kontakt / Contact",
   type: "document",
   icon: HomeIcon,
   fields: [
@@ -12,7 +12,7 @@ export const homePageType = defineType({
       name: "title",
       title: "Tytuł strony (wewnętrzny)",
       type: "string",
-      initialValue: "Strona główna",
+      initialValue: "Kontakt",
       readOnly: true,
     }),
 

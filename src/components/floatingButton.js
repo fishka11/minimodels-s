@@ -44,7 +44,7 @@ export function FloatingButton({ locale, button }) {
       <Link href={button?.url} className="flex mx-auto">
         <div className="w-full flex justify-center" ref={buttonRef}>
           <button
-            className={`uppercase py-1 sm:py-4 px-4 sm:px-8 bg-sky-500 text-white font-bold sm:text-lg drop-shadow-md drop-shadow-slate-800/50 cursor-pointer hover:bg-pink-500 transition-color ease-in duration-200 ${isFixed ? "fixed top-34 lg:top-24 text-sm xl:top-32 left-1/2 -translate-x-1/2 z-50" : ""}`}
+            className={`uppercase py-1 sm:py-4 px-4 sm:px-8 bg-pink-500 text-white font-bold sm:text-lg drop-shadow-md drop-shadow-slate-800/50 cursor-pointer hover:bg-sky-500 transition-color ease-in duration-200 ${isFixed ? "fixed top-34 lg:top-24 text-sm xl:top-32 left-1/2 -translate-x-1/2 z-50" : ""}`}
           >
             {button?.label[locale]}
           </button>

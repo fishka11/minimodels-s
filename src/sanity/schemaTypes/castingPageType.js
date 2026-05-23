@@ -2,9 +2,9 @@
 import { defineField, defineType, defineArrayMember } from "sanity";
 import { HomeIcon } from "@sanity/icons";
 
-export const homePageType = defineType({
-  name: "homePage",
-  title: "Strona główna / Home Page",
+export const castingPageType = defineType({
+  name: "castingPage",
+  title: "Castingi / Castings",
   type: "document",
   icon: HomeIcon,
   fields: [
@@ -12,7 +12,7 @@ export const homePageType = defineType({
       name: "title",
       title: "Tytuł strony (wewnętrzny)",
       type: "string",
-      initialValue: "Strona główna",
+      initialValue: "Castingi",
       readOnly: true,
     }),
 
@@ -97,17 +97,6 @@ export const homePageType = defineType({
               type: "string",
               description: 'np. "Sekcja#1"',
               validation: (rule) => rule.required(),
-            }),
-
-            // Tytuł sekcji PL/EN
-            defineField({
-              name: "title",
-              title: "Tytuł sekcji / Section title",
-              type: "object",
-              fields: [
-                defineField({ name: "pl", title: "Polski", type: "string" }),
-                defineField({ name: "en", title: "English", type: "string" }),
-              ],
             }),
 
             // Teksty — dwujęzyczne
