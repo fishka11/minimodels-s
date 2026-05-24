@@ -10,8 +10,7 @@ export function SectionContent({
   texts,
   locale,
   slides,
-  videoUrl,
-  videoTitle,
+  video,
   image,
   imageAlt,
   imageLeft = false,
@@ -20,14 +19,10 @@ export function SectionContent({
   loraFontFirst = false,
   textBreak = false,
 }) {
-  const videoEl = videoUrl && (
+  const videoEl = video && (
     <div className="">
       <div className="sm:min-w-md max-w-md md:max-w-lg lg:max-w-2xl flex justify-center lg:justify-end w-full">
-        <SectionVideo
-          locale={locale}
-          videoUrl={videoUrl}
-          videoTitle={videoTitle}
-        />
+        <SectionVideo locale={locale} video={video} />
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import { LOCALES } from "@/lib/locales";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import { getYoutubeId } from "@/lib/getYoutubeID";
 import Image from "next/image";
 import imgPartnersUp from "@/assets/images/partners-up.png";
 import imgPartnersDown from "@/assets/images/partners-down.png";
@@ -54,8 +53,7 @@ export default async function Page({ params }) {
       <Hero
         locale={locale}
         texts={section1?.texts}
-        videoUrl={`https://www.youtube.com/embed/${getYoutubeId(section1?.videoUrl)}`}
-        videoTitle={section1?.videoTitle}
+        video={section1?.video}
         bgImage={imgSection1Bg}
         image={imgPartnersUp}
         button={section1?.button}
@@ -147,8 +145,7 @@ export default async function Page({ params }) {
           <SectionContent
             texts={section6?.texts}
             locale={locale}
-            videoUrl={`https://www.youtube.com/embed/${getYoutubeId(section6?.videoUrl)}`}
-            videoTitle={section6?.videoTitle}
+            video={section6?.video}
             imageLeft={true}
             loraFontFirst={true}
             anchor="section7"

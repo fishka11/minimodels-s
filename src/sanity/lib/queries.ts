@@ -141,37 +141,12 @@ export const MODEL_CATEGORIES_QUERY = defineQuery(`
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_type == "homePage" && _id == "homePage"][0] {
     title,
+    seo,
     sections[] {
       sectionTitle,
       texts,
-      // body,
-      // backgroundImage {
-      //   asset-> {
-      //     url,
-      //     metadata {
-      //       dimensions {
-      //         width,
-      //         height
-      //       }
-      //     }
-      //   },
-      //   alt
-      // },
-      // pictures[] {
-      //   asset-> {
-      //     url,
-      //     metadata {
-      //       dimensions {
-      //         width,
-      //         height
-      //       }
-      //     }
-      //   },
-      //   alt
-      // },
       button,
-      videoUrl,
-      videoTitle
+      video
     }
   }
 `);
@@ -182,4 +157,54 @@ export const EXPIRED_MODELS_QUERY = defineQuery(`
     name,
     contractDate
   }
+`);
+
+export const CASTING_SECTION_QUERY =
+  defineQuery(`*[_type == "castingSection"][0]{
+  title,
+  headline {
+    pl,
+    en
+  },
+  subheadline {
+    pl,
+    en
+  },
+  blocks[] {
+    internalTitle,
+    title {
+      pl,
+      en
+    },
+    logo {
+      pl {
+        image {
+          asset->{
+            url
+          }
+        },
+        alt
+      },
+      en {
+        image {
+          asset->{
+            url
+          }
+        },
+        alt
+      }
+    },
+    description {
+      pl[],
+      en[]
+    },
+    button {
+      label {
+        pl,
+        en
+      },
+      url
+    }
+  }
+}
 `);

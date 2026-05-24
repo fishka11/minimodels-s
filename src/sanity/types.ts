@@ -183,6 +183,108 @@ export type Slug = {
   source?: string;
 };
 
+export type ContactPage = {
+  _id: string;
+  _type: "contactPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+  };
+  sections?: Array<{
+    sectionTitle: string;
+    title?: {
+      pl?: string;
+      en?: string;
+    };
+    texts?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    video?: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
+    };
+    _type: "section";
+    _key: string;
+  }>;
+};
+
+export type AboutUsPage = {
+  _id: string;
+  _type: "aboutUsPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+  };
+  sections?: Array<{
+    sectionTitle: string;
+    title?: {
+      pl?: string;
+      en?: string;
+    };
+    texts?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    video?: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
+    };
+    _type: "section";
+    _key: string;
+  }>;
+};
+
 export type FaqPage = {
   _id: string;
   _type: "faqPage";
@@ -228,15 +330,17 @@ export type CastingPage = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  seo_pl?: {
-    seoTitle?: string;
-    seoDescription?: string;
-    seoKeywords?: Array<string>;
-  };
-  seo_en?: {
-    seoTitle?: string;
-    seoDescription?: string;
-    seoKeywords?: Array<string>;
+  seo?: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
   };
   sections?: Array<{
     sectionTitle: string;
@@ -251,10 +355,15 @@ export type CastingPage = {
       };
       url?: string;
     };
-    videoUrl?: string;
-    videoTitle?: {
-      pl?: string;
-      en?: string;
+    video?: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
     };
     _type: "section";
     _key: string;
@@ -268,18 +377,24 @@ export type HomePage = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  seo_pl?: {
-    seoTitle?: string;
-    seoDescription?: string;
-    seoKeywords?: Array<string>;
-  };
-  seo_en?: {
-    seoTitle?: string;
-    seoDescription?: string;
-    seoKeywords?: Array<string>;
+  seo?: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
   };
   sections?: Array<{
     sectionTitle: string;
+    title?: {
+      pl?: string;
+      en?: string;
+    };
     texts?: {
       pl?: Array<string>;
       en?: Array<string>;
@@ -291,12 +406,121 @@ export type HomePage = {
       };
       url?: string;
     };
-    videoUrl?: string;
-    videoTitle?: {
+    video?: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
+    };
+    _type: "section";
+    _key: string;
+  }>;
+};
+
+export type TeamSection = {
+  _id: string;
+  _type: "teamSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: {
+    pl?: string;
+    en?: string;
+  };
+  members?: Array<{
+    photo?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content?: {
+      pl?: {
+        name?: string;
+        description?: string;
+        alt?: string;
+        active?: boolean;
+      };
+      en?: {
+        name?: string;
+        description?: string;
+        alt?: string;
+        active?: boolean;
+      };
+    };
+    _type: "teamMember";
+    _key: string;
+  }>;
+};
+
+export type ContactSection = {
+  _id: string;
+  _type: "contactSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  headline?: {
+    pl?: string;
+    en?: string;
+  };
+  subheadline?: {
+    pl?: string;
+    en?: string;
+  };
+  blocks?: Array<{
+    internalTitle?: string;
+    title?: {
       pl?: string;
       en?: string;
     };
-    _type: "section";
+    logo?: {
+      pl?: {
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        alt?: string;
+      };
+      en?: {
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        alt?: string;
+      };
+    };
+    description?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    phones?: Array<string>;
+    email?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      address?: string;
+    };
+    button?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    };
+    _type: "contactBlock";
     _key: string;
   }>;
 };
@@ -322,22 +546,28 @@ export type CastingSection = {
       pl?: string;
       en?: string;
     };
-    logo_pl?: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
+    logo?: {
+      pl?: {
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        alt?: string;
+      };
+      en?: {
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        alt?: string;
+      };
     };
-    logoAlt_pl?: string;
-    logo_en?: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    logoAlt_en?: string;
     description?: {
       pl?: Array<string>;
       en?: Array<string>;
@@ -469,9 +699,13 @@ export type AllSanitySchemaTypes =
   | Model
   | ModelCategory
   | Slug
+  | ContactPage
+  | AboutUsPage
   | FaqPage
   | CastingPage
   | HomePage
+  | TeamSection
+  | ContactSection
   | CastingSection
   | MediaTag
   | SanityImagePaletteSwatch
@@ -730,9 +964,21 @@ export type MODEL_CATEGORIES_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "homePage" && _id == "homePage"][0] {    title,    sections[] {      sectionTitle,      texts,      // body,      // backgroundImage {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      // pictures[] {      //   asset-> {      //     url,      //     metadata {      //       dimensions {      //         width,      //         height      //       }      //     }      //   },      //   alt      // },      button,      videoUrl,      videoTitle    }  }
+// Query: *[_type == "homePage" && _id == "homePage"][0] {    title,    seo,    sections[] {      sectionTitle,      texts,      button,      video    }  }
 export type HOME_PAGE_QUERY_RESULT = {
   title: string | null;
+  seo: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+  } | null;
   sections: Array<{
     sectionTitle: string;
     texts: {
@@ -746,10 +992,15 @@ export type HOME_PAGE_QUERY_RESULT = {
       };
       url?: string;
     } | null;
-    videoUrl: string | null;
-    videoTitle: {
-      pl?: string;
-      en?: string;
+    video: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
     } | null;
   }> | null;
 } | null;
@@ -762,6 +1013,57 @@ export type EXPIRED_MODELS_QUERY_RESULT = Array<{
   name: string;
   contractDate: string | null;
 }>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CASTING_SECTION_QUERY
+// Query: *[_type == "castingSection"][0]{  title,  headline {    pl,    en  },  subheadline {    pl,    en  },  blocks[] {    internalTitle,    title {      pl,      en    },    logo {      pl {        image {          asset->{            url          }        },        alt      },      en {        image {          asset->{            url          }        },        alt      }    },    description {      pl[],      en[]    },    button {      label {        pl,        en      },      url    }  }}
+export type CASTING_SECTION_QUERY_RESULT = {
+  title: string | null;
+  headline: {
+    pl: string | null;
+    en: string | null;
+  } | null;
+  subheadline: {
+    pl: string | null;
+    en: string | null;
+  } | null;
+  blocks: Array<{
+    internalTitle: string | null;
+    title: {
+      pl: string | null;
+      en: string | null;
+    } | null;
+    logo: {
+      pl: {
+        image: {
+          asset: {
+            url: string;
+          } | null;
+        } | null;
+        alt: string | null;
+      } | null;
+      en: {
+        image: {
+          asset: {
+            url: string;
+          } | null;
+        } | null;
+        alt: string | null;
+      } | null;
+    } | null;
+    description: {
+      pl: Array<string> | null;
+      en: Array<string> | null;
+    } | null;
+    button: {
+      label: {
+        pl: string | null;
+        en: string | null;
+      } | null;
+      url: string | null;
+    } | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -779,7 +1081,8 @@ declare module "@sanity/client" {
     '*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_TEENS_SLUGS_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && inMenu == true] | order(menuOrder asc) {\n    _id,\n    inMenu,\n    "slug": slug.current,\n    "displayName": displayName\n  }\n': MENU_MODEL_CATEGORIES_QUERY_RESULT;
     '\n  *[_type == "modelCategory" && title == $category][0] {\n    _id,\n    title,\n    displayName,\n    seo\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
-    '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    sections[] {\n      sectionTitle,\n      texts,\n      // body,\n      // backgroundImage {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      // pictures[] {\n      //   asset-> {\n      //     url,\n      //     metadata {\n      //       dimensions {\n      //         width,\n      //         height\n      //       }\n      //     }\n      //   },\n      //   alt\n      // },\n      button,\n      videoUrl,\n      videoTitle\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    seo,\n    sections[] {\n      sectionTitle,\n      texts,\n      button,\n      video\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "model" && contractDate < $limitDate && active == true]{\n    _id,\n    name,\n    contractDate\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
+    '*[_type == "castingSection"][0]{\n  title,\n  headline {\n    pl,\n    en\n  },\n  subheadline {\n    pl,\n    en\n  },\n  blocks[] {\n    internalTitle,\n    title {\n      pl,\n      en\n    },\n    logo {\n      pl {\n        image {\n          asset->{\n            url\n          }\n        },\n        alt\n      },\n      en {\n        image {\n          asset->{\n            url\n          }\n        },\n        alt\n      }\n    },\n    description {\n      pl[],\n      en[]\n    },\n    button {\n      label {\n        pl,\n        en\n      },\n      url\n    }\n  }\n}\n': CASTING_SECTION_QUERY_RESULT;
   }
 }

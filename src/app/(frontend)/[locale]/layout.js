@@ -3,6 +3,7 @@ import "../../globals.css";
 import { Header } from "@/components/header";
 import { notFound } from "next/navigation";
 import { LOCALES } from "@/lib/locales";
+import { Footer } from "@/components/footer";
 
 // src/app/[locale]/layout.js
 export async function generateMetadata({ params }) {
@@ -33,6 +34,7 @@ export default async function FrontendLayout({ children, params }) {
     <section className="min-h-screen">
       <Header locale={locale} />
       <div className="relative">{children}</div>
+      <Footer locale={locale} />
     </section>
   );
 }

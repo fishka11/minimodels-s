@@ -5,6 +5,7 @@ import { ModelData } from "@/components/modelData";
 import { ModelWorkPlace } from "./modelWorkPlace";
 import { ShareOnX } from "@/components/shareOnX";
 import { ModelSiblings } from "@/components/modelSiblings";
+import { ShareOnFacebook } from "./shareOnFacebook";
 
 export function Model({ model, locale, slug, siblings }) {
   return (
@@ -14,8 +15,12 @@ export function Model({ model, locale, slug, siblings }) {
         <ModelGallery model={model} />
         <ModelData model={model} locale={locale} />
         <ModelWorkPlace locale={locale} />
-        <ShareOnX
+        {/* <ShareOnX
           text={model.name}
+          url={`https://minimodels.com.pl/${locale}/${model.category}/${slug}`}
+          locale={locale}
+        /> */}
+        <ShareOnFacebook
           url={`https://minimodels.com.pl/${locale}/${model.category}/${slug}`}
           locale={locale}
         />

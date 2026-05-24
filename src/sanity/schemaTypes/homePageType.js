@@ -165,29 +165,50 @@ export const homePageType = defineType({
               ],
             }),
 
-            // Link do video
+            // Video — PL / EN
             defineField({
-              name: "videoUrl",
-              title: "Link do video / Video URL",
-              type: "url",
-              description: "YouTube, Vimeo lub inny link do video",
-            }),
-
-            // Tytuł video
-            defineField({
-              name: "videoTitle",
-              title: "Tytuł video / Video title",
+              name: "video",
+              title: "Video",
               type: "object",
               fields: [
+                // POLSKI
                 defineField({
                   name: "pl",
                   title: "Polski",
-                  type: "string",
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "url",
+                      title: "Link do video — Polski",
+                      type: "url",
+                      description: "YouTube, Vimeo lub inny link do video",
+                    }),
+                    defineField({
+                      name: "title",
+                      title: "Tytuł video — Polski",
+                      type: "string",
+                    }),
+                  ],
                 }),
+
+                // ENGLISH
                 defineField({
                   name: "en",
                   title: "English",
-                  type: "string",
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "url",
+                      title: "Video URL — English",
+                      type: "url",
+                      description: "YouTube, Vimeo or another video link",
+                    }),
+                    defineField({
+                      name: "title",
+                      title: "Video title — English",
+                      type: "string",
+                    }),
+                  ],
                 }),
               ],
             }),
