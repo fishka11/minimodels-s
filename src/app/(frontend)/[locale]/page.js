@@ -26,12 +26,12 @@ import { Hero } from "@/components/hero";
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { data: homePage } = await sanityFetch({ query: HOME_PAGE_QUERY });
-  const seo = locale === "pl" ? homePage?.seo_pl : homePage?.seo_en;
+  const seo = homePage?.seo;
 
   return {
-    title: seo?.seoTitle ?? "MiniModels",
-    description: seo?.seoDescription,
-    keywords: seo?.seoKeywords,
+    title: seo[locale]?.title ?? "MiniModels",
+    description: seo[locale]?.description,
+    keywords: seo[locale]?.keywords,
   };
 }
 

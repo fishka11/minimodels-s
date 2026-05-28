@@ -57,6 +57,20 @@ export const blockContentType = defineType({
               },
             ],
           },
+          {
+            title: "Email",
+            name: "mailto",
+            type: "object",
+            fields: [
+              {
+                title: "Adres email",
+                name: "address",
+                type: "string",
+                validation: (Rule) => Rule.email().required(),
+              },
+            ],
+          },
+
           // Kolor tekstu
           {
             title: "Kolor tekstu",
@@ -70,7 +84,7 @@ export const blockContentType = defineType({
                 options: {
                   list: [
                     { title: "Różowy", value: "text-pink-500" },
-                    { title: "Niebieski", value: "text-blue-400" },
+                    { title: "Niebieski", value: "text-sky-500" },
                     { title: "Szary", value: "text-slate-500" },
                     { title: "Biały", value: "text-white" },
                     { title: "Czarny", value: "text-black" },
@@ -117,6 +131,31 @@ export const blockContentType = defineType({
                     { title: "Open Sans", value: "font-sans" },
                     { title: "Serif", value: "font-serif" },
                     { title: "Mono", value: "font-mono" },
+                  ],
+                },
+              },
+            ],
+          },
+          // Rozmiar czcionki
+          {
+            title: "Rozmiar czcionki",
+            name: "fontSize",
+            type: "object",
+            fields: [
+              {
+                title: "Rozmiar",
+                name: "size",
+                type: "string",
+                options: {
+                  list: [
+                    { title: "XS", value: "text-xs" },
+                    { title: "SM", value: "text-sm" },
+                    { title: "Base", value: "text-base" },
+                    { title: "LG", value: "text-lg" },
+                    { title: "XL", value: "text-xl" },
+                    { title: "2XL", value: "text-2xl" },
+                    { title: "3XL", value: "text-3xl" },
+                    { title: "4XL", value: "text-4xl" },
                   ],
                 },
               },

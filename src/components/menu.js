@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-// import Brand from "./brand";
 import MenuItem from "@/components/menuItem";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { LogoDesktop } from "@/components/logoDesktop";
 import { LogoMobile } from "@/components/logoMobile";
+import { LEFT_SIDE_MENU, RIGHT_SIDE_MENU } from "@/lib/menuItems";
 
-export default function Menu({ locale, modelCategories }) {
+export default function Menu({ locale }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -56,40 +56,27 @@ export default function Menu({ locale, modelCategories }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
 
-  const startPage = {
-    id: "startPage",
-    slug: `/`,
-    displayName: "Start",
-    inMenu: true,
-  };
+  // const startPage = {
+  //   id: "startPage",
+  //   slug: `/`,
+  //   displayName: "Start",
+  //   inMenu: true,
+  // };
 
-  const categoryPages = modelCategories.map((cat) => ({
-    id: cat._id,
-    slug: cat.slug,
-    displayName: cat.displayName?.[locale] ?? cat.slug,
-    inMenu: cat.inMenu,
-  }));
+  // const categoryPages = modelCategories.map((cat) => ({
+  //   id: cat._id,
+  //   slug: cat.slug,
+  //   displayName: cat.displayName?.[locale] ?? cat.slug,
+  //   inMenu: cat.inMenu,
+  // }));
 
-  const leftSideItems = [startPage, ...categoryPages].filter(
-    (page) => page.inMenu,
-  );
+  // const leftSideItems = [startPage, ...categoryPages].filter(
+  //   (page) => page.inMenu,
+  // );
+  const leftSideItems = LEFT_SIDE_MENU;
 
   // const rightSideItems = [...staticPages].filter((page) => page.inMenu);
-  const rightSideItems = [];
-
-  // Zabezpieczenie przed brakiem danych
-  if (!modelCategories || modelCategories.length === 0) {
-    return (
-      <nav
-        className="w-screen py-2.5 transition-all duration-200 ease-in"
-        aria-label="Menu główne"
-      >
-        <div className="container flex max-w-7xl flex-col flex-nowrap items-center">
-          <LogoDesktop />
-        </div>
-      </nav>
-    );
-  }
+  const rightSideItems = RIGHT_SIDE_MENU;
 
   return (
     <nav className="w-screen z-50" aria-label="Menu główne">
@@ -161,7 +148,8 @@ export default function Menu({ locale, modelCategories }) {
                       <MenuItem
                         key={item?.id}
                         slug={slug}
-                        display={item?.displayName}
+                        // display={item?.displayName}
+                        display={item?.displayName[locale]}
                         toggle={closeMenu}
                         isActive={isActive}
                       />
@@ -171,7 +159,7 @@ export default function Menu({ locale, modelCategories }) {
                 <Link href={`/${locale}`}>
                   <LogoDesktop />
                 </Link>
-                <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end">
+                <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end lg:items-center lg:gap-0">
                   {rightSideItems?.map((item) => {
                     const slug = item?.slug
                       ? `/${locale}/${item.slug}`
@@ -181,7 +169,7 @@ export default function Menu({ locale, modelCategories }) {
                       <MenuItem
                         key={item?.id}
                         slug={slug}
-                        display={item?.displayName}
+                        display={item?.displayName[locale]}
                         toggle={closeMenu}
                         isActive={isActive}
                       />

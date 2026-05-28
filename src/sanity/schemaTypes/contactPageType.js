@@ -82,6 +82,90 @@ export const contactPageType = defineType({
     }),
 
     defineField({
+      name: "pageTitle",
+      title: "Tytuł strony / Page title",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "pageSubtitle",
+      title: "Podtytuł strony / Page subtitle",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "bodySections",
+      title: "Treść strony / Page content",
+      type: "array",
+      of: [
+        defineArrayMember({
+          name: "bodySection",
+          title: "Sekcja",
+          type: "object",
+          fields: [
+            defineField({
+              name: "sectionTitle",
+              title: "Nazwa sekcji (wewnętrzna)",
+              type: "string",
+              description: 'np. "Lewa kolumna"',
+              validation: (rule) => rule.required(),
+            }),
+            // Treść — dwujęzyczna
+            defineField({
+              name: "texts",
+              title: "Treść / Content",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "pl",
+                  title: "Polski",
+                  type: "blockContent",
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "blockContent",
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+
+    defineField({
       name: "sections",
       title: "Sekcje / Sections",
       type: "array",

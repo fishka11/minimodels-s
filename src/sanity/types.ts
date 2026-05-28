@@ -39,9 +39,14 @@ export type BlockContent = Array<
             _key: string;
           }
         | {
+            address: string;
+            _type: "mailto";
+            _key: string;
+          }
+        | {
             color?:
               | "text-pink-500"
-              | "text-blue-400"
+              | "text-sky-500"
               | "text-slate-500"
               | "text-white"
               | "text-black";
@@ -64,6 +69,19 @@ export type BlockContent = Array<
             _type: "fontFamily";
             _key: string;
           }
+        | {
+            size?:
+              | "text-xs"
+              | "text-sm"
+              | "text-base"
+              | "text-lg"
+              | "text-xl"
+              | "text-2xl"
+              | "text-3xl"
+              | "text-4xl";
+            _type: "fontSize";
+            _key: string;
+          }
       >;
       level?: number;
       _type: "block";
@@ -79,22 +97,6 @@ export type BlockContent = Array<
       _key: string;
     }
 >;
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
 
 export type ModelCategoryReference = {
   _ref: string;
@@ -149,6 +151,22 @@ export type Model = {
   viewsHuman?: number;
 };
 
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
 export type ModelCategory = {
   _id: string;
   _type: "modelCategory";
@@ -160,6 +178,14 @@ export type ModelCategory = {
   inMenu?: boolean;
   menuOrder?: number;
   displayName?: {
+    pl: string;
+    en: string;
+  };
+  pageTitle?: {
+    pl: string;
+    en: string;
+  };
+  pageSubtitle?: {
     pl: string;
     en: string;
   };
@@ -201,6 +227,14 @@ export type ContactPage = {
       description?: string;
       keywords?: Array<string>;
     };
+  };
+  pageTitle?: {
+    pl: string;
+    en: string;
+  };
+  pageSubtitle?: {
+    pl: string;
+    en: string;
   };
   sections?: Array<{
     sectionTitle: string;
@@ -304,6 +338,14 @@ export type FaqPage = {
       keywords?: Array<string>;
     };
   };
+  pageTitle?: {
+    pl: string;
+    en: string;
+  };
+  pageSubtitle?: {
+    pl: string;
+    en: string;
+  };
   sections?: Array<{
     sectionTitle: string;
     items?: Array<{
@@ -342,6 +384,18 @@ export type CastingPage = {
       keywords?: Array<string>;
     };
   };
+  pageTitle?: {
+    pl: string;
+    en: string;
+  };
+  pageSubtitle?: {
+    pl: string;
+    en: string;
+  };
+  body?: {
+    pl?: BlockContent;
+    en?: BlockContent;
+  };
   sections?: Array<{
     sectionTitle: string;
     texts?: {
@@ -364,6 +418,13 @@ export type CastingPage = {
         url?: string;
         title?: string;
       };
+    };
+    email?: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      address?: string;
     };
     _type: "section";
     _key: string;
@@ -693,10 +754,10 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
   | BlockContent
-  | SanityImageCrop
-  | SanityImageHotspot
   | ModelCategoryReference
   | Model
+  | SanityImageCrop
+  | SanityImageHotspot
   | ModelCategory
   | Slug
   | ContactPage
@@ -1016,7 +1077,7 @@ export type EXPIRED_MODELS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CASTING_SECTION_QUERY
-// Query: *[_type == "castingSection"][0]{  title,  headline {    pl,    en  },  subheadline {    pl,    en  },  blocks[] {    internalTitle,    title {      pl,      en    },    logo {      pl {        image {          asset->{            url          }        },        alt      },      en {        image {          asset->{            url          }        },        alt      }    },    description {      pl[],      en[]    },    button {      label {        pl,        en      },      url    }  }}
+// Query: *[_type == "castingSection"][0]{        title,        headline { pl, en },        subheadline { pl, en },        blocks[] {          internalTitle,          title { pl, en },          logo {            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },          },          description { pl[], en[] },          button { label { pl, en }, url }        }      }
 export type CASTING_SECTION_QUERY_RESULT = {
   title: string | null;
   headline: {
@@ -1037,7 +1098,16 @@ export type CASTING_SECTION_QUERY_RESULT = {
       pl: {
         image: {
           asset: {
+            _id: string;
             url: string;
+            alt: null;
+            metadata: {
+              dimensions: {
+                width: number;
+                height: number;
+                aspectRatio: number;
+              } | null;
+            } | null;
           } | null;
         } | null;
         alt: string | null;
@@ -1045,7 +1115,16 @@ export type CASTING_SECTION_QUERY_RESULT = {
       en: {
         image: {
           asset: {
+            _id: string;
             url: string;
+            alt: null;
+            metadata: {
+              dimensions: {
+                width: number;
+                height: number;
+                aspectRatio: number;
+              } | null;
+            } | null;
           } | null;
         } | null;
         alt: string | null;
@@ -1083,6 +1162,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "modelCategory" && title == $category][0] {\n    _id,\n    title,\n    displayName,\n    seo\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
     '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    seo,\n    sections[] {\n      sectionTitle,\n      texts,\n      button,\n      video\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "model" && contractDate < $limitDate && active == true]{\n    _id,\n    name,\n    contractDate\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
-    '*[_type == "castingSection"][0]{\n  title,\n  headline {\n    pl,\n    en\n  },\n  subheadline {\n    pl,\n    en\n  },\n  blocks[] {\n    internalTitle,\n    title {\n      pl,\n      en\n    },\n    logo {\n      pl {\n        image {\n          asset->{\n            url\n          }\n        },\n        alt\n      },\n      en {\n        image {\n          asset->{\n            url\n          }\n        },\n        alt\n      }\n    },\n    description {\n      pl[],\n      en[]\n    },\n    button {\n      label {\n        pl,\n        en\n      },\n      url\n    }\n  }\n}\n': CASTING_SECTION_QUERY_RESULT;
+    '\n      *[_type == "castingSection"][0]{\n        title,\n        headline { pl, en },\n        subheadline { pl, en },\n        blocks[] {\n          internalTitle,\n          title { pl, en },\n          logo {\n            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n          },\n          description { pl[], en[] },\n          button { label { pl, en }, url }\n        }\n      }\n    ': CASTING_SECTION_QUERY_RESULT;
   }
 }

@@ -82,6 +82,68 @@ export const castingPageType = defineType({
     }),
 
     defineField({
+      name: "pageTitle",
+      title: "Tytuł strony / Page title",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "pageSubtitle",
+      title: "Podtytuł strony / Page subtitle",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "body",
+      title: "Treść strony / Page content",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "blockContent",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "blockContent",
+        }),
+      ],
+    }),
+
+    defineField({
       name: "sections",
       title: "Sekcje / Sections",
       type: "array",
@@ -198,6 +260,37 @@ export const castingPageType = defineType({
                       type: "string",
                     }),
                   ],
+                }),
+              ],
+            }),
+
+            // ✉️ EMAIL — opis PL/EN + adres
+            defineField({
+              name: "email",
+              title: "Email",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "label",
+                  title: "Opis / Label",
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "pl",
+                      title: "Polski",
+                      type: "string",
+                    }),
+                    defineField({
+                      name: "en",
+                      title: "English",
+                      type: "string",
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: "address",
+                  title: "Adres email",
+                  type: "string",
                 }),
               ],
             }),

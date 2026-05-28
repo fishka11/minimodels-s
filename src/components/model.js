@@ -21,7 +21,7 @@ export function Model({ model, locale, slug, siblings }) {
           locale={locale}
         /> */}
         <ShareOnFacebook
-          url={`https://minimodels.com.pl/${locale}/${model.category}/${slug}`}
+          url={`https://minimodels-s.netlify.app/${locale}/${model.category}/${slug}`}
           locale={locale}
         />
         <ModelSiblings

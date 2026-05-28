@@ -82,6 +82,46 @@ export const aboutUsPageType = defineType({
     }),
 
     defineField({
+      name: "pageSubtitle",
+      title: "Podtytuł strony / Page subtitle",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "body",
+      title: "Treść strony / Page content",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "blockContent",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "blockContent",
+        }),
+      ],
+    }),
+
+    defineField({
       name: "sections",
       title: "Sekcje / Sections",
       type: "array",

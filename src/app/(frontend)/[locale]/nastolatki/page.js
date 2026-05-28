@@ -51,7 +51,7 @@ export default async function MiniBoysPage({ params }) {
       {/* Header */}
       <CategoryHeader
         bgImage={placeholder}
-        title={category.displayName[locale]}
+        title={category?.pageTitle[locale]}
       />
       <section className="mx-auto container max-w-7xl pt-12">
         {models?.length === 0 ? (

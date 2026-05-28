@@ -23,28 +23,30 @@ export const modelCategoryType = defineType({
     }),
 
     defineField({
-      name: "slug",
-      title: "Slug (URL)",
-      type: "slug",
-      options: { source: "title" },
-      validation: (rule) => rule.required(),
+      name: "pageTitle",
+      title: "Tytuł strony / Page title",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pl",
+          title: "Polski",
+          type: "string",
+          description: 'np. "Nastolatki"',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+          description: 'e.g. "Teenagers"',
+          validation: (rule) => rule.required(),
+        }),
+      ],
     }),
+
     defineField({
-      name: "inMenu",
-      title: "Pokazuj w menu / Show in menu",
-      type: "boolean",
-      initialValue: true,
-    }),
-    defineField({
-      name: "menuOrder",
-      title: "Kolejność w menu / Menu order",
-      type: "number",
-      description: "Niższa liczba = wyżej w menu (np. 1, 2, 3...)",
-      initialValue: 99,
-    }),
-    defineField({
-      name: "displayName",
-      title: "Nazwa wyświetlana / Display name",
+      name: "pageSubtitle",
+      title: "Podtytuł strony / Page subtitle",
       type: "object",
       fields: [
         defineField({
@@ -136,7 +138,7 @@ export const modelCategoryType = defineType({
   ],
   preview: {
     select: {
-      title: "displayName.pl",
+      title: "pageTitle.pl",
       subtitle: "title",
     },
   },

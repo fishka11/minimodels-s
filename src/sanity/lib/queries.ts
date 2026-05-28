@@ -120,21 +120,13 @@ export const ALL_TEENS_SLUGS_QUERY =
     "slug": slug.current
   }`);
 
-export const MENU_MODEL_CATEGORIES_QUERY = defineQuery(`
-  *[_type == "modelCategory" && inMenu == true] | order(menuOrder asc) {
-    _id,
-    inMenu,
-    "slug": slug.current,
-    "displayName": displayName
-  }
-`);
-
 export const MODEL_CATEGORIES_QUERY = defineQuery(`
   *[_type == "modelCategory" && title == $category][0] {
     _id,
     title,
-    displayName,
-    seo
+    seo,
+    pageTitle,
+    pageSubtitle
   }
 `);
 
@@ -151,6 +143,23 @@ export const HOME_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const CASTING_PAGE_QUERY = defineQuery(`
+  *[_type=="castingPage"][0]{
+  title,
+  seo,
+  pageTitle,
+  pageSubtitle,
+  body,
+  sections[] {
+    sectionTitle,
+    texts,
+    button,
+    video,
+    email
+  }
+}
+`);
+
 export const EXPIRED_MODELS_QUERY = defineQuery(`
   *[_type == "model" && contractDate < $limitDate && active == true]{
     _id,
@@ -159,52 +168,20 @@ export const EXPIRED_MODELS_QUERY = defineQuery(`
   }
 `);
 
-export const CASTING_SECTION_QUERY =
-  defineQuery(`*[_type == "castingSection"][0]{
-  title,
-  headline {
-    pl,
-    en
-  },
-  subheadline {
-    pl,
-    en
-  },
-  blocks[] {
-    internalTitle,
-    title {
-      pl,
-      en
-    },
-    logo {
-      pl {
-        image {
-          asset->{
-            url
-          }
-        },
-        alt
-      },
-      en {
-        image {
-          asset->{
-            url
-          }
-        },
-        alt
+export const CASTING_SECTION_QUERY = defineQuery(`
+      *[_type == "castingSection"][0]{
+        title,
+        headline { pl, en },
+        subheadline { pl, en },
+        blocks[] {
+          internalTitle,
+          title { pl, en },
+          logo {
+            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
+            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
+          },
+          description { pl[], en[] },
+          button { label { pl, en }, url }
+        }
       }
-    },
-    description {
-      pl[],
-      en[]
-    },
-    button {
-      label {
-        pl,
-        en
-      },
-      url
-    }
-  }
-}
-`);
+    `);
