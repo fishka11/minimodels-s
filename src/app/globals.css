@@ -4,3 +4,8 @@
 html {
   scroll-behavior: smooth;
 }
+
+@theme {
+  /* Zamiast @custom-media, definiujesz specjalną zmienną dla Tailwind */
+  --breakpoint-3xl: 1920px;
+}

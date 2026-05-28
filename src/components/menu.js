@@ -152,6 +152,7 @@ export default function Menu({ locale }) {
                         display={item?.displayName[locale]}
                         toggle={closeMenu}
                         isActive={isActive}
+                        targetBlank={item.targetBlank}
                       />
                     );
                   })}
@@ -161,9 +162,9 @@ export default function Menu({ locale }) {
                 </Link>
                 <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end lg:items-center lg:gap-0">
                   {rightSideItems?.map((item) => {
-                    const slug = item?.slug
-                      ? `/${locale}/${item.slug}`
-                      : `/${locale}`;
+                    const slug = item?.slug.startsWith("http")
+                      ? item.slug
+                      : `/${locale}/${item.slug}`;
                     const isActive = pathname === slug;
                     return (
                       <MenuItem
@@ -172,6 +173,7 @@ export default function Menu({ locale }) {
                         display={item?.displayName[locale]}
                         toggle={closeMenu}
                         isActive={isActive}
+                        targetBlank={item.targetBlank}
                       />
                     );
                   })}

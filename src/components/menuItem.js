@@ -1,7 +1,14 @@
 "use client";
 import Link from "next/link";
 
-export default function MenuItem({ slug, display, toggle, isActive }) {
+export default function MenuItem({
+  slug,
+  display,
+  toggle,
+  isActive,
+  targetBlank,
+}) {
+  console.log(slug);
   return (
     <li className="w-full lg:w-fit">
       {/* <Link
@@ -12,14 +19,25 @@ export default function MenuItem({ slug, display, toggle, isActive }) {
       >
         {display}
       </Link> */}
-      <Link
-        href={slug}
-        onClick={toggle}
-        aria-current={isActive ? "page" : undefined}
-        className={`${isActive ? "lg:text-black block bg-gray-950 lg:bg-transparent text-right text-sm" : "text-white block text-right text-sm hover:bg-gray-950"} " lg:hover:bg-transparent lg:hover:text-black whitespace-nowrap px-8 lg:px-2 xl:px-3 py-4 transition-colors duration-200 ease-in"`}
-      >
-        {display}
-      </Link>
+      {targetBlank ? (
+        <a
+          href={slug}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${isActive ? "lg:text-black block bg-gray-950 lg:bg-transparent text-right text-sm" : "text-white block text-right text-sm hover:bg-gray-950"} lg:hover:bg-transparent lg:hover:text-black whitespace-nowrap px-8 lg:px-2 xl:px-3 py-4 transition-colors duration-200 ease-in`}
+        >
+          {display}
+        </a>
+      ) : (
+        <Link
+          href={slug}
+          onClick={toggle}
+          aria-current={isActive ? "page" : undefined}
+          className={`${isActive ? "lg:text-black block bg-gray-950 lg:bg-transparent text-right text-sm" : "text-white block text-right text-sm hover:bg-gray-950"} lg:hover:bg-transparent lg:hover:text-black whitespace-nowrap px-8 lg:px-2 xl:px-3 py-4 transition-colors duration-200 ease-in`}
+        >
+          {display}
+        </Link>
+      )}
     </li>
   );
 }

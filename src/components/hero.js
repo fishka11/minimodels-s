@@ -20,14 +20,14 @@ export const Hero = ({ locale, video, texts, bgImage, image, button }) => {
           <div className="relative container max-w-7xl mx-auto px-4 mt-4">
             <hr className="before:content-[''] before:absolute before:block before:w-2 before:h-2 before:bg-white before:rotate-45 before:-top-1 before:left-1/2" />
           </div>
-          <div className="container max-w-7xl mx-auto px-4 flex flex-col xl:gap-3">
-            <h1 className="text-xl 2xl:text-[28px] font-bold uppercase mx-auto leading-normal xl:leading-9">
+          <div className="container max-w-7xl mx-auto px-4 flex flex-col 3xl:gap-3">
+            <h1 className="text-xl 3xl:text-[28px] font-bold uppercase mx-auto leading-normal 3xl:leading-9">
               {texts?.[locale]?.[0]}
             </h1>
-            <p className="text-lg 2xl:text-[28px] font-light uppercase mx-auto leading-normal xl:leading-9">
+            <p className="text-lg 3xl:text-[28px] font-light uppercase mx-auto leading-normal 3xl:leading-9">
               {texts?.[locale]?.[1]}
             </p>
-            <p className="text-lg 2xl:text-[28px] font-light uppercase mx-auto mt-6 leading-normal xl:leading-9">
+            <p className="text-lg 3xl:text-[28px] font-light uppercase mx-auto mt-6 leading-normal 3xl:leading-9">
               {texts?.[locale]?.[2]}
               <br />
               <span>{texts?.[locale]?.[3]}</span>{" "}

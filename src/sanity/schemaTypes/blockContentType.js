@@ -179,5 +179,23 @@ export const blockContentType = defineType({
         },
       ],
     }),
+    defineArrayMember({
+      type: "object",
+      name: "spacer",
+      title: "Odstęp",
+      fields: [
+        {
+          name: "size",
+          type: "string",
+          options: {
+            list: [
+              { title: "Mały", value: "h-4" },
+              { title: "Średni", value: "h-8" },
+              { title: "Duży", value: "h-16" },
+            ],
+          },
+        },
+      ],
+    }),
   ],
 });

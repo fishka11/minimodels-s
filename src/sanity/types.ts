@@ -174,13 +174,6 @@ export type ModelCategory = {
   _updatedAt: string;
   _rev: string;
   title: "baby" | "mini-girls" | "mini-boys" | "teens";
-  slug: Slug;
-  inMenu?: boolean;
-  menuOrder?: number;
-  displayName?: {
-    pl: string;
-    en: string;
-  };
   pageTitle?: {
     pl: string;
     en: string;
@@ -236,6 +229,15 @@ export type ContactPage = {
     pl: string;
     en: string;
   };
+  bodySections?: Array<{
+    sectionTitle: string;
+    texts?: {
+      pl?: BlockContent;
+      en?: BlockContent;
+    };
+    _type: "bodySection";
+    _key: string;
+  }>;
   sections?: Array<{
     sectionTitle: string;
     title?: {
@@ -286,6 +288,14 @@ export type AboutUsPage = {
       description?: string;
       keywords?: Array<string>;
     };
+  };
+  pageSubtitle?: {
+    pl: string;
+    en: string;
+  };
+  body?: {
+    pl?: BlockContent;
+    en?: BlockContent;
   };
   sections?: Array<{
     sectionTitle: string;
@@ -796,10 +806,7 @@ export type BABIES_QUERY_RESULT = Array<{
   };
   category: {
     title: "baby" | "mini-boys" | "mini-girls" | "teens";
-    displayName: {
-      pl: string;
-      en: string;
-    } | null;
+    displayName: null;
   };
 }>;
 
@@ -821,10 +828,7 @@ export type MINIBOYS_QUERY_RESULT = Array<{
   };
   category: {
     title: "baby" | "mini-boys" | "mini-girls" | "teens";
-    displayName: {
-      pl: string;
-      en: string;
-    } | null;
+    displayName: null;
   };
 }>;
 
@@ -846,10 +850,7 @@ export type MINIGIRLS_QUERY_RESULT = Array<{
   };
   category: {
     title: "baby" | "mini-boys" | "mini-girls" | "teens";
-    displayName: {
-      pl: string;
-      en: string;
-    } | null;
+    displayName: null;
   };
 }>;
 
@@ -871,10 +872,7 @@ export type TEENS_QUERY_RESULT = Array<{
   };
   category: {
     title: "baby" | "mini-boys" | "mini-girls" | "teens";
-    displayName: {
-      pl: string;
-      en: string;
-    } | null;
+    displayName: null;
   };
 }>;
 
@@ -886,7 +884,7 @@ export type MODEL_QUERY_RESULT = {
   _createdAt: string;
   name: string;
   birthDate: string;
-  category: string;
+  category: null;
   profileImage: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -987,28 +985,11 @@ export type ALL_TEENS_SLUGS_QUERY_RESULT = Array<{
 }>;
 
 // Source: src/sanity/lib/queries.ts
-// Variable: MENU_MODEL_CATEGORIES_QUERY
-// Query: *[_type == "modelCategory" && inMenu == true] | order(menuOrder asc) {    _id,    inMenu,    "slug": slug.current,    "displayName": displayName  }
-export type MENU_MODEL_CATEGORIES_QUERY_RESULT = Array<{
-  _id: string;
-  inMenu: true;
-  slug: string;
-  displayName: {
-    pl: string;
-    en: string;
-  } | null;
-}>;
-
-// Source: src/sanity/lib/queries.ts
 // Variable: MODEL_CATEGORIES_QUERY
-// Query: *[_type == "modelCategory" && title == $category][0] {    _id,    title,    displayName,    seo  }
+// Query: *[_type == "modelCategory" && title == $category][0] {    _id,    title,    seo,    pageTitle,    pageSubtitle  }
 export type MODEL_CATEGORIES_QUERY_RESULT = {
   _id: string;
   title: "baby" | "mini-boys" | "mini-girls" | "teens";
-  displayName: {
-    pl: string;
-    en: string;
-  } | null;
   seo: {
     pl?: {
       title?: string;
@@ -1020,6 +1001,14 @@ export type MODEL_CATEGORIES_QUERY_RESULT = {
       description?: string;
       keywords?: Array<string>;
     };
+  } | null;
+  pageTitle: {
+    pl: string;
+    en: string;
+  } | null;
+  pageSubtitle: {
+    pl: string;
+    en: string;
   } | null;
 } | null;
 
@@ -1062,6 +1051,68 @@ export type HOME_PAGE_QUERY_RESULT = {
         url?: string;
         title?: string;
       };
+    } | null;
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CASTING_PAGE_QUERY
+// Query: *[_type=="castingPage"][0]{  title,  seo,  pageTitle,  pageSubtitle,  body,  sections[] {    sectionTitle,    texts,    button,    video,    email  }}
+export type CASTING_PAGE_QUERY_RESULT = {
+  title: string | null;
+  seo: {
+    pl?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+    en?: {
+      title?: string;
+      description?: string;
+      keywords?: Array<string>;
+    };
+  } | null;
+  pageTitle: {
+    pl: string;
+    en: string;
+  } | null;
+  pageSubtitle: {
+    pl: string;
+    en: string;
+  } | null;
+  body: {
+    pl?: BlockContent;
+    en?: BlockContent;
+  } | null;
+  sections: Array<{
+    sectionTitle: string;
+    texts: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    } | null;
+    button: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    } | null;
+    video: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
+    } | null;
+    email: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      address?: string;
     } | null;
   }> | null;
 } | null;
@@ -1158,9 +1209,9 @@ declare module "@sanity/client" {
     '*[_type == "model" && category->title == "mini-boys" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIBOYS_SLUGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "mini-girls" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIGIRLS_SLUGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_TEENS_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "modelCategory" && inMenu == true] | order(menuOrder asc) {\n    _id,\n    inMenu,\n    "slug": slug.current,\n    "displayName": displayName\n  }\n': MENU_MODEL_CATEGORIES_QUERY_RESULT;
-    '\n  *[_type == "modelCategory" && title == $category][0] {\n    _id,\n    title,\n    displayName,\n    seo\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
+    '\n  *[_type == "modelCategory" && title == $category][0] {\n    _id,\n    title,\n    seo,\n    pageTitle,\n    pageSubtitle\n  }\n': MODEL_CATEGORIES_QUERY_RESULT;
     '\n  *[_type == "homePage" && _id == "homePage"][0] {\n    title,\n    seo,\n    sections[] {\n      sectionTitle,\n      texts,\n      button,\n      video\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type=="castingPage"][0]{\n  title,\n  seo,\n  pageTitle,\n  pageSubtitle,\n  body,\n  sections[] {\n    sectionTitle,\n    texts,\n    button,\n    video,\n    email\n  }\n}\n': CASTING_PAGE_QUERY_RESULT;
     '\n  *[_type == "model" && contractDate < $limitDate && active == true]{\n    _id,\n    name,\n    contractDate\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
     '\n      *[_type == "castingSection"][0]{\n        title,\n        headline { pl, en },\n        subheadline { pl, en },\n        blocks[] {\n          internalTitle,\n          title { pl, en },\n          logo {\n            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n          },\n          description { pl[], en[] },\n          button { label { pl, en }, url }\n        }\n      }\n    ': CASTING_SECTION_QUERY_RESULT;
   }
