@@ -8,6 +8,7 @@ import { ModelSiblings } from "@/components/modelSiblings";
 import { ShareOnFacebook } from "./shareOnFacebook";
 
 export function Model({ model, locale, slug, siblings }) {
+  const shareUrl = `https://minimodels-s.netlify.app/${locale}/${model.category}/${slug}`;
   return (
     <main>
       <article className="bg-white mx-auto mt-14 md:mt-20 pt-24 pb-12">
@@ -20,10 +21,7 @@ export function Model({ model, locale, slug, siblings }) {
           url={`https://minimodels.com.pl/${locale}/${model.category}/${slug}`}
           locale={locale}
         /> */}
-        <ShareOnFacebook
-          url={`https://minimodels-s.netlify.app/${locale}/${model.category}/${slug}`}
-          locale={locale}
-        />
+        <ShareOnFacebook url={shareUrl} locale={locale} />
         <ModelSiblings
           siblings={siblings}
           locale={locale}

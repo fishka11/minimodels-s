@@ -15,7 +15,7 @@ export const modelCategoryType = defineType({
           { title: "Baby", value: "baby" },
           { title: "Mini Girls", value: "mini-girls" },
           { title: "Mini Boys", value: "mini-boys" },
-          { title: "Nastolatki / Teenagers", value: "teens" },
+          { title: "Nastolatki / Teenagers", value: "nastolatki" },
         ],
         layout: "radio",
       },

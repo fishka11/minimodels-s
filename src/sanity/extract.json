@@ -512,6 +512,50 @@
                 }
               }
             }
+          },
+          {
+            "type": "object",
+            "attributes": {
+              "size": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "h-4"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h-8"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h-16"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "spacer"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -1034,7 +1078,7 @@
             },
             {
               "type": "string",
-              "value": "teens"
+              "value": "nastolatki"
             }
           ]
         },
@@ -1720,6 +1764,29 @@
         },
         "optional": true
       },
+      "pageTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "pl": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": false
+            },
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": false
+            }
+          }
+        },
+        "optional": true
+      },
       "pageSubtitle": {
         "type": "objectAttribute",
         "value": {
@@ -1928,6 +1995,45 @@
                 },
                 "optional": true
               },
+              "email": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "object",
+                  "attributes": {
+                    "label": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "object",
+                        "attributes": {
+                          "pl": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          },
+                          "en": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          }
+                        }
+                      },
+                      "optional": true
+                    },
+                    "address": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      },
+                      "optional": true
+                    }
+                  }
+                },
+                "optional": true
+              },
               "_type": {
                 "type": "objectAttribute",
                 "value": {
@@ -2116,97 +2222,56 @@
         },
         "optional": true
       },
-      "sections": {
+      "faq": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
           "of": {
             "type": "object",
             "attributes": {
-              "sectionTitle": {
+              "question": {
                 "type": "objectAttribute",
                 "value": {
-                  "type": "string"
-                },
-                "optional": false
-              },
-              "items": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "array",
-                  "of": {
-                    "type": "object",
-                    "attributes": {
-                      "question": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "object",
-                          "attributes": {
-                            "pl": {
-                              "type": "objectAttribute",
-                              "value": {
-                                "type": "string"
-                              },
-                              "optional": true
-                            },
-                            "en": {
-                              "type": "objectAttribute",
-                              "value": {
-                                "type": "string"
-                              },
-                              "optional": true
-                            }
-                          }
-                        },
-                        "optional": true
+                  "type": "object",
+                  "attributes": {
+                    "pl": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
                       },
-                      "answer": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "object",
-                          "attributes": {
-                            "pl": {
-                              "type": "objectAttribute",
-                              "value": {
-                                "type": "array",
-                                "of": {
-                                  "type": "string"
-                                }
-                              },
-                              "optional": true
-                            },
-                            "en": {
-                              "type": "objectAttribute",
-                              "value": {
-                                "type": "array",
-                                "of": {
-                                  "type": "string"
-                                }
-                              },
-                              "optional": true
-                            }
-                          }
-                        },
-                        "optional": true
-                      },
-                      "_type": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string",
-                          "value": "faqItem"
-                        }
-                      }
+                      "optional": false
                     },
-                    "rest": {
-                      "type": "object",
-                      "attributes": {
-                        "_key": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "en": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      },
+                      "optional": false
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "answer": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "object",
+                  "attributes": {
+                    "pl": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "blockContent"
+                      },
+                      "optional": true
+                    },
+                    "en": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "inline",
+                        "name": "blockContent"
+                      },
+                      "optional": true
                     }
                   }
                 },
@@ -2216,7 +2281,7 @@
                 "type": "objectAttribute",
                 "value": {
                   "type": "string",
-                  "value": "faqSection"
+                  "value": "faqItem"
                 }
               }
             },

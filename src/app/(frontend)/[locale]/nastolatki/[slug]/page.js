@@ -31,7 +31,7 @@ export default async function ModelPage({ params }) {
   const { data: model } = await sanityFetch({
     query: MODEL_QUERY,
     params: { slug },
-    tags: [`teens:${slug}`],
+    tags: [`nastolatki:${slug}`],
   });
 
   if (!model) notFound();
@@ -48,7 +48,7 @@ export default async function ModelPage({ params }) {
       createdAt: model._createdAt,
       cutoffDate: cutoffDate.toISOString(),
     },
-    tags: [`teens`],
+    tags: [`nastolatki`],
   });
 
   return (

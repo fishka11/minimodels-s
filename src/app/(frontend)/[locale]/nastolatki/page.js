@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { data: category } = await sanityFetch({
     query: MODEL_CATEGORIES_QUERY,
-    params: { category: "teens", locale },
+    params: { category: "nastolatki", locale },
   });
 
   return {
@@ -33,17 +33,17 @@ export default async function MiniBoysPage({ params }) {
 
   if (!["pl", "en"].includes(locale)) notFound();
 
-  const nameColor = NameColorSwitcher("teens");
+  const nameColor = NameColorSwitcher("nastolatki");
 
   const { data: models } = await sanityFetch({
     query: TEENS_QUERY,
     params: { cutoffDate: getCutoffDate() },
-    tags: ["teens"],
+    tags: ["nastolatki"],
   });
 
   const { data: category } = await sanityFetch({
     query: MODEL_CATEGORIES_QUERY,
-    params: { category: "teens" },
+    params: { category: "nastolatki" },
   });
 
   return (
@@ -55,7 +55,7 @@ export default async function MiniBoysPage({ params }) {
       />
       <section className="mx-auto container max-w-7xl pt-12">
         {models?.length === 0 ? (
-          <p className="text-center text-slate-400 py-20">{tr.noModels}</p>
+          <p className="text-center text-slate-400 py-20">No models</p>
         ) : (
           <div className="flex flex-row flex-wrap justify-center gap-2 transition-all duration-200 ease-in">
             {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"> */}
@@ -64,7 +64,7 @@ export default async function MiniBoysPage({ params }) {
                 key={model._id}
                 model={model}
                 locale={locale}
-                category="teens"
+                category="nastolatki"
                 nameColor={nameColor}
               />
             ))}

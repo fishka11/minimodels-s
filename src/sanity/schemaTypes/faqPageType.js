@@ -15,6 +15,7 @@ export const faqPageType = defineType({
       readOnly: true,
     }),
 
+    // SEO
     defineField({
       name: "seo",
       title: "SEO",
@@ -80,6 +81,7 @@ export const faqPageType = defineType({
       ],
     }),
 
+    // PAGE TITLE
     defineField({
       name: "pageTitle",
       title: "Tytuł strony / Page title",
@@ -89,19 +91,18 @@ export const faqPageType = defineType({
           name: "pl",
           title: "Polski",
           type: "string",
-          description: 'np. "Nastolatki"',
           validation: (rule) => rule.required(),
         }),
         defineField({
           name: "en",
           title: "English",
           type: "string",
-          description: 'e.g. "Teenagers"',
           validation: (rule) => rule.required(),
         }),
       ],
     }),
 
+    // PAGE SUBTITLE
     defineField({
       name: "pageSubtitle",
       title: "Podtytuł strony / Page subtitle",
@@ -111,94 +112,62 @@ export const faqPageType = defineType({
           name: "pl",
           title: "Polski",
           type: "string",
-          description: 'np. "Nastolatki"',
           validation: (rule) => rule.required(),
         }),
         defineField({
           name: "en",
           title: "English",
           type: "string",
-          description: 'e.g. "Teenagers"',
           validation: (rule) => rule.required(),
         }),
       ],
     }),
 
-    // SEKCJE FAQ
+    // 🔥 UPROSZCZONA LISTA FAQ
     defineField({
-      name: "sections",
-      title: "Sekcje / Sections",
+      name: "faq",
+      title: "FAQ — lista pytań i odpowiedzi",
       type: "array",
       of: [
         defineArrayMember({
-          name: "faqSection",
-          title: "Sekcja FAQ",
+          name: "faqItem",
+          title: "Pytanie i odpowiedź",
           type: "object",
           fields: [
             defineField({
-              name: "sectionTitle",
-              title: "Nazwa sekcji (wewnętrzna)",
-              type: "string",
-              validation: (rule) => rule.required(),
+              name: "question",
+              title: "Pytanie / Question",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "pl",
+                  title: "Polski",
+                  type: "string",
+                  validation: (rule) => rule.required(),
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "string",
+                  validation: (rule) => rule.required(),
+                }),
+              ],
             }),
 
-            // LISTA PYTAŃ I ODPOWIEDZI
             defineField({
-              name: "items",
-              title: "Pytania i odpowiedzi / FAQ items",
-              type: "array",
-              of: [
-                defineArrayMember({
-                  name: "faqItem",
-                  title: "Pytanie i odpowiedź",
-                  type: "object",
-                  fields: [
-                    // PYTANIE
-                    defineField({
-                      name: "question",
-                      title: "Pytanie / Question",
-                      type: "object",
-                      fields: [
-                        defineField({
-                          name: "pl",
-                          title: "Polski",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "en",
-                          title: "English",
-                          type: "string",
-                        }),
-                      ],
-                    }),
-
-                    // ODPOWIEDŹ
-                    defineField({
-                      name: "answer",
-                      title: "Odpowiedź / Answer",
-                      type: "object",
-                      fields: [
-                        defineField({
-                          name: "pl",
-                          title: "Polski",
-                          type: "array",
-                          of: [defineArrayMember({ type: "text", rows: 3 })],
-                        }),
-                        defineField({
-                          name: "en",
-                          title: "English",
-                          type: "array",
-                          of: [defineArrayMember({ type: "text", rows: 3 })],
-                        }),
-                      ],
-                    }),
-                  ],
-
-                  preview: {
-                    select: {
-                      title: "question.pl",
-                    },
-                  },
+              name: "answer",
+              title: "Odpowiedź / Answer",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "pl",
+                  title: "Polski",
+                  type: "blockContent",
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "blockContent",
                 }),
               ],
             }),
@@ -206,7 +175,7 @@ export const faqPageType = defineType({
 
           preview: {
             select: {
-              title: "sectionTitle",
+              title: "question.pl",
             },
           },
         }),

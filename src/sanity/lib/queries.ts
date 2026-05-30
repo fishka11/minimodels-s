@@ -37,7 +37,7 @@ export const MINIGIRLS_QUERY = defineQuery(`*[_type == "model"
 }`);
 
 export const TEENS_QUERY = defineQuery(`*[_type == "model"
-    && category->title == "teens"
+    && category->title == "nastolatki"
     && active == true
     && defined(contractDate)
     && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
@@ -53,7 +53,7 @@ export const MODEL_QUERY =
   _createdAt,
   name,
   birthDate,
-  "category": category->slug.current,
+  "category": category->title,
   profileImage, gallery[defined(asset)] {
   asset-> {
     _id,
@@ -76,7 +76,7 @@ export const MODEL_QUERY =
 export const MODEL_SIBLINGS_QUERY = defineQuery(`
   {
     "prev": *[_type == "model" 
-      && category->slug.current == $category 
+      && category->title == $category 
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
@@ -87,7 +87,7 @@ export const MODEL_SIBLINGS_QUERY = defineQuery(`
       profileImage
     },
     "next": *[_type == "model"
-      && category->slug.current == $category
+      && category->title == $category
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
@@ -116,7 +116,7 @@ export const ALL_MINIGIRLS_SLUGS_QUERY =
   }`);
 
 export const ALL_TEENS_SLUGS_QUERY =
-  defineQuery(`*[_type == "model" && category->title == "teens" && active == true && defined(slug.current)] {
+  defineQuery(`*[_type == "model" && category->title == "nastolatki" && active == true && defined(slug.current)] {
     "slug": slug.current
   }`);
 
@@ -158,6 +158,35 @@ export const CASTING_PAGE_QUERY = defineQuery(`
     email
   }
 }
+`);
+
+export const ABOUTUS_PAGE_QUERY = defineQuery(`
+  *[_type=="aboutUsPage"][0]{
+  title,
+  seo,
+  pageTitle,
+  pageSubtitle,
+  body,
+  sections[] {
+    sectionTitle,
+    texts,
+    button,
+    video,
+    email
+  }
+}
+`);
+
+export const FAQ_PAGE_QUERY = defineQuery(`
+  *[_type == "faqPage"][0]{
+    pageTitle,
+    pageSubtitle,
+    faq[] {
+      _key,
+      question,
+      answer
+    }
+  }
 `);
 
 export const EXPIRED_MODELS_QUERY = defineQuery(`
