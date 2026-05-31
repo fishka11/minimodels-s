@@ -1,101 +1,150 @@
 import { defineQuery } from "next-sanity";
 
-export const BABIES_QUERY = defineQuery(`
-  *[_type == "model" 
-    && category->title == "baby" 
-    && active == true
-    && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-  ] | order(_createdAt desc) {
-    _id, name, slug, birthDate, profileImage, "category": {
-      "title": category->title,
-      "displayName": category->displayName
+export const BABIES_WITH_CATEGORY_QUERY = defineQuery(`
+  {
+    "models": *[_type == "model" 
+      && category->title == "baby" 
+      && active == true
+      && defined(contractDate)
+      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
+    ] | order(_createdAt desc) {
+      _id, name, slug, birthDate, profileImage,
+      "category": {
+        "title": category->title,
+        "displayName": category->displayName
+      }
+    },
+    "categoryInfo": *[_type == "modelCategory" && title == "baby"][0] {
+      _id,
+      title,
+      seo,
+      pageTitle,
+      pageSubtitle
     }
   }
 `);
 
-export const MINIBOYS_QUERY = defineQuery(`*[_type == "model"
-    && category->title == "mini-boys"
-    && active == true
-    && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": {
-      "title": category->title,
-      "displayName": category->displayName
-    }
-}`);
-
-export const MINIGIRLS_QUERY = defineQuery(`*[_type == "model"
-    && category->title == "mini-girls"
-    && active == true
-    && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": {
-      "title": category->title,
-      "displayName": category->displayName
-    }
-}`);
-
-export const TEENS_QUERY = defineQuery(`*[_type == "model"
-    && category->title == "nastolatki"
-    && active == true
-    && defined(contractDate)
-    && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)] | order(_createdAt desc) {
-  _id, name, slug, birthDate, profileImage, "category": {
-      "title": category->title,
-      "displayName": category->displayName
-    }
-}`);
-
-export const MODEL_QUERY =
-  defineQuery(`*[_type == "model" && slug.current == $slug][0] {
-  _id,    
-  _createdAt,
-  name,
-  birthDate,
-  "category": category->title,
-  profileImage, gallery[defined(asset)] {
-  asset-> {
-    _id,
-    url,
-    alt,
-    metadata {
-      dimensions {
-        width,
-        height,
-        aspectRatio
-      }
-    }
-  },
-  _key,
-  _type,
-  alt
-}, eyeColor, hairColor, hairLength, hairType
-}`);
-
-export const MODEL_SIBLINGS_QUERY = defineQuery(`
+export const MINIBOYS_WITH_CATEGORY_QUERY = defineQuery(`
   {
-    "prev": *[_type == "model" 
-      && category->title == $category 
+    "models": *[_type == "model" 
+      && category->title == "mini-boys" 
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-      && _createdAt > $createdAt
-    ] | order(_createdAt asc)[0] {
-      name,
-      slug,
-      profileImage
+    ] | order(_createdAt desc) {
+      _id, name, slug, birthDate, profileImage,
+      "category": {
+        "title": category->title,
+        "displayName": category->displayName
+      }
     },
-    "next": *[_type == "model"
-      && category->title == $category
+    "categoryInfo": *[_type == "modelCategory" && title == "mini-boys"][0] {
+      _id,
+      title,
+      seo,
+      pageTitle,
+      pageSubtitle
+    }
+  }
+`);
+
+export const MINIGIRLS_WITH_CATEGORY_QUERY = defineQuery(`
+  {
+    "models": *[_type == "model" 
+      && category->title == "mini-girls" 
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-      && _createdAt < $createdAt
-    ] | order(_createdAt desc)[0] {
-      name,
-      slug,
-      profileImage
+    ] | order(_createdAt desc) {
+      _id, name, slug, birthDate, profileImage,
+      "category": {
+        "title": category->title,
+        "displayName": category->displayName
+      }
+    },
+    "categoryInfo": *[_type == "modelCategory" && title == "mini-girls"][0] {
+      _id,
+      title,
+      seo,
+      pageTitle,
+      pageSubtitle
+    }
+  }
+`);
+
+export const TEENS_WITH_CATEGORY_QUERY = defineQuery(`
+  {
+    "models": *[_type == "model" 
+      && category->title == "nastolatki" 
+      && active == true
+      && defined(contractDate)
+      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
+    ] | order(_createdAt desc) {
+      _id, name, slug, birthDate, profileImage,
+      "category": {
+        "title": category->title,
+        "displayName": category->displayName
+      }
+    },
+    "categoryInfo": *[_type == "modelCategory" && title == "nastolatki"][0] {
+      _id,
+      title,
+      seo,
+      pageTitle,
+      pageSubtitle
+    }
+  }
+`);
+
+export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
+  *[_type == "model" && slug.current == $slug][0] {
+    _id,
+    _createdAt,
+    name,
+    slug,
+    birthDate,
+    "category": category->title,
+    profileImage,
+    gallery[defined(asset)] {
+      asset-> {
+        _id,
+        url,
+        alt,
+        metadata {
+          dimensions { width, height, aspectRatio }
+        }
+      },
+      _key,
+      _type,
+      alt
+    },
+    eyeColor,
+    hairColor,
+    hairLength,
+    hairType,
+    "siblings": {
+      "prev": *[_type == "model"
+        && category->title == ^.category->title
+        && active == true
+        && defined(contractDate)
+        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
+        && _createdAt > ^._createdAt
+      ] | order(_createdAt asc)[0] {
+        name,
+        slug,
+        profileImage
+      },
+      "next": *[_type == "model"
+        && category->title == ^.category->title
+        && active == true
+        && defined(contractDate)
+        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
+        && _createdAt < ^._createdAt
+      ] | order(_createdAt desc)[0] {
+        name,
+        slug,
+        profileImage
+      }
     }
   }
 `);
@@ -119,16 +168,6 @@ export const ALL_TEENS_SLUGS_QUERY =
   defineQuery(`*[_type == "model" && category->title == "nastolatki" && active == true && defined(slug.current)] {
     "slug": slug.current
   }`);
-
-export const MODEL_CATEGORIES_QUERY = defineQuery(`
-  *[_type == "modelCategory" && title == $category][0] {
-    _id,
-    title,
-    seo,
-    pageTitle,
-    pageSubtitle
-  }
-`);
 
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_type == "homePage" && _id == "homePage"][0] {

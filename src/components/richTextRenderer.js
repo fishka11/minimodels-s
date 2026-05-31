@@ -4,7 +4,7 @@ import Image from "next/image";
 const RichTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="text-slate-600 text-xl lg:text-2xl text-center font-light leading-snug">
+      <p className="text-slate-700 text-xl lg:text-2xl font-light leading-snug">
         {children}
       </p>
     ),
@@ -12,9 +12,7 @@ const RichTextComponents = {
       <h1 className="text-3xl font-bold mb-6">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl font-bold mb-4 lg:mb-6 text-center">
-        {children}
-      </h2>
+      <h2 className="text-2xl font-bold mb-4 lg:mb-6">{children}</h2>
     ),
     h3: ({ children }) => (
       <h3 className="text-xl font-semibold mb-3">{children}</h3>
@@ -28,12 +26,12 @@ const RichTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc list-inside pl-6 space-y-2 lg:max-w-3/4 mx-auto text-xl lg:text-2xl text-slate-700 font-light">
+      <ul className="list-disc pl-6 space-y-2 text-xl lg:text-2xl text-slate-700 font-light">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal list-inside pl-6 space-y-8 lg:max-w-3/4 mx-auto text-xl lg:text-2xl text-slate-700 font-light">
+      <ol className="list-decimal pl-6 space-y-8 mx-auto text-xl lg:text-2xl text-slate-700 font-light">
         {children}
       </ol>
     ),

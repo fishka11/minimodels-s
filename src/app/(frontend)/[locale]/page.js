@@ -1,7 +1,7 @@
 // src/app/[locale]/page.js
 import { ParallaxSection } from "@/components/parallaxSection";
 import { LOCALES } from "@/lib/locales";
-import { sanityFetch } from "@/sanity/lib/live";
+import { sanityFetch } from "@/sanity/lib/client";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -19,14 +19,24 @@ import imgSection6Bg from "@/assets/images/szansa.jpg";
 import { SectionContent } from "@/components/sectionContent";
 import { slides } from "@/lib/logotypes";
 import { Hero } from "@/components/hero";
+import { cache } from "react";
+
+export const getPageData = cache(async () => {
+  const data = await sanityFetch({
+    query: HOME_PAGE_QUERY,
+    tags: ["homePage"],
+  });
+
+  return data;
+});
 
 // -------------------------------------------------------
 // Metadata
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const { data: homePage } = await sanityFetch({ query: HOME_PAGE_QUERY });
-  const seo = homePage?.seo;
+  const pageData = await getPageData();
+  const seo = pageData?.seo;
 
   return {
     title: seo[locale]?.title ?? "MiniModels",
@@ -39,14 +49,12 @@ export default async function Page({ params }) {
   const { locale } = await params;
   if (!LOCALES.includes(locale)) notFound();
 
-  const { data: homePage } = await sanityFetch({
-    query: HOME_PAGE_QUERY,
-    tags: ["homePage"],
-  });
-  if (!homePage) notFound();
+  const pageData = await getPageData();
+
+  if (!pageData) notFound();
 
   const [section1, section2, section3, section4, section5, section6] =
-    homePage?.sections ?? [];
+    pageData?.sections ?? [];
 
   return (
     <main>

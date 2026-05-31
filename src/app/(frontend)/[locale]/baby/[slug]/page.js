@@ -1,19 +1,15 @@
 // src/app/[locale]/baby/[slug]/page.js
-import { headers } from "next/headers";
-import { sanityFetch } from "@/sanity/lib/live";
-import { client } from "@/sanity/lib/client";
-import { trackView } from "@/lib/trackView";
+import { sanityFetch } from "@/sanity/lib/client";
 import {
-  MODEL_QUERY,
   ALL_BABY_SLUGS_QUERY,
-  MODEL_SIBLINGS_QUERY,
+  MODEL_WITH_SIBLINGS_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { Model } from "@/components/model";
 import { LOCALES } from "@/lib/locales";
 
 export async function generateStaticParams() {
-  const models = await client.fetch(ALL_BABY_SLUGS_QUERY);
+  const models = await sanityFetch({ query: ALL_BABY_SLUGS_QUERY });
 
   return models.flatMap(({ slug }) =>
     LOCALES.map((locale) => ({ locale, slug })),
@@ -28,30 +24,20 @@ export default async function ModelPage({ params }) {
   const cutoffDate = new Date();
   cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
 
-  const { data: model } = await sanityFetch({
-    query: MODEL_QUERY,
-    params: { slug },
+  const model = await sanityFetch({
+    query: MODEL_WITH_SIBLINGS_QUERY,
+    params: { slug, cutoffDate: cutoffDate.toISOString() },
     tags: [`baby:${slug}`],
   });
 
   if (!model) notFound();
 
-  // Tracking — działa po stronie serwera tylko podczas requestu, nie podczas prerenderingu
-  const h = await headers();
-  const ua = h.get("user-agent") || "";
-  await trackView(model._id, ua);
-
-  const { data: siblings } = await sanityFetch({
-    query: MODEL_SIBLINGS_QUERY,
-    params: {
-      category: model.category,
-      createdAt: model._createdAt,
-      cutoffDate: cutoffDate.toISOString(),
-    },
-    tags: [`baby`],
-  });
-
   return (
-    <Model model={model} locale={locale} slug={slug} siblings={siblings} />
+    <Model
+      model={model}
+      locale={locale}
+      slug={slug}
+      siblings={model.siblings}
+    />
   );
 }

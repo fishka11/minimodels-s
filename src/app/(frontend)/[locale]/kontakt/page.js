@@ -1,5 +1,5 @@
 import { LOCALES } from "@/lib/locales";
-import { sanityFetch } from "@/sanity/lib/live";
+import { sanityFetch } from "@/sanity/lib/client";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 

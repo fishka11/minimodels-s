@@ -13,7 +13,7 @@ export function FloatingButton({ locale, button }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.boundingClientRect.top <= 128) {
-          setIsFixed(true);
+          setIsFixed((prev) => prev || true);
         }
       },
       { threshold: 0 },
@@ -27,7 +27,7 @@ export function FloatingButton({ locale, button }) {
 
       // Jeśli element wrócił poniżej 100px → odklejamy
       if (rect.top > 128) {
-        setIsFixed(false);
+        setIsFixed((prev) => (prev ? false : prev));
       }
     };
 

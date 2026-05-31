@@ -19,63 +19,36 @@ export default function Menu({ locale }) {
     setIsOpen(false);
   };
 
-  // Blokada scrollu body gdy menu otwarte na mobile
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    if (!isOpen) {
       document.body.style.overflow = "";
+      return;
     }
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+    // Blokada scrolla
+    document.body.style.overflow = "hidden";
 
-  // Zamykanie menu po kliknięciu Escape
-  useEffect(() => {
+    // Escape
     const handleEscape = (e) => {
       if (e.key === "Escape") closeMenu();
     };
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      return () => document.removeEventListener("keydown", handleEscape);
-    }
-  }, [isOpen]);
-
-  // Zamykanie menu przy zmianie rozmiaru okna na desktop
-  useEffect(() => {
+    // Resize
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isOpen) {
-        closeMenu();
-      }
+      if (window.innerWidth >= 768) closeMenu();
     };
 
+    document.addEventListener("keydown", handleEscape);
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [isOpen]);
 
-  // const startPage = {
-  //   id: "startPage",
-  //   slug: `/`,
-  //   displayName: "Start",
-  //   inMenu: true,
-  // };
-
-  // const categoryPages = modelCategories.map((cat) => ({
-  //   id: cat._id,
-  //   slug: cat.slug,
-  //   displayName: cat.displayName?.[locale] ?? cat.slug,
-  //   inMenu: cat.inMenu,
-  // }));
-
-  // const leftSideItems = [startPage, ...categoryPages].filter(
-  //   (page) => page.inMenu,
-  // );
   const leftSideItems = LEFT_SIDE_MENU;
-
-  // const rightSideItems = [...staticPages].filter((page) => page.inMenu);
   const rightSideItems = RIGHT_SIDE_MENU;
 
   return (

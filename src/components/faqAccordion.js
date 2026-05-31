@@ -11,7 +11,7 @@ export default function FAQAccordion({ faq, locale }) {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div>
       {faq.map((item, index) => (
         <FAQItem
           key={item._key}

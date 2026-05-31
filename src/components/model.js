@@ -6,11 +6,13 @@ import { ModelWorkPlace } from "./modelWorkPlace";
 import { ShareOnX } from "@/components/shareOnX";
 import { ModelSiblings } from "@/components/modelSiblings";
 import { ShareOnFacebook } from "./shareOnFacebook";
+import { TrackModelView } from "@/components/trackModelView";
 
 export function Model({ model, locale, slug, siblings }) {
   const shareUrl = `https://minimodels-s.netlify.app/${locale}/${model.category}/${slug}`;
   return (
     <main>
+      <TrackModelView modelId={model._id} />
       <article className="bg-white mx-auto mt-14 md:mt-20 pt-24 pb-12">
         <ModelHeader model={model} locale={locale} />
         <ModelGallery model={model} />

@@ -1,3 +1,4 @@
+// src/lib/trackView.js
 import { isBot } from "@/lib/isBot";
 import { writeClient } from "@/sanity/lib/writeClient";
 

@@ -1,27 +1,43 @@
 // src/app/[locale]/baby/page.js
 import { getCutoffDate } from "@/lib/cutoffDate";
-import { sanityFetch } from "@/sanity/lib/live";
-import { MINIBOYS_QUERY, MODEL_CATEGORIES_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch } from "@/sanity/lib/client";
+import { MINIBOYS_WITH_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/modelCard";
 import { NameColorSwitcher } from "@/lib/nameColorSwitcher";
 import placeholder from "@/assets/images/reservation_bg.jpg";
 import { CategoryHeader } from "@/components/categoryHeader";
+import { cache } from "react";
+
+const LOCALES = ["pl", "en"];
+
+const t = {
+  pl: { noModels: "Brak modeli w tej kategorii." },
+  en: { noModels: "No models in this category." },
+};
+
+export const getData = cache(async () => {
+  const data = await sanityFetch({
+    query: MINIBOYS_WITH_CATEGORY_QUERY,
+    params: { cutoffDate: getCutoffDate() },
+    tags: ["mini-boys", "modelCategory"],
+  });
+
+  return data;
+});
 
 // -------------------------------------------------------
 // Metadata
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const { data: category } = await sanityFetch({
-    query: MODEL_CATEGORIES_QUERY,
-    params: { category: "mini-boys", locale },
-  });
+  const data = await getData();
+  const seo = data?.categoryInfo?.seo?.[locale];
 
   return {
-    title: category?.seoTitle ?? "Mini-Boys | MiniModels",
-    description: category?.seoDescription,
-    keywords: category?.seoKeywords,
+    title: seo?.title,
+    description: seo?.description,
+    keywords: seo?.keywords,
   };
 }
 
@@ -31,20 +47,14 @@ export async function generateMetadata({ params }) {
 export default async function MiniBoysPage({ params }) {
   const { locale } = await params;
 
-  if (!["pl", "en"].includes(locale)) notFound();
+  if (!LOCALES.includes(locale)) notFound();
 
+  const tr = t[locale];
   const nameColor = NameColorSwitcher("mini-boys");
 
-  const { data: models } = await sanityFetch({
-    query: MINIBOYS_QUERY,
-    params: { cutoffDate: getCutoffDate() },
-    tags: ["mini-boys"],
-  });
-
-  const { data: category } = await sanityFetch({
-    query: MODEL_CATEGORIES_QUERY,
-    params: { category: "mini-boys" },
-  });
+  const data = await getData();
+  const models = data?.models;
+  const category = data?.categoryInfo;
 
   return (
     <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12">

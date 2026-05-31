@@ -8,7 +8,6 @@ export default function MenuItem({
   isActive,
   targetBlank,
 }) {
-  console.log(slug);
   return (
     <li className="w-full lg:w-fit">
       {/* <Link

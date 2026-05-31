@@ -1,5 +1,5 @@
 // src/app/layout.js
-import { SanityLive } from "@/sanity/lib/live";
+// import { SanityLive } from "@/sanity/lib/live";
 import { openSans } from "@/lib/fonts";
 
 export default function RootLayout({ children }) {
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     >
       <body>
         {children}
-        <SanityLive />
+        {/* <SanityLive /> */}
       </body>
     </html>
   );
