@@ -11,7 +11,7 @@ export default function FAQItem({ item, locale, isOpen, onToggle }) {
     <div className="border-b border-gray-300 py-8">
       <button
         onClick={onToggle}
-        className="w-full flex justify-between items-center text-left"
+        className="w-full flex justify-between items-center text-left cursor-pointer focus:outline-none"
       >
         <span className="text-sky-500 text-xl lg:text-2xl font-light leading-snug">
           {question}

@@ -31,14 +31,14 @@ export const castingPageType = defineType({
               name: "title",
               title: "SEO Title",
               type: "string",
-              validation: (rule) => rule.max(60),
+              description: "Tytuł strony dla wyszukiwarek (ok. 60 znaków)",
             }),
             defineField({
               name: "description",
               title: "SEO Description",
               type: "text",
               rows: 3,
-              validation: (rule) => rule.max(155),
+              description: "Opis strony dla wyszukiwarek (ok. 155 znaków)",
             }),
             defineField({
               name: "keywords",
@@ -60,14 +60,16 @@ export const castingPageType = defineType({
               name: "title",
               title: "SEO Title",
               type: "string",
-              validation: (rule) => rule.max(60),
+              description:
+                "Page title for search engines (approx. 60 characters)",
             }),
             defineField({
               name: "description",
               title: "SEO Description",
               type: "text",
               rows: 3,
-              validation: (rule) => rule.max(155),
+              description:
+                "Page title for search engines (approx. 60 characters)",
             }),
             defineField({
               name: "keywords",

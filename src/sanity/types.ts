@@ -992,12 +992,13 @@ export type TEENS_WITH_CATEGORY_QUERY_RESULT = {
 };
 
 // Source: src/sanity/lib/queries.ts
-// Variable: MODEL_QUERY
-// Query: *[_type == "model" && slug.current == $slug][0] {  _id,      _createdAt,  name,  birthDate,  "category": category->title,  profileImage, gallery[defined(asset)] {  asset-> {    _id,    url,    alt,    metadata {      dimensions {        width,        height,        aspectRatio      }    }  },  _key,  _type,  alt}, eyeColor, hairColor, hairLength, hairType}
-export type MODEL_QUERY_RESULT = {
+// Variable: MODEL_WITH_SIBLINGS_QUERY
+// Query: *[_type == "model" && slug.current == $slug][0] {    _id,    _createdAt,    name,    slug,    birthDate,    "category": category->title,    profileImage,    gallery[defined(asset)] {      asset-> {        _id,        url,        alt,        metadata {          dimensions { width, height, aspectRatio }        }      },      _key,      _type,      alt    },    eyeColor,    hairColor,    hairLength,    hairType,    "siblings": {      "prev": *[_type == "model"        && category->title == ^.category->title        && active == true        && defined(contractDate)        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)        && _createdAt > ^._createdAt      ] | order(_createdAt asc)[0] {        name,        slug,        profileImage      },      "next": *[_type == "model"        && category->title == ^.category->title        && active == true        && defined(contractDate)        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)        && _createdAt < ^._createdAt      ] | order(_createdAt desc)[0] {        name,        slug,        profileImage      }    }  }
+export type MODEL_WITH_SIBLINGS_QUERY_RESULT = {
   _id: string;
   _createdAt: string;
   name: string;
+  slug: Slug;
   birthDate: string;
   category: "baby" | "mini-boys" | "mini-girls" | "nastolatki";
   profileImage: {
@@ -1039,37 +1040,33 @@ export type MODEL_QUERY_RESULT = {
     | null;
   hairLength: "long" | "medium" | "short" | null;
   hairType: "curls" | "curly" | "prone-to-curling" | "straight" | "wavy" | null;
+  siblings: {
+    prev: {
+      name: string;
+      slug: Slug;
+      profileImage: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      };
+    } | null;
+    next: {
+      name: string;
+      slug: Slug;
+      profileImage: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+      };
+    } | null;
+  };
 } | null;
-
-// Source: src/sanity/lib/queries.ts
-// Variable: MODEL_SIBLINGS_QUERY
-// Query: {    "prev": *[_type == "model"       && category->title == $category       && active == true      && defined(contractDate)      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)      && _createdAt > $createdAt    ] | order(_createdAt asc)[0] {      name,      slug,      profileImage    },    "next": *[_type == "model"      && category->title == $category      && active == true      && defined(contractDate)      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)      && _createdAt < $createdAt    ] | order(_createdAt desc)[0] {      name,      slug,      profileImage    }  }
-export type MODEL_SIBLINGS_QUERY_RESULT = {
-  prev: {
-    name: string;
-    slug: Slug;
-    profileImage: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-    };
-  } | null;
-  next: {
-    name: string;
-    slug: Slug;
-    profileImage: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-    };
-  } | null;
-};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: ALL_BABY_SLUGS_QUERY
@@ -1377,8 +1374,7 @@ declare module "@sanity/client" {
     '\n  {\n    "models": *[_type == "model" \n      && category->title == "mini-boys" \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n    ] | order(_createdAt desc) {\n      _id, name, slug, birthDate, profileImage,\n      "category": {\n        "title": category->title,\n        "displayName": category->displayName\n      }\n    },\n    "categoryInfo": *[_type == "modelCategory" && title == "mini-boys"][0] {\n      _id,\n      title,\n      seo,\n      pageTitle,\n      pageSubtitle\n    }\n  }\n': MINIBOYS_WITH_CATEGORY_QUERY_RESULT;
     '\n  {\n    "models": *[_type == "model" \n      && category->title == "mini-girls" \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n    ] | order(_createdAt desc) {\n      _id, name, slug, birthDate, profileImage,\n      "category": {\n        "title": category->title,\n        "displayName": category->displayName\n      }\n    },\n    "categoryInfo": *[_type == "modelCategory" && title == "mini-girls"][0] {\n      _id,\n      title,\n      seo,\n      pageTitle,\n      pageSubtitle\n    }\n  }\n': MINIGIRLS_WITH_CATEGORY_QUERY_RESULT;
     '\n  {\n    "models": *[_type == "model" \n      && category->title == "nastolatki" \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n    ] | order(_createdAt desc) {\n      _id, name, slug, birthDate, profileImage,\n      "category": {\n        "title": category->title,\n        "displayName": category->displayName\n      }\n    },\n    "categoryInfo": *[_type == "modelCategory" && title == "nastolatki"][0] {\n      _id,\n      title,\n      seo,\n      pageTitle,\n      pageSubtitle\n    }\n  }\n': TEENS_WITH_CATEGORY_QUERY_RESULT;
-    '*[_type == "model" && slug.current == $slug][0] {\n  _id,    \n  _createdAt,\n  name,\n  birthDate,\n  "category": category->title,\n  profileImage, gallery[defined(asset)] {\n  asset-> {\n    _id,\n    url,\n    alt,\n    metadata {\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  _key,\n  _type,\n  alt\n}, eyeColor, hairColor, hairLength, hairType\n}': MODEL_QUERY_RESULT;
-    '\n  {\n    "prev": *[_type == "model" \n      && category->title == $category \n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && _createdAt > $createdAt\n    ] | order(_createdAt asc)[0] {\n      name,\n      slug,\n      profileImage\n    },\n    "next": *[_type == "model"\n      && category->title == $category\n      && active == true\n      && defined(contractDate)\n      && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n      && _createdAt < $createdAt\n    ] | order(_createdAt desc)[0] {\n      name,\n      slug,\n      profileImage\n    }\n  }\n': MODEL_SIBLINGS_QUERY_RESULT;
+    '\n  *[_type == "model" && slug.current == $slug][0] {\n    _id,\n    _createdAt,\n    name,\n    slug,\n    birthDate,\n    "category": category->title,\n    profileImage,\n    gallery[defined(asset)] {\n      asset-> {\n        _id,\n        url,\n        alt,\n        metadata {\n          dimensions { width, height, aspectRatio }\n        }\n      },\n      _key,\n      _type,\n      alt\n    },\n    eyeColor,\n    hairColor,\n    hairLength,\n    hairType,\n    "siblings": {\n      "prev": *[_type == "model"\n        && category->title == ^.category->title\n        && active == true\n        && defined(contractDate)\n        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n        && _createdAt > ^._createdAt\n      ] | order(_createdAt asc)[0] {\n        name,\n        slug,\n        profileImage\n      },\n      "next": *[_type == "model"\n        && category->title == ^.category->title\n        && active == true\n        && defined(contractDate)\n        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)\n        && _createdAt < ^._createdAt\n      ] | order(_createdAt desc)[0] {\n        name,\n        slug,\n        profileImage\n      }\n    }\n  }\n': MODEL_WITH_SIBLINGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "baby" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_BABY_SLUGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "mini-boys" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIBOYS_SLUGS_QUERY_RESULT;
     '*[_type == "model" && category->title == "mini-girls" && active == true && defined(slug.current)] {\n    "slug": slug.current\n  }': ALL_MINIGIRLS_SLUGS_QUERY_RESULT;

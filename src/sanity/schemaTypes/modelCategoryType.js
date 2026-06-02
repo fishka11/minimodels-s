@@ -82,7 +82,6 @@ export const modelCategoryType = defineType({
               title: "SEO Title",
               type: "string",
               description: "Tytuł strony dla wyszukiwarek (ok. 60 znaków)",
-              validation: (rule) => rule.max(60),
             }),
             defineField({
               name: "description",
@@ -90,7 +89,6 @@ export const modelCategoryType = defineType({
               type: "text",
               rows: 3,
               description: "Opis strony dla wyszukiwarek (ok. 155 znaków)",
-              validation: (rule) => rule.max(155),
             }),
             defineField({
               name: "keywords",
@@ -113,7 +111,6 @@ export const modelCategoryType = defineType({
               type: "string",
               description:
                 "Page title for search engines (approx. 60 characters)",
-              validation: (rule) => rule.max(60),
             }),
             defineField({
               name: "description",
@@ -122,7 +119,6 @@ export const modelCategoryType = defineType({
               rows: 3,
               description:
                 "Page description for search engines (approx. 155 characters)",
-              validation: (rule) => rule.max(155),
             }),
             defineField({
               name: "keywords",
