@@ -1,5 +1,7 @@
 import { FooterCastingSection } from "./footerCastingSection";
 import { getCastingSectionData } from "@/lib/castingSectionData";
+import BottomMenu from "@/components/bottomMenu";
+import Copyrights from "./copyrights";
 
 export async function Footer({ locale }) {
   const castingSectionData = await getCastingSectionData();
@@ -17,6 +19,8 @@ export async function Footer({ locale }) {
           locale={locale}
         />
       )}
+      <BottomMenu locale={locale} />
+      <Copyrights locale={locale} />
     </>
   );
 }

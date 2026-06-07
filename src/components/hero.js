@@ -46,11 +46,14 @@ export const Hero = ({ locale, video, texts, bgImage, image, button }) => {
             <p className="text-lg lg:text-xl mx-auto px-4">
               {texts?.[locale]?.[5]}
             </p>
-            <div className="">
-              <Image
+            <div
+              className="w-full h-48"
+              style={{ backgroundImage: `url(${image.src})` }}
+            >
+              {/* <Image
                 src={image}
                 alt={`${locale === "pl" ? "Logotypy partnerów Minimodels" : "Logos of Minimodels partners"}`}
-              />
+              /> */}
             </div>
           </div>
         </div>

@@ -36,7 +36,7 @@ export default async function CastingPage({ params }) {
   const data = await getData();
 
   return (
-    <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12">
+    <main className="mx-auto bg-white pt-14 lg:pt-20 pb-12">
       {/* Header */}
       <PageHeader
         bgImage={placeholder}
@@ -50,7 +50,7 @@ export default async function CastingPage({ params }) {
           </div>
         ) : null}
         {locale === "pl" && (
-          <div className="w-fit  mx-auto my-12">
+          <div className="w-fit mx-auto my-12">
             <a
               href="/files/rodominimodels.pdf"
               target="_blank"

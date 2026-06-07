@@ -72,10 +72,14 @@ export default async function Page({ params }) {
         sectionEnlargment="300"
       >
         <div className="mx-auto h-full grid grid-cols-1 place-content-between text-center gap-10">
-          <Image
+          <div
+            className="w-full h-48"
+            style={{ backgroundImage: `url(${imgPartnersDown.src})` }}
+          ></div>
+          {/* <Image
             src={imgPartnersDown}
             alt={`${locale === "pl" ? "Logotypy partnerów Minimodels" : "Logos of Minimodels partners"}`}
-          />
+          /> */}
           <SectionContent
             texts={section2?.texts}
             locale={locale}
