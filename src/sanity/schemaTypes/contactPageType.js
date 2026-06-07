@@ -219,6 +219,29 @@ export const contactPageType = defineType({
               ],
             }),
 
+            // Telefony
+            defineField({
+              name: "phones",
+              title: "Numery telefonów / Phone numbers",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "pl",
+                  title: "Polski",
+                  type: "array",
+                  of: [defineArrayMember({ type: "text", rows: 1 })],
+                  description: "Każdy element to osobny numer telefonu",
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "array",
+                  of: [defineArrayMember({ type: "text", rows: 1 })],
+                  description: "Each item is a separate phone number",
+                }),
+              ],
+            }),
+
             // Przycisk
             defineField({
               name: "button",

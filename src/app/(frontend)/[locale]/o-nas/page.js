@@ -43,7 +43,7 @@ export default async function AboutUsPage({ params }) {
         title={data?.pageTitle[locale]}
         subTitle={data?.pageSubtitle[locale]}
       />
-      <section className="mx-auto container max-w-5xl py-12 lg:py-24 px-4">
+      <section className="mx-auto container max-w-4xl py-12 lg:py-24 px-4">
         {data?.body[locale] ? (
           <div className="">
             <RichTextRenderer value={data.body[locale]} />

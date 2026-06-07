@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/client";
 import { FAQ_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import placeholder from "@/assets/images/about_bg.jpg";
+// import placeholder from "@/assets/images/about_bg.jpg";
 import { PageHeader } from "@/components/pageHeader";
 import FAQAccordion from "@/components/faqAccordion";
 import { cache } from "react";
@@ -36,14 +36,14 @@ export default async function HelpPage({ params }) {
   const data = await getData();
 
   return (
-    <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12">
+    <main className="mx-auto bg-white pt-14 lg:pt-20 pb-18 lg:pb-28">
       {/* Header */}
       <PageHeader
-        bgImage={placeholder}
+        // bgImage={placeholder}
         title={data?.pageTitle[locale]}
         subTitle={data?.pageSubtitle[locale]}
       />
-      <section className="mx-auto container max-w-5xl py-12 lg:py-24 px-4">
+      <section className="mx-auto container max-w-6xl px-4">
         <FAQAccordion faq={data.faq} locale={locale} />
       </section>
     </main>

@@ -228,6 +228,22 @@ export const FAQ_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const CONTACT_PAGE_QUERY = defineQuery(`
+  *[_type == "contactPage"][0]{
+    pageTitle,
+    pageSubtitle,
+    bodySections,
+    sections[] {
+      sectionTitle,
+      texts,
+      phones,
+      button,
+      video,
+      email
+    } 
+  }
+`);
+
 export const EXPIRED_MODELS_QUERY = defineQuery(`
   *[_type == "model" && contractDate < $limitDate && active == true]{
     _id,
