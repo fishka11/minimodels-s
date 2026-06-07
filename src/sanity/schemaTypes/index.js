@@ -12,6 +12,7 @@ import { contactPageType } from "./contactPageType";
 import { castingSectionType } from "./castingSectionType";
 import { contactSectionType } from "./contactSectionType";
 import { teamSectionType } from "./teamSectionType";
+import { alignedBlockType } from "./alignedBlockType";
 
 export const schema = {
   types: [
@@ -26,6 +27,7 @@ export const schema = {
     modelType,
     modelCategoryType,
     blockContentType,
+    alignedBlockType,
     // categoryType,
     // postType,
     // authorType,

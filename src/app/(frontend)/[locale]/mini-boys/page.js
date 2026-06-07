@@ -6,10 +6,9 @@ import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/modelCard";
 import { NameColorSwitcher } from "@/lib/nameColorSwitcher";
 import placeholder from "@/assets/images/reservation_bg.jpg";
-import { CategoryHeader } from "@/components/categoryHeader";
+import { PageHeader } from "@/components/pageHeader";
 import { cache } from "react";
-
-const LOCALES = ["pl", "en"];
+import { LOCALES } from "@/lib/locales";
 
 const t = {
   pl: { noModels: "Brak modeli w tej kategorii." },
@@ -59,10 +58,7 @@ export default async function MiniBoysPage({ params }) {
   return (
     <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12">
       {/* Header */}
-      <CategoryHeader
-        bgImage={placeholder}
-        title={category?.pageTitle[locale]}
-      />
+      <PageHeader bgImage={placeholder} title={category?.pageTitle[locale]} />
       <section className="mx-auto container max-w-7xl pt-12">
         {models?.length === 0 ? (
           <p className="text-center text-slate-400 py-20">{tr.noModels}</p>

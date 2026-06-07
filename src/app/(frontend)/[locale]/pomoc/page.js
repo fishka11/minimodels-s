@@ -2,11 +2,11 @@ import { sanityFetch } from "@/sanity/lib/client";
 import { FAQ_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import placeholder from "@/assets/images/about_bg.jpg";
-import { CategoryHeader } from "@/components/categoryHeader";
+import { PageHeader } from "@/components/pageHeader";
 import FAQAccordion from "@/components/faqAccordion";
 import { cache } from "react";
 
-export const getPageData = cache(async () => {
+export const getData = cache(async () => {
   const data = await sanityFetch({
     query: FAQ_PAGE_QUERY,
     tags: ["faqPage"],
@@ -20,12 +20,12 @@ export const getPageData = cache(async () => {
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const pageData = await getPageData();
+  const data = await getData();
 
   return {
-    title: pageData.seo && pageData?.seo[locale]?.title,
-    description: pageData.seo && pageData?.seo[locale]?.description,
-    keywords: pageData.seo && pageData?.seo[locale]?.keywords,
+    title: data.seo && data?.seo[locale]?.title,
+    description: data.seo && data?.seo[locale]?.description,
+    keywords: data.seo && data?.seo[locale]?.keywords,
   };
 }
 
@@ -33,18 +33,18 @@ export default async function HelpPage({ params }) {
   const { locale } = await params;
   if (!["pl", "en"].includes(locale)) notFound();
 
-  const pageData = await getPageData();
+  const data = await getData();
 
   return (
-    <main>
+    <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12">
       {/* Header */}
-      <CategoryHeader
+      <PageHeader
         bgImage={placeholder}
-        title={pageData?.pageTitle[locale]}
-        subTitle={pageData?.pageSubtitle[locale]}
+        title={data?.pageTitle[locale]}
+        subTitle={data?.pageSubtitle[locale]}
       />
       <section className="mx-auto container max-w-5xl py-12 lg:py-24 px-4">
-        <FAQAccordion faq={pageData.faq} locale={locale} />
+        <FAQAccordion faq={data.faq} locale={locale} />
       </section>
     </main>
   );

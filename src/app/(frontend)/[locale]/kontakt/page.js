@@ -7,5 +7,7 @@ export default async function ContactPage({ params }) {
   const { locale } = await params;
   if (!["pl", "en"].includes(locale)) notFound();
 
-  return <main></main>;
+  return (
+    <main className="mx-auto min-h-screen bg-white pt-14 lg:pt-20 pb-12"></main>
+  );
 }

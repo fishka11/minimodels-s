@@ -1,5 +1,4 @@
-import { shadowsIntoLightTwo } from "@/lib/fonts";
-import { lora } from "@/lib/fonts";
+import { shadowsIntoLightTwo, lora } from "@/lib/fonts";
 
 // src/components/sectionText.js
 export function SectionText({ texts, locale, loraFontFirst, textBreak }) {

@@ -1,9 +1,9 @@
 import { lora, shadowsIntoLightTwo } from "@/lib/fonts";
 
-export const CategoryHeader = ({ bgImage, title, subTitle }) => {
+export const PageHeader = ({ bgImage, title, subTitle }) => {
   return (
     <div
-      className="py-6 md:py-10 w-full h-80 xl:h-130 grid grid-cols-1 place-content-center bg-center bg-cover"
+      className="py-6 md:py-10 w-full h-80 xl:min-h-130 grid grid-cols-1 place-content-center bg-center bg-cover"
       style={{
         backgroundImage: `url(${bgImage.src})`,
       }}

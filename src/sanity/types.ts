@@ -15,6 +15,75 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/sanity/extract.json
+export type AlignedBlock = {
+  _type: "alignedBlock";
+  textAlign?: "left" | "center" | "right" | "justify";
+  text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          address: string;
+          _type: "mailto";
+          _key: string;
+        }
+      | {
+          color?:
+            | "text-pink-500"
+            | "text-sky-500"
+            | "text-slate-500"
+            | "text-white"
+            | "text-black";
+          _type: "textColor";
+          _key: string;
+        }
+      | {
+          weight?:
+            | "font-light"
+            | "font-normal"
+            | "font-medium"
+            | "font-semibold"
+            | "font-bold"
+            | "font-black";
+          _type: "fontWeight";
+          _key: string;
+        }
+      | {
+          font?: "font-sans" | "font-serif" | "font-mono";
+          _type: "fontFamily";
+          _key: string;
+        }
+      | {
+          size?:
+            | "text-xs"
+            | "text-sm"
+            | "text-base"
+            | "text-lg"
+            | "text-xl"
+            | "text-2xl"
+            | "text-3xl"
+            | "text-4xl";
+          _type: "fontSize";
+          _key: string;
+        }
+    >;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -85,6 +154,75 @@ export type BlockContent = Array<
       >;
       level?: number;
       _type: "block";
+      _key: string;
+    }
+  | {
+      textAlign?: "left" | "center" | "right" | "justify";
+      text?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+          | {
+              address: string;
+              _type: "mailto";
+              _key: string;
+            }
+          | {
+              color?:
+                | "text-pink-500"
+                | "text-sky-500"
+                | "text-slate-500"
+                | "text-white"
+                | "text-black";
+              _type: "textColor";
+              _key: string;
+            }
+          | {
+              weight?:
+                | "font-light"
+                | "font-normal"
+                | "font-medium"
+                | "font-semibold"
+                | "font-bold"
+                | "font-black";
+              _type: "fontWeight";
+              _key: string;
+            }
+          | {
+              font?: "font-sans" | "font-serif" | "font-mono";
+              _type: "fontFamily";
+              _key: string;
+            }
+          | {
+              size?:
+                | "text-xs"
+                | "text-sm"
+                | "text-base"
+                | "text-lg"
+                | "text-xl"
+                | "text-2xl"
+                | "text-3xl"
+                | "text-4xl";
+              _type: "fontSize";
+              _key: string;
+            }
+        >;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "alignedBlock";
       _key: string;
     }
   | {
@@ -773,6 +911,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | AlignedBlock
   | SanityImageAssetReference
   | BlockContent
   | ModelCategoryReference

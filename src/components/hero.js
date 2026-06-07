@@ -14,7 +14,7 @@ export const Hero = ({ locale, video, texts, bgImage, image, button }) => {
     >
       <div className="[grid-area:1/1] h-full text-white w-full">
         <div className="mx-auto h-full grid grid-cols-1 place-content-between text-center gap-4 pt-22 lg:pt-0">
-          <div className="sm:min-w-md max-w-md md:max-w-lg lg:max-w-150 mx-auto container px-4 pt-14 lg:pt-34">
+          <div className="sm:min-w-md max-w-md md:max-w-lg lg:max-w-150 mx-auto container max-sm:px-4 pt-14 lg:pt-34">
             {video && <SectionVideo locale={locale} video={video} />}
           </div>
           <div className="relative container max-w-7xl mx-auto px-4 mt-4">

@@ -6,6 +6,7 @@ import { formatBirthDateLong, translateLabel } from "@/lib/modelTranslations";
 
 export function ModelCard({ model, locale, category, nameColor }) {
   const { _id, name, slug, birthDate, profileImage } = model;
+  console.log("ModelCard render:", category);
 
   return (
     <Link
@@ -52,17 +53,39 @@ export function ModelCard({ model, locale, category, nameColor }) {
 
       {/* Dane */}
       <div className="m-4 px-1">
-        <h2
-          className={`text-xl font-normal text-[${nameColor}] group-hover:text-black transition-colors duration-200 ease-in leading-tight`}
-        >
-          {name}
-        </h2>
+        {category === "mini-girls" && (
+          <h2 className="text-xl font-normal text-black group-hover:text-pink-500 transition-colors duration-200 ease-in leading-tight">
+            {name}
+          </h2>
+        )}
+        {category === "mini-boys" && (
+          <h2 className="text-xl font-normal text-black group-hover:text-sky-500 transition-colors duration-200 ease-in leading-tight">
+            {name}
+          </h2>
+        )}
+        {category !== "mini-boys" && category !== "mini-girls" && (
+          <h2 className="text-xl font-normal text-black leading-tight">
+            {name}
+          </h2>
+        )}
         {birthDate && (
           <div className="m-3 text-md font-bold text-[13px] text-gray-700 leading-relaxed">
             <p>{translateLabel(locale, "birthDate")}:</p>
-            <p className={`text-[${nameColor}]`}>
-              {formatBirthDateLong(birthDate, locale)}
-            </p>
+            {category === "mini-girls" && (
+              <p className="group-hover:text-pink-500 transition-colors duration-200 ease-in">
+                {formatBirthDateLong(birthDate, locale)}
+              </p>
+            )}
+            {category === "mini-boys" && (
+              <p className="group-hover:text-sky-500 transition-colors duration-200 ease-in">
+                {formatBirthDateLong(birthDate, locale)}
+              </p>
+            )}
+            {category !== "mini-boys" && category !== "mini-girls" && (
+              <p className="group-hover:text-black transition-colors duration-200 ease-in">
+                {formatBirthDateLong(birthDate, locale)}
+              </p>
+            )}
           </div>
         )}
       </div>

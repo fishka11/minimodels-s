@@ -21,7 +21,7 @@ import { slides } from "@/lib/logotypes";
 import { Hero } from "@/components/hero";
 import { cache } from "react";
 
-export const getPageData = cache(async () => {
+export const getData = cache(async () => {
   const data = await sanityFetch({
     query: HOME_PAGE_QUERY,
     tags: ["homePage"],
@@ -35,8 +35,8 @@ export const getPageData = cache(async () => {
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const pageData = await getPageData();
-  const seo = pageData?.seo;
+  const data = await getData();
+  const seo = data?.seo;
 
   return {
     title: seo[locale]?.title ?? "MiniModels",
@@ -49,12 +49,12 @@ export default async function Page({ params }) {
   const { locale } = await params;
   if (!LOCALES.includes(locale)) notFound();
 
-  const pageData = await getPageData();
+  const data = await getData();
 
-  if (!pageData) notFound();
+  if (!data) notFound();
 
   const [section1, section2, section3, section4, section5, section6] =
-    pageData?.sections ?? [];
+    data?.sections ?? [];
 
   return (
     <main>

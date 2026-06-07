@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   return {
     title: {
-      template: "%s | MiniModels",
+      template: "%s",
       default: "MiniModels",
     },
     // Next.js automatycznie ustawia lang na podstawie tego pola

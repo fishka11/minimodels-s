@@ -20,7 +20,7 @@ export function ModelData({ model, locale }) {
               <p className="text-slate-500 text-sm uppercase tracking-wide">
                 {translateLabel(locale, field)}
               </p>
-              <p className="text-slate-800 font-medium">
+              <p className="text-slate-700 font-medium">
                 {translateValue(locale, field, value)}
               </p>
             </div>

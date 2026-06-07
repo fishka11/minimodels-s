@@ -109,8 +109,8 @@ export default function Menu({ locale }) {
               } h-dvh lg:h-fit w-2/3 lg:w-auto lg:static bg-linear-to-r from-gray-950 to-gray-800 lg:from-transparent lg:to-transparent lg:bg-transparent shadow-2xl lg:shadow-none text-white transition-all duration-200 ease-in-out`}
               id="main-menu"
             >
-              <div className="flex flex-col lg:flex-row xl:grid xl:grid-cols-3 xl:w-full py-20 lg:py-0 uppercase font-bold">
-                <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end lg:justify-start lg:items-center lg:gap-0">
+              <div className="flex flex-col lg:flex-row xl:w-full py-20 lg:py-0 uppercase font-bold">
+                <ul className="flex list-none flex-col lg:flex-row justify-end lg:justify-between lg:items-center lg:gap-0 lg:w-full">
                   {leftSideItems?.map((item) => {
                     const slug =
                       item?.slug != "/"
@@ -130,10 +130,10 @@ export default function Menu({ locale }) {
                     );
                   })}
                 </ul>
-                <Link href={`/${locale}`}>
+                <Link href={`/${locale}`} className="w-fit mx-auto">
                   <LogoDesktop />
                 </Link>
-                <ul className="flex list-none flex-col lg:flex-row w-full items-start justify-end lg:items-center lg:gap-0">
+                <ul className="flex list-none flex-col lg:flex-row justify-end lg:justify-between lg:items-center lg:gap-0 lg:w-full">
                   {rightSideItems?.map((item) => {
                     const slug = item?.slug.startsWith("http")
                       ? item.slug

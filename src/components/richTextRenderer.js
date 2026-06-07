@@ -1,7 +1,14 @@
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
-const RichTextComponents = {
+const alignClass = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
+  justify: "text-justify",
+};
+
+const baseComponents = {
   block: {
     normal: ({ children }) => (
       <p className="text-slate-700 text-xl lg:text-2xl font-light leading-snug">
@@ -31,18 +38,17 @@ const RichTextComponents = {
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal pl-6 space-y-8 mx-auto text-xl lg:text-2xl text-slate-700 font-light">
+      <ol className="list-decimal pl-6 space-y-8 mx-auto text-xl lg:text-2xl text-slate-700 font-light marker:text-red-500 marker:font-bold">
         {children}
       </ol>
     ),
   },
 
   marks: {
-    // 🔗 Link
+    // Link
     link: ({ value, children }) => {
       const href = value?.href || "#";
       const isExternal = href.startsWith("http");
-
       return (
         <a
           href={href}
@@ -55,7 +61,7 @@ const RichTextComponents = {
       );
     },
 
-    // ✉️ Email
+    // Email
     mailto: ({ value, children }) => (
       <a
         href={`mailto:${value.address}`}
@@ -65,28 +71,27 @@ const RichTextComponents = {
       </a>
     ),
 
-    // 🎨 Kolor tekstu
+    // Kolor tekstu
     textColor: ({ value, children }) => (
-      <span className={value.color}>{children}</span>
+      <span className={value?.color || ""}>{children}</span>
     ),
 
-    // 🔠 Font weight
+    // Grubość czcionki
     fontWeight: ({ value, children }) => (
-      <span className={value.weight}>{children}</span>
+      <span className={value?.weight || ""}>{children}</span>
     ),
 
-    // 🅰️ Font family
+    // Czcionka (font family)
     fontFamily: ({ value, children }) => (
-      <span className={value.font}>{children}</span>
+      <span className={value?.font || ""}>{children}</span>
     ),
 
-    // 🔤 Font size
+    // Rozmiar czcionki
     fontSize: ({ value, children }) => (
-      <span className={value.size}>{children}</span>
+      <span className={value?.size || ""}>{children}</span>
     ),
   },
 
-  // 🖼️ Obrazki
   types: {
     image: ({ value }) => {
       const ref = value?.asset?._ref;
@@ -109,10 +114,33 @@ const RichTextComponents = {
         </div>
       );
     },
-    spacer: ({ value }) => <div className={value.size}></div>,
+
+    spacer: ({ value }) => <div className={value?.size || ""} />,
+
+    // alignedBlock: obiekt z { textAlign, text: Array<block> }
+    alignedBlock: ({ value }) => {
+      const align = value?.textAlign || "left";
+      const innerValue = value?.text || [];
+
+      // innerComponents: pozwalamy na normalne block handlers (h1,h2...) ale blokujemy rekurencję alignedBlock
+      const innerComponents = {
+        ...baseComponents,
+        types: {
+          ...baseComponents.types,
+          // zabezpieczenie: jeśli wewnątrz text ktoś zagnieździ alignedBlock, zignorujemy je
+          alignedBlock: () => null,
+        },
+      };
+
+      return (
+        <div className={alignClass[align]}>
+          <PortableText value={innerValue} components={innerComponents} />
+        </div>
+      );
+    },
   },
 };
 
 export default function RichTextRenderer({ value }) {
-  return <PortableText value={value} components={RichTextComponents} />;
+  return <PortableText value={value} components={baseComponents} />;
 }
