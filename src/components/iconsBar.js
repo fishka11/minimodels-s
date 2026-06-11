@@ -50,7 +50,7 @@ export function IconsBar({ locale }) {
           />
         </a>
         <Link
-          href=""
+          href="pomoc"
           className="group"
           title={locale === "pl" ? "Minimodels - Pomoc" : "Minimodels - FAQ"}
         >

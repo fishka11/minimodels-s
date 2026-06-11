@@ -21,6 +21,11 @@ export async function generateMetadata({ params }) {
         en: "/en",
       },
     },
+    appleWebApp: {
+      title: "Minimodels",
+      statusBarStyle: "default",
+      capable: true,
+    },
   };
 }
 

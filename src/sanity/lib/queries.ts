@@ -253,19 +253,107 @@ export const EXPIRED_MODELS_QUERY = defineQuery(`
 `);
 
 export const CASTING_SECTION_QUERY = defineQuery(`
-      *[_type == "castingSection"][0]{
-        title,
-        headline { pl, en },
-        subheadline { pl, en },
-        blocks[] {
-          internalTitle,
-          title { pl, en },
-          logo {
-            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
-            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
-          },
-          description { pl[], en[] },
-          button { label { pl, en }, url }
+  *[_type == "castingSection"][0]{
+    title,
+    headline { pl, en },
+    subheadline { pl, en },
+    blocks[] {
+      internalTitle,
+      title { pl, en },
+      logo {
+        pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
+        en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },
+      },
+      description { pl[], en[] },
+      button { label { pl, en }, url }
+    }
+  }
+`);
+
+export const TEAM_SECTION_QUERY = defineQuery(`*[_type == "teamSection"][0]{
+    title{
+      pl,
+      en
+    },
+    members[]{
+      photo{
+        asset->{
+          _id,
+          url,
+          alt,
+          metadata {
+            dimensions { width, height, aspectRatio }
+          }
+        }
+      },
+      content{
+        pl{
+          name,
+          description,
+          alt,
+          active
+        },
+        en{
+          name,
+          description,
+          alt,
+          active
         }
       }
-    `);
+    }
+  }
+`);
+
+export const CONTACT_PAGE_QUERY_WITH_TEAM = defineQuery(`
+{
+  "contactPage": *[_type == "contactPage"][0]{
+    pageTitle,
+    pageSubtitle,
+    bodySections,
+    sections[]{
+      sectionTitle,
+      texts,
+      phones,
+      button,
+      video,
+      email
+    }
+  },
+  "teamSection": *[_type == "teamSection"][0]{
+    title{
+      pl,
+      en
+    },
+    members[]{
+      photo{
+        asset->{
+          _id,
+          url,
+          alt,
+          metadata{
+            dimensions{
+              width,
+              height,
+              aspectRatio
+            }
+          }
+        }
+      },
+      content{
+        pl{
+          name,
+          description,
+          alt,
+          active
+        },
+        en{
+          name,
+          description,
+          alt,
+          active
+        }
+      }
+    }
+  }
+}
+`);

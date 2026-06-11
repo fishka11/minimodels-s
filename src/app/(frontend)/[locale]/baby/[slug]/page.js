@@ -35,17 +35,35 @@ export async function generateStaticParams() {
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
+
+  const model = await getData(slug);
+
   const t = {
-    pl: { title: "Brak modeli w tej kategorii." },
-    en: { noModels: "No models in this category." },
+    pl: {
+      title:
+        `${model?.name} - małe dziecko do reklam i sesji zdjęciowych | MiniModels` ||
+        "Małe dziecko do reklam i sesji zdjęciowych | MiniModels",
+      description:
+        "Oferujemy szeroką bazę małych modeli, którzy spełnią oczekiwania nawet najbardziej wymagających klientów. Skontaktuj się z nami, aby znaleźć idealne niemowlę do swojego projektu i stworzyć niezapomniane kampanie reklamowe z udziałem najmłodszych talentów.",
+      keywords:
+        "niemowlę do reklam,dziecko do reklam,niemowlę do sesji zdjęciowych,baby model,niemowlę do kampanii reklamowych,dziecięce sesje fotograficzne,niemowlak do reklam telewizyjnych,reklama z niemowlęciem,dziecko do katalogów,agencja dziecięca,dziecięcy modeling,MiniModels",
+    },
+    en: {
+      title:
+        `${model?.name} - a small child for commercials and photo shoots | MiniModels` ||
+        "A small child for commercials and photo shoots | MiniModels",
+      description:
+        "We offer a wide selection of baby models to meet the expectations of even the most discerning customers. Contact us to find the perfect baby for your project and create unforgettable advertising campaigns featuring our youngest talents.",
+      keywords:
+        "baby for commercials, baby for commercials, baby for photo shoots, baby model, baby for advertising campaigns, baby photo shoots, baby for TV commercials, baby advertising, baby for catalogs, children's agency, children's modeling, MiniModels",
+    },
   };
   const tr = t[locale];
-  const data = await getData(slug);
 
   return {
-    // title: seo?.title,
-    // description: seo?.description,
-    // keywords: seo?.keywords,
+    title: tr.title,
+    description: tr.description,
+    keywords: tr.keywords,
   };
 }
 
@@ -55,6 +73,7 @@ export default async function ModelPage({ params }) {
   if (!LOCALES.includes(locale)) notFound();
 
   const model = await getData(slug);
+  console.log("ModelPage rendered: ", model);
 
   if (!model) notFound();
 

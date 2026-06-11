@@ -222,11 +222,15 @@
                                   },
                                   {
                                     "type": "string",
+                                    "value": "text-red-500"
+                                  },
+                                  {
+                                    "type": "string",
                                     "value": "text-sky-500"
                                   },
                                   {
                                     "type": "string",
-                                    "value": "text-slate-500"
+                                    "value": "text-slate-700"
                                   },
                                   {
                                     "type": "string",
@@ -326,6 +330,10 @@
                                 "of": [
                                   {
                                     "type": "string",
+                                    "value": ""
+                                  },
+                                  {
+                                    "type": "string",
                                     "value": "font-sans"
                                   },
                                   {
@@ -335,6 +343,14 @@
                                   {
                                     "type": "string",
                                     "value": "font-mono"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "value": "font-lora"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "value": "font-shadows-into-light-two"
                                   }
                                 ]
                               },
@@ -681,11 +697,15 @@
                                 },
                                 {
                                   "type": "string",
+                                  "value": "text-red-500"
+                                },
+                                {
+                                  "type": "string",
                                   "value": "text-sky-500"
                                 },
                                 {
                                   "type": "string",
-                                  "value": "text-slate-500"
+                                  "value": "text-slate-700"
                                 },
                                 {
                                   "type": "string",
@@ -785,6 +805,10 @@
                               "of": [
                                 {
                                   "type": "string",
+                                  "value": ""
+                                },
+                                {
+                                  "type": "string",
                                   "value": "font-sans"
                                 },
                                 {
@@ -794,6 +818,14 @@
                                 {
                                   "type": "string",
                                   "value": "font-mono"
+                                },
+                                {
+                                  "type": "string",
+                                  "value": "font-lora"
+                                },
+                                {
+                                  "type": "string",
+                                  "value": "font-shadows-into-light-two"
                                 }
                               ]
                             },
@@ -1128,11 +1160,15 @@
                                         },
                                         {
                                           "type": "string",
+                                          "value": "text-red-500"
+                                        },
+                                        {
+                                          "type": "string",
                                           "value": "text-sky-500"
                                         },
                                         {
                                           "type": "string",
-                                          "value": "text-slate-500"
+                                          "value": "text-slate-700"
                                         },
                                         {
                                           "type": "string",
@@ -1232,6 +1268,10 @@
                                       "of": [
                                         {
                                           "type": "string",
+                                          "value": ""
+                                        },
+                                        {
+                                          "type": "string",
                                           "value": "font-sans"
                                         },
                                         {
@@ -1241,6 +1281,14 @@
                                         {
                                           "type": "string",
                                           "value": "font-mono"
+                                        },
+                                        {
+                                          "type": "string",
+                                          "value": "font-lora"
+                                        },
+                                        {
+                                          "type": "string",
+                                          "value": "font-shadows-into-light-two"
                                         }
                                       ]
                                     },
@@ -2433,6 +2481,35 @@
                 "optional": true
               },
               "texts": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "object",
+                  "attributes": {
+                    "pl": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "array",
+                        "of": {
+                          "type": "string"
+                        }
+                      },
+                      "optional": true
+                    },
+                    "en": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "array",
+                        "of": {
+                          "type": "string"
+                        }
+                      },
+                      "optional": true
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "phones": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "object",

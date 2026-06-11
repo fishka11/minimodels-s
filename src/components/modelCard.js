@@ -6,7 +6,6 @@ import { formatBirthDateLong, translateLabel } from "@/lib/modelTranslations";
 
 export function ModelCard({ model, locale, category, nameColor }) {
   const { _id, name, slug, birthDate, profileImage } = model;
-  console.log("ModelCard render:", category);
 
   return (
     <Link

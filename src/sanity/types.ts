@@ -41,8 +41,9 @@ export type AlignedBlock = {
       | {
           color?:
             | "text-pink-500"
+            | "text-red-500"
             | "text-sky-500"
-            | "text-slate-500"
+            | "text-slate-700"
             | "text-white"
             | "text-black";
           _type: "textColor";
@@ -60,7 +61,13 @@ export type AlignedBlock = {
           _key: string;
         }
       | {
-          font?: "font-sans" | "font-serif" | "font-mono";
+          font?:
+            | ""
+            | "font-sans"
+            | "font-serif"
+            | "font-mono"
+            | "font-lora"
+            | "font-shadows-into-light-two";
           _type: "fontFamily";
           _key: string;
         }
@@ -115,8 +122,9 @@ export type BlockContent = Array<
         | {
             color?:
               | "text-pink-500"
+              | "text-red-500"
               | "text-sky-500"
-              | "text-slate-500"
+              | "text-slate-700"
               | "text-white"
               | "text-black";
             _type: "textColor";
@@ -134,7 +142,13 @@ export type BlockContent = Array<
             _key: string;
           }
         | {
-            font?: "font-sans" | "font-serif" | "font-mono";
+            font?:
+              | ""
+              | "font-sans"
+              | "font-serif"
+              | "font-mono"
+              | "font-lora"
+              | "font-shadows-into-light-two";
             _type: "fontFamily";
             _key: string;
           }
@@ -181,8 +195,9 @@ export type BlockContent = Array<
           | {
               color?:
                 | "text-pink-500"
+                | "text-red-500"
                 | "text-sky-500"
-                | "text-slate-500"
+                | "text-slate-700"
                 | "text-white"
                 | "text-black";
               _type: "textColor";
@@ -200,7 +215,13 @@ export type BlockContent = Array<
               _key: string;
             }
           | {
-              font?: "font-sans" | "font-serif" | "font-mono";
+              font?:
+                | ""
+                | "font-sans"
+                | "font-serif"
+                | "font-mono"
+                | "font-lora"
+                | "font-shadows-into-light-two";
               _type: "fontFamily";
               _key: string;
             }
@@ -388,6 +409,10 @@ export type ContactPage = {
       en?: string;
     };
     texts?: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    };
+    phones?: {
       pl?: Array<string>;
       en?: Array<string>;
     };
@@ -1428,6 +1453,58 @@ export type FAQ_PAGE_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: CONTACT_PAGE_QUERY
+// Query: *[_type == "contactPage"][0]{    pageTitle,    pageSubtitle,    bodySections,    sections[] {      sectionTitle,      texts,      phones,      button,      video,      email    }   }
+export type CONTACT_PAGE_QUERY_RESULT = {
+  pageTitle: {
+    pl: string;
+    en: string;
+  } | null;
+  pageSubtitle: {
+    pl: string;
+    en: string;
+  } | null;
+  bodySections: Array<{
+    sectionTitle: string;
+    texts?: {
+      pl?: BlockContent;
+      en?: BlockContent;
+    };
+    _type: "bodySection";
+    _key: string;
+  }> | null;
+  sections: Array<{
+    sectionTitle: string;
+    texts: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    } | null;
+    phones: {
+      pl?: Array<string>;
+      en?: Array<string>;
+    } | null;
+    button: {
+      label?: {
+        pl?: string;
+        en?: string;
+      };
+      url?: string;
+    } | null;
+    video: {
+      pl?: {
+        url?: string;
+        title?: string;
+      };
+      en?: {
+        url?: string;
+        title?: string;
+      };
+    } | null;
+    email: null;
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: EXPIRED_MODELS_QUERY
 // Query: *[_type == "model" && contractDate < $limitDate && active == true]{    _id,    name,    contractDate  }
 export type EXPIRED_MODELS_QUERY_RESULT = Array<{
@@ -1438,7 +1515,7 @@ export type EXPIRED_MODELS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CASTING_SECTION_QUERY
-// Query: *[_type == "castingSection"][0]{        title,        headline { pl, en },        subheadline { pl, en },        blocks[] {          internalTitle,          title { pl, en },          logo {            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },          },          description { pl[], en[] },          button { label { pl, en }, url }        }      }
+// Query: *[_type == "castingSection"][0]{    title,    headline { pl, en },    subheadline { pl, en },    blocks[] {      internalTitle,      title { pl, en },      logo {        pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },        en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },      },      description { pl[], en[] },      button { label { pl, en }, url }    }  }
 export type CASTING_SECTION_QUERY_RESULT = {
   title: string | null;
   headline: {
@@ -1505,6 +1582,136 @@ export type CASTING_SECTION_QUERY_RESULT = {
   }> | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: TEAM_SECTION_QUERY
+// Query: *[_type == "teamSection"][0]{    title{      pl,      en    },    members[]{      photo{        asset->{          _id,          url,          alt,          metadata {            dimensions { width, height, aspectRatio }          }        }      },      content{        pl{          name,          description,          alt,          active        },        en{          name,          description,          alt,          active        }      }    }  }
+export type TEAM_SECTION_QUERY_RESULT = {
+  title: {
+    pl: string | null;
+    en: string | null;
+  } | null;
+  members: Array<{
+    photo: {
+      asset: {
+        _id: string;
+        url: string;
+        alt: null;
+        metadata: {
+          dimensions: {
+            width: number;
+            height: number;
+            aspectRatio: number;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+    content: {
+      pl: {
+        name: string | null;
+        description: string | null;
+        alt: string | null;
+        active: boolean | null;
+      } | null;
+      en: {
+        name: string | null;
+        description: string | null;
+        alt: string | null;
+        active: boolean | null;
+      } | null;
+    } | null;
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CONTACT_PAGE_QUERY_WITH_TEAM
+// Query: {  "contactPage": *[_type == "contactPage"][0]{    pageTitle,    pageSubtitle,    bodySections,    sections[]{      sectionTitle,      texts,      phones,      button,      video,      email    }  },  "teamSection": *[_type == "teamSection"][0]{    title{      pl,      en    },    members[]{      photo{        asset->{          _id,          url,          alt,          metadata{            dimensions{              width,              height,              aspectRatio            }          }        }      },      content{        pl{          name,          description,          alt,          active        },        en{          name,          description,          alt,          active        }      }    }  }}
+export type CONTACT_PAGE_QUERY_WITH_TEAM_RESULT = {
+  contactPage: {
+    pageTitle: {
+      pl: string;
+      en: string;
+    } | null;
+    pageSubtitle: {
+      pl: string;
+      en: string;
+    } | null;
+    bodySections: Array<{
+      sectionTitle: string;
+      texts?: {
+        pl?: BlockContent;
+        en?: BlockContent;
+      };
+      _type: "bodySection";
+      _key: string;
+    }> | null;
+    sections: Array<{
+      sectionTitle: string;
+      texts: {
+        pl?: Array<string>;
+        en?: Array<string>;
+      } | null;
+      phones: {
+        pl?: Array<string>;
+        en?: Array<string>;
+      } | null;
+      button: {
+        label?: {
+          pl?: string;
+          en?: string;
+        };
+        url?: string;
+      } | null;
+      video: {
+        pl?: {
+          url?: string;
+          title?: string;
+        };
+        en?: {
+          url?: string;
+          title?: string;
+        };
+      } | null;
+      email: null;
+    }> | null;
+  } | null;
+  teamSection: {
+    title: {
+      pl: string | null;
+      en: string | null;
+    } | null;
+    members: Array<{
+      photo: {
+        asset: {
+          _id: string;
+          url: string;
+          alt: null;
+          metadata: {
+            dimensions: {
+              width: number;
+              height: number;
+              aspectRatio: number;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+      content: {
+        pl: {
+          name: string | null;
+          description: string | null;
+          alt: string | null;
+          active: boolean | null;
+        } | null;
+        en: {
+          name: string | null;
+          description: string | null;
+          alt: string | null;
+          active: boolean | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+};
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -1522,7 +1729,10 @@ declare module "@sanity/client" {
     '\n  *[_type=="castingPage"][0]{\n  title,\n  seo,\n  pageTitle,\n  pageSubtitle,\n  body,\n  sections[] {\n    sectionTitle,\n    texts,\n    button,\n    video,\n    email\n  }\n}\n': CASTING_PAGE_QUERY_RESULT;
     '\n  *[_type=="aboutUsPage"][0]{\n  title,\n  seo,\n  pageTitle,\n  pageSubtitle,\n  body,\n  sections[] {\n    sectionTitle,\n    texts,\n    button,\n    video,\n    email\n  }\n}\n': ABOUTUS_PAGE_QUERY_RESULT;
     '\n  *[_type == "faqPage"][0]{\n    pageTitle,\n    pageSubtitle,\n    faq[] {\n      _key,\n      question,\n      answer\n    }\n  }\n': FAQ_PAGE_QUERY_RESULT;
+    '\n  *[_type == "contactPage"][0]{\n    pageTitle,\n    pageSubtitle,\n    bodySections,\n    sections[] {\n      sectionTitle,\n      texts,\n      phones,\n      button,\n      video,\n      email\n    } \n  }\n': CONTACT_PAGE_QUERY_RESULT;
     '\n  *[_type == "model" && contractDate < $limitDate && active == true]{\n    _id,\n    name,\n    contractDate\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
-    '\n      *[_type == "castingSection"][0]{\n        title,\n        headline { pl, en },\n        subheadline { pl, en },\n        blocks[] {\n          internalTitle,\n          title { pl, en },\n          logo {\n            pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n            en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n          },\n          description { pl[], en[] },\n          button { label { pl, en }, url }\n        }\n      }\n    ': CASTING_SECTION_QUERY_RESULT;
+    '\n  *[_type == "castingSection"][0]{\n    title,\n    headline { pl, en },\n    subheadline { pl, en },\n    blocks[] {\n      internalTitle,\n      title { pl, en },\n      logo {\n        pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n        en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n      },\n      description { pl[], en[] },\n      button { label { pl, en }, url }\n    }\n  }\n': CASTING_SECTION_QUERY_RESULT;
+    '*[_type == "teamSection"][0]{\n    title{\n      pl,\n      en\n    },\n    members[]{\n      photo{\n        asset->{\n          _id,\n          url,\n          alt,\n          metadata {\n            dimensions { width, height, aspectRatio }\n          }\n        }\n      },\n      content{\n        pl{\n          name,\n          description,\n          alt,\n          active\n        },\n        en{\n          name,\n          description,\n          alt,\n          active\n        }\n      }\n    }\n  }\n': TEAM_SECTION_QUERY_RESULT;
+    '\n{\n  "contactPage": *[_type == "contactPage"][0]{\n    pageTitle,\n    pageSubtitle,\n    bodySections,\n    sections[]{\n      sectionTitle,\n      texts,\n      phones,\n      button,\n      video,\n      email\n    }\n  },\n  "teamSection": *[_type == "teamSection"][0]{\n    title{\n      pl,\n      en\n    },\n    members[]{\n      photo{\n        asset->{\n          _id,\n          url,\n          alt,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      },\n      content{\n        pl{\n          name,\n          description,\n          alt,\n          active\n        },\n        en{\n          name,\n          description,\n          alt,\n          active\n        }\n      }\n    }\n  }\n}\n': CONTACT_PAGE_QUERY_WITH_TEAM_RESULT;
   }
 }

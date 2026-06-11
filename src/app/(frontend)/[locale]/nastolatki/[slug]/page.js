@@ -35,17 +35,35 @@ export async function generateStaticParams() {
 // -------------------------------------------------------
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
+
+  const model = await getData(slug);
+
   const t = {
-    pl: { title: "Brak modeli w tej kategorii." },
-    en: { noModels: "No models in this category." },
+    pl: {
+      title:
+        `${model?.name} - nastolatek / nastolatka do reklam i sesji zdjęciowych | MiniModels` ||
+        "Nastolatek / nastolatka do reklam i sesji zdjęciowych | MiniModels",
+      description:
+        "Oferujemy szeroką bazę nastolatków - modelek i modeli, które spełnią oczekiwania nawet najbardziej wymagających klientów. Skontaktuj się z nami, aby znaleźć idealną nastolatkę lub nastolatka do swojego projektu i stworzyć niezapomniane kampanie reklamowe z udziałem naszych młodych talentów.",
+      keywords:
+        "nastolatka do reklam,nastolatek do reklam,młodzież do reklam,nastoletni model,nastoletnia modelka,młodzieżowe sesje zdjęciowe,młody aktor,młoda aktorka,nastolatek do filmów,nastolatka do filmów,nastolatek do seriali,nastolatka do seriali,młody model,młoda modelka,casting dla nastolatków,reklamy z młodzieżą,agencja modeli nastoletnich,MiniModels",
+    },
+    en: {
+      title:
+        `${model?.name} - an teenager for Commercials and Photoshoots | MiniModels` ||
+        "Teenager for Commercials and Photoshoots | MiniModels",
+      description:
+        "We offer a wide range of teenage models who will meet the expectations of even the most discerning clients. Contact us to find the perfect teenager for your project and create unforgettable advertising campaigns featuring our young talents.",
+      keywords:
+        "Teenager for commercials, youth for commercials, teen model, youth photo shoots, young actor, young actress, teenager for films, teenager for TV series, young model, young model, casting for teenagers, youth commercials, teen model agency, MiniModels",
+    },
   };
   const tr = t[locale];
-  const data = await getData(slug);
 
   return {
-    // title: seo?.title,
-    // description: seo?.description,
-    // keywords: seo?.keywords,
+    title: tr.title,
+    description: tr.description,
+    keywords: tr.keywords,
   };
 }
 
