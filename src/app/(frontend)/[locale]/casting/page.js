@@ -9,7 +9,7 @@ import { cache } from "react";
 export const getData = cache(async () => {
   const data = await sanityFetch({
     query: CASTING_PAGE_QUERY,
-    tags: ["castingPage"],
+    tags: ["castingPage", "teamSection"],
   });
 
   return data;

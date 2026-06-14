@@ -135,7 +135,7 @@ export default async function ContactPage({ params }) {
               <Image
                 src={member.photo.asset.url}
                 alt={member.content[locale].name}
-                className="w-64 h-64 rounded-none hover:rounded-[50%] mx-auto mb-4 object-cover transition-[border-radius] duration-200 ease-in"
+                className="w-md h-64 rounded-none hover:rounded-4xl mx-auto mb-4 object-cover transition-[border-radius] duration-200 ease-in"
                 width={member.photo.asset.metadata.dimensions.width}
                 height={member.photo.asset.metadata.dimensions.height}
               />

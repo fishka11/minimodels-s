@@ -2,6 +2,12 @@ import { lora } from "@/lib/fonts";
 import { shadowsIntoLightTwo } from "@/lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
+import placeholder from "@/assets/images/waste-med.png";
+
+const t = {
+  pl: { welcome: "Zapraszmy do współpracy" },
+  en: { welcome: "We invite you to cooperate" },
+};
 
 export const FooterCastingSection = ({
   headline,
@@ -9,9 +15,27 @@ export const FooterCastingSection = ({
   blocks,
   locale,
 }) => {
+  const tr = t[locale];
   return (
     <section className="bg-sky-500 py-20 lg:py-30">
       <div className="container max-w-7xl px-4 mx-auto w-full">
+        <div className="flex flex-col justify-center items-center mb-14 lg:mb-24">
+          <a
+            href="https://odpady-medyczne.com.pl"
+            target="_blank"
+            rel="noopener"
+            className="text-white hover:text-slate-300"
+          >
+            <Image
+              src={placeholder}
+              width={placeholder.width}
+              height={placeholder.height}
+              className="w-sm h-auto bg-black"
+              alt="Waste-Med - Odbór, transport i utylizacja odpadów medycznych"
+            />
+          </a>
+          <p className="text-xl text-white mt-4">{tr.welcome}</p>
+        </div>
         <div className="container max-w-7xl mx-auto flex flex-row gap-5 justify-center items-center">
           <hr className="text-white w-1/8" />
           <h2

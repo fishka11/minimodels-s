@@ -2,6 +2,12 @@ import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export async function POST(req) {
   try {
     if (!process.env.SANITY_REVALIDATE_SECRET) {
@@ -19,12 +25,13 @@ export async function POST(req) {
 
     if (!isValidSignature) {
       const message = "Invalid signature";
-      return new Response(JSON.stringify({ message, isValidSignature, body }), {
-        status: 401,
-      });
+      return NextResponse.json(
+        { message, isValidSignature, body },
+        { status: 401 },
+      );
     } else if (!Array.isArray(body?.tags) || !body.tags.length) {
       const message = "Bad Request";
-      return new Response(JSON.stringify({ message, body }), { status: 400 });
+      return NextResponse.json({ message, body }, { status: 400 });
     }
 
     body.tags.forEach((tag) => {
