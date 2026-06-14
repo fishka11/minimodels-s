@@ -26,10 +26,9 @@ export async function generateMetadata({ params }) {
   const data = await getData();
 
   return {
-    title: data.contactPage.seo && data?.contactPage?.seo[locale]?.title,
-    description:
-      data.contactPage.seo && data?.contactPage?.seo[locale]?.description,
-    keywords: data.contactPage.seo && data?.contactPage?.seo[locale]?.keywords,
+    title: data.seo && data?.seo[locale]?.title,
+    description: data.seo && data?.seo[locale]?.description,
+    keywords: data.seo && data?.seo[locale]?.keywords,
   };
 }
 
