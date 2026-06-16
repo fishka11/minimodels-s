@@ -218,6 +218,8 @@ export const ABOUTUS_PAGE_QUERY = defineQuery(`
 
 export const FAQ_PAGE_QUERY = defineQuery(`
   *[_type == "faqPage"][0]{
+    title,
+    seo,
     pageTitle,
     pageSubtitle,
     faq[] {
@@ -230,6 +232,8 @@ export const FAQ_PAGE_QUERY = defineQuery(`
 
 export const CONTACT_PAGE_QUERY = defineQuery(`
   *[_type == "contactPage"][0]{
+    title,
+    seo,
     pageTitle,
     pageSubtitle,
     bodySections,
@@ -307,6 +311,8 @@ export const TEAM_SECTION_QUERY = defineQuery(`*[_type == "teamSection"][0]{
 export const CONTACT_PAGE_QUERY_WITH_TEAM = defineQuery(`
 {
   "contactPage": *[_type == "contactPage"][0]{
+    title,
+    seo,
     pageTitle,
     pageSubtitle,
     bodySections,

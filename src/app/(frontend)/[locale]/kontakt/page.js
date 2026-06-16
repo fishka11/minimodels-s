@@ -26,9 +26,9 @@ export async function generateMetadata({ params }) {
   const data = await getData();
 
   return {
-    title: data.seo && data?.seo[locale]?.title,
-    description: data.seo && data?.seo[locale]?.description,
-    keywords: data.seo && data?.seo[locale]?.keywords,
+    title: data?.contactPage?.seo?.[locale]?.title,
+    description: data?.contactPage?.seo?.[locale]?.description,
+    keywords: data?.contactPage?.seo?.[locale]?.keywords,
   };
 }
 
@@ -52,13 +52,13 @@ export default async function ContactPage({ params }) {
         title={data?.contactPage?.pageTitle[locale]}
         subTitle={data?.contactPage?.pageSubtitle[locale]}
       />
-      <section className="mx-auto container max-w-7xl px-4 mb-12 lg:mb-24">
+      <section className="mx-auto container max-w-7xl px-4 mb-12 lg:mb-16">
         {leftBodySections && (
           <div className="mb-6 lg:mb-12">
             <RichTextRenderer value={leftBodySections[0].texts[locale]} />
           </div>
         )}
-        <div className="sm:grid sm:grid-cols-2 sm:gap-5 lg:gap-14">
+        <div className="sm:grid sm:grid-cols-2 sm:gap-5 lg:gap-14 mb-6 lg:mb-14">
           <div>
             <div className="mb-6 lg:mb-12">
               {data?.contactPage?.sections[0]?.phones &&
@@ -86,7 +86,7 @@ export default async function ContactPage({ params }) {
                 </div>
               )}
             </div>
-            <div className="mb-6 lg:mb-12 py-4">
+            <div className="py-4">
               {data?.contactPage?.sections[0]?.button && (
                 <Link
                   href={data.contactPage.sections[0].button.url}
@@ -99,7 +99,7 @@ export default async function ContactPage({ params }) {
           </div>
           <div>
             {rightBodySections && (
-              <div className="mb-6 lg:mb-12">
+              <div>
                 <RichTextRenderer value={rightBodySections[0].texts[locale]} />
               </div>
             )}
@@ -116,8 +116,8 @@ export default async function ContactPage({ params }) {
           )}
         </div>
       </section>
-      <section className="mx-auto container max-w-7xl px-4 mb-12 lg:mb-24">
-        {data?.teamSection?.title && (
+      <section className="mx-auto container max-w-7xl px-4 mb-10 lg:mb-18">
+        {/* {data?.teamSection?.title && (
           <div className="mb-6 lg:mb-12 flex flex-row gap-5 justify-center items-center">
             <hr className="text-black w-1/8" />
             <h2
@@ -127,7 +127,7 @@ export default async function ContactPage({ params }) {
             </h2>
             <hr className="text-black w-1/8" />
           </div>
-        )}
+        )} */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-12 justify-center items-center">
           {data.teamSection.members.map((member, index) => (
             <div key={index} className="text-center cursor-pointer">

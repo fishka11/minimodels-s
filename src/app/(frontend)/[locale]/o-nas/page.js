@@ -23,9 +23,9 @@ export async function generateMetadata({ params }) {
   const data = await getData();
 
   return {
-    title: data.seo && data?.seo[locale]?.title,
-    description: data.seo && data?.seo[locale]?.description,
-    keywords: data.seo && data?.seo[locale]?.keywords,
+    title: data?.seo?.[locale]?.title,
+    description: data?.seo?.[locale]?.description,
+    keywords: data?.seo?.[locale]?.keywords,
   };
 }
 
