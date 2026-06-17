@@ -2,7 +2,7 @@ import { lora } from "@/lib/fonts";
 import { shadowsIntoLightTwo } from "@/lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
-import placeholder from "@/assets/images/waste-med-logo.png";
+import placeholder from "@/assets/images/waste-med-logo.jpg";
 
 const t = {
   pl: { welcome: "Zapraszmy do współpracy" },
