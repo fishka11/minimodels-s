@@ -7,8 +7,13 @@ export const BABIES_WITH_CATEGORY_QUERY = defineQuery(`
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-    ] | order(_createdAt desc) {
-      _id, name, slug, birthDate, profileImage,
+    ]
+    // | order(_createdAt desc) {
+    | order(
+        dateTime(contractDate + "T00:00:00Z") desc,
+        _createdAt desc
+      ) {
+      _id, name, slug, birthDate, contractDate, _createdAt, profileImage,
       "category": {
         "title": category->title,
         "displayName": category->displayName
@@ -31,8 +36,13 @@ export const MINIBOYS_WITH_CATEGORY_QUERY = defineQuery(`
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-    ] | order(_createdAt desc) {
-      _id, name, slug, birthDate, profileImage,
+    ]
+    // | order(_createdAt desc) {
+    | order(
+        dateTime(contractDate + "T00:00:00Z") desc,
+        _createdAt desc
+      ) {
+      _id, name, slug, birthDate, contractDate, _createdAt, profileImage,
       "category": {
         "title": category->title,
         "displayName": category->displayName
@@ -55,8 +65,13 @@ export const MINIGIRLS_WITH_CATEGORY_QUERY = defineQuery(`
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-    ] | order(_createdAt desc) {
-      _id, name, slug, birthDate, profileImage,
+    ]
+    // | order(_createdAt desc) {
+    | order(
+        dateTime(contractDate + "T00:00:00Z") desc,
+        _createdAt desc
+      ) {
+      _id, name, slug, birthDate, contractDate, _createdAt, profileImage,
       "category": {
         "title": category->title,
         "displayName": category->displayName
@@ -79,8 +94,13 @@ export const TEENS_WITH_CATEGORY_QUERY = defineQuery(`
       && active == true
       && defined(contractDate)
       && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-    ] | order(_createdAt desc) {
-      _id, name, slug, birthDate, profileImage,
+    ]
+    // | order(_createdAt desc) {
+    | order(
+        dateTime(contractDate + "T00:00:00Z") desc,
+        _createdAt desc
+      ) {
+      _id, name, slug, birthDate, contractDate, _createdAt, profileImage,
       "category": {
         "title": category->title,
         "displayName": category->displayName
@@ -102,6 +122,7 @@ export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
     _createdAt,
     name,
     slug,
+    contractDate,
     birthDate,
     "category": category->title,
     profileImage,
@@ -128,8 +149,21 @@ export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
         && active == true
         && defined(contractDate)
         && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-        && _createdAt > ^._createdAt
-      ] | order(_createdAt asc)[0] {
+        // && _createdAt > ^._createdAt
+        && (
+          dateTime(contractDate + "T00:00:00Z") > dateTime(^.contractDate + "T00:00:00Z")
+          ||
+          (
+            contractDate == ^.contractDate
+            && _createdAt > ^._createdAt
+          )
+        )
+      ]
+      // | order(_createdAt asc)[0] {
+      | order(
+          dateTime(contractDate + "T00:00:00Z") asc,
+          _createdAt asc
+        )[0] {
         name,
         slug,
         profileImage
@@ -139,8 +173,21 @@ export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
         && active == true
         && defined(contractDate)
         && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-        && _createdAt < ^._createdAt
-      ] | order(_createdAt desc)[0] {
+        // && _createdAt < ^._createdAt
+        && (
+          dateTime(contractDate + "T00:00:00Z") < dateTime(^.contractDate + "T00:00:00Z")
+          ||
+          (
+            contractDate == ^.contractDate
+            && _createdAt < ^._createdAt
+          )
+        )
+      ]
+      // | order(_createdAt desc)[0] {
+      | order(
+          dateTime(contractDate + "T00:00:00Z") desc,
+          _createdAt desc
+        )[0] {
         name,
         slug,
         profileImage
