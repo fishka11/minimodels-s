@@ -296,10 +296,17 @@ export const CONTACT_PAGE_QUERY = defineQuery(`
 `);
 
 export const EXPIRED_MODELS_QUERY = defineQuery(`
-  *[_type == "model" && contractDate < $limitDate && active == true]{
+  *[
+    _type == "model" &&
+    active == true &&
+    defined(contractDate) &&
+    dateTime(contractDate + "T00:00:00Z") < dateTime($limitDate)
+  ]{
     _id,
     name,
-    contractDate
+    contractDate,
+    slug,
+    category->title
   }
 `);
 

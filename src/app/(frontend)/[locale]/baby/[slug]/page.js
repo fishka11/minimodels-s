@@ -16,7 +16,7 @@ export const getData = cache(async (slug) => {
   const data = await fetchSanity({
     query: MODEL_WITH_SIBLINGS_QUERY,
     params: { slug, cutoffDate: cutoffDate.toISOString() },
-    tags: [`nastolatki:${slug}`],
+    tags: [`model:${slug}`, `category:baby`],
   });
 
   return data;
@@ -73,7 +73,6 @@ export default async function ModelPage({ params }) {
   if (!LOCALES.includes(locale)) notFound();
 
   const model = await getData(slug);
-  console.log("ModelPage rendered: ", model);
 
   if (!model) notFound();
 

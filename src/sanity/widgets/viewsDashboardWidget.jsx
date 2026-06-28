@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useClient } from "sanity";
-import { apiVersion } from "@/sanity/env";
+import { apiVersion } from "../env";
 
 export function viewsDashboardWidget() {
   return {
@@ -11,7 +11,7 @@ export function viewsDashboardWidget() {
 }
 
 function ViewsDashboard() {
-  const client = useClient({ apiVersion });
+  const client = useClient({ apiVersion: apiVersion });
   const [models, setModels] = useState([]);
   const [sortField, setSortField] = useState("viewsAll");
   const [sortDir, setSortDir] = useState("desc");

@@ -19,7 +19,7 @@ export const getData = cache(async () => {
   const data = await fetchSanity({
     query: BABIES_WITH_CATEGORY_QUERY,
     params: { cutoffDate: getCutoffDate() },
-    tags: ["baby", "modelCategory"],
+    tags: ["category:baby"],
   });
 
   return data;
@@ -52,6 +52,7 @@ export default async function BabyPage({ params }) {
   const nameColor = NameColorSwitcher("baby");
 
   const data = await getData();
+
   const models = data?.models;
   const category = data?.categoryInfo;
 

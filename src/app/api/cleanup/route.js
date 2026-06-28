@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { createClient } from "@sanity/client";
 import { EXPIRED_MODELS_QUERY } from "@/sanity/lib/queries";
-
 // import { Resend } from "resend";
+import { apiVersion, dataset, projectId } from "@/sanity/env";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const token = process.env.SANITY_WRITE_TOKEN;
 const cleanupSecret = process.env.CLEANUP_SECRET;
 
@@ -17,7 +16,7 @@ const client = createClient({
   projectId,
   dataset,
   token,
-  apiVersion: "2024-03-01",
+  apiVersion,
   useCdn: false,
 });
 
@@ -62,6 +61,19 @@ export async function GET(req) {
         client.patch(m._id).set({ active: false }).commit(),
       ),
     );
+
+    // 🔥 AUTOMATYCZNE REVALIDACJE
+    expiredModels.forEach((m) => {
+      // Strona pojedynczego modela
+      if (m.slug?.current) {
+        revalidateTag(`model:${m.slug.current}`);
+      }
+
+      // Strona kategorii
+      if (m.category?.title) {
+        revalidateTag(`category:${m.category.title}`);
+      }
+    });
 
     // Zbierz assety z photos[] i gallery[]
     // const assets = expiredModels.flatMap((m) => [

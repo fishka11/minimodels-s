@@ -16,6 +16,9 @@ export const FooterCastingSection = ({
   locale,
 }) => {
   const tr = t[locale];
+
+  if (!(headline || subheadline || blocks || locale)) return null;
+
   return (
     <section className="bg-sky-500 py-20 lg:py-30">
       <div className="container max-w-7xl px-4 mx-auto w-full">
