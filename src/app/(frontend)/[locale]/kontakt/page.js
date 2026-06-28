@@ -1,4 +1,4 @@
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { CONTACT_PAGE_QUERY_WITH_TEAM } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/pageHeader";
@@ -10,7 +10,7 @@ import { lora, shadowsIntoLightTwo } from "@/lib/fonts";
 import Image from "next/image";
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: CONTACT_PAGE_QUERY_WITH_TEAM,
     tags: ["contactPage"],
   });

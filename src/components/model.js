@@ -9,7 +9,7 @@ import { ShareOnFacebook } from "./shareOnFacebook";
 import { TrackModelView } from "@/components/trackModelView";
 
 export function Model({ model, locale, slug, siblings }) {
-  const shareUrl = `https://minimodels-s.netlify.app/${locale}/${model.category}/${slug}`;
+  const shareUrl = `https://${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/${model.category}/${slug}`;
   return (
     <main>
       <TrackModelView modelId={model._id} />

@@ -1,6 +1,6 @@
 // src/app/[locale]/mini-girls/page.js
 import { getCutoffDate } from "@/lib/cutoffDate";
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { MINIGIRLS_WITH_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/modelCard";
@@ -16,7 +16,7 @@ const t = {
 };
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: MINIGIRLS_WITH_CATEGORY_QUERY,
     params: { cutoffDate: getCutoffDate() },
     tags: ["mini-girls", "modelCategory"],

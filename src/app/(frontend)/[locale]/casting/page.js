@@ -1,4 +1,4 @@
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { CASTING_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import placeholder from "@/assets/images/casting_bg.jpg";
@@ -7,7 +7,7 @@ import RichTextRenderer from "@/components/richTextRenderer";
 import { cache } from "react";
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: CASTING_PAGE_QUERY,
     tags: ["castingPage", "teamSection"],
   });

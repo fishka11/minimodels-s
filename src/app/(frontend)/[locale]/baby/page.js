@@ -1,6 +1,6 @@
 // src/app/[locale]/baby/page.js
 import { getCutoffDate } from "@/lib/cutoffDate";
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { BABIES_WITH_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/modelCard";
@@ -16,7 +16,7 @@ const t = {
 };
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: BABIES_WITH_CATEGORY_QUERY,
     params: { cutoffDate: getCutoffDate() },
     tags: ["baby", "modelCategory"],

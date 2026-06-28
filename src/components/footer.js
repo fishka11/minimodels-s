@@ -1,4 +1,4 @@
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { CASTING_SECTION_QUERY } from "@/sanity/lib/queries";
 import { FooterCastingSection } from "@/components/footerCastingSection";
 import BottomMenu from "@/components/bottomMenu";
@@ -6,7 +6,7 @@ import Copyrights from "./copyrights";
 import { cache } from "react";
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: CASTING_SECTION_QUERY,
     tags: ["castingSection"],
   });

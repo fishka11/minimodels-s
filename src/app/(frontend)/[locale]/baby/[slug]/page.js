@@ -1,5 +1,5 @@
 // src/app/[locale]/baby/[slug]/page.js
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import {
   ALL_BABY_SLUGS_QUERY,
   MODEL_WITH_SIBLINGS_QUERY,
@@ -13,7 +13,7 @@ export const getData = cache(async (slug) => {
   const cutoffDate = new Date();
   cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
 
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: MODEL_WITH_SIBLINGS_QUERY,
     params: { slug, cutoffDate: cutoffDate.toISOString() },
     tags: [`nastolatki:${slug}`],
@@ -23,7 +23,7 @@ export const getData = cache(async (slug) => {
 });
 
 export async function generateStaticParams() {
-  const models = await sanityFetch({ query: ALL_BABY_SLUGS_QUERY });
+  const models = await fetchSanity({ query: ALL_BABY_SLUGS_QUERY });
 
   return models.flatMap(({ slug }) =>
     LOCALES.map((locale) => ({ locale, slug })),

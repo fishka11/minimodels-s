@@ -1,7 +1,7 @@
 // src/app/[locale]/page.js
 import { ParallaxSection } from "@/components/parallaxSection";
 import { LOCALES } from "@/lib/locales";
-import { sanityFetch } from "@/sanity/lib/client";
+import { fetchSanity } from "@/sanity/lib/client";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -22,7 +22,7 @@ import { Hero } from "@/components/hero";
 import { cache } from "react";
 
 export const getData = cache(async () => {
-  const data = await sanityFetch({
+  const data = await fetchSanity({
     query: HOME_PAGE_QUERY,
     tags: ["homePage"],
   });
