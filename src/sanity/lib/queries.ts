@@ -151,30 +151,6 @@ export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
         && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
         // && _createdAt > ^._createdAt
         && (
-          dateTime(contractDate + "T00:00:00Z") > dateTime(^.contractDate + "T00:00:00Z")
-          ||
-          (
-            contractDate == ^.contractDate
-            && _createdAt > ^._createdAt
-          )
-        )
-      ]
-      // | order(_createdAt asc)[0] {
-      | order(
-          dateTime(contractDate + "T00:00:00Z") asc,
-          _createdAt asc
-        )[0] {
-        name,
-        slug,
-        profileImage
-      },
-      "next": *[_type == "model"
-        && category->title == ^.category->title
-        && active == true
-        && defined(contractDate)
-        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
-        // && _createdAt < ^._createdAt
-        && (
           dateTime(contractDate + "T00:00:00Z") < dateTime(^.contractDate + "T00:00:00Z")
           ||
           (
@@ -183,10 +159,35 @@ export const MODEL_WITH_SIBLINGS_QUERY = defineQuery(`
           )
         )
       ]
-      // | order(_createdAt desc)[0] {
+      // | order(_createdAt asc)[0] {
       | order(
           dateTime(contractDate + "T00:00:00Z") desc,
           _createdAt desc
+        )[0] {
+        name,
+        slug,
+        profileImage
+      },
+      
+      "next": *[_type == "model"
+        && category->title == ^.category->title
+        && active == true
+        && defined(contractDate)
+        && dateTime(contractDate + "T00:00:00Z") > dateTime($cutoffDate)
+        // && _createdAt < ^._createdAt
+        && (
+          dateTime(contractDate + "T00:00:00Z") > dateTime(^.contractDate + "T00:00:00Z")
+          ||
+          (
+            contractDate == ^.contractDate
+            && _createdAt > ^._createdAt
+          )
+        )
+      ]
+      // | order(_createdAt desc)[0] {
+      | order(
+          dateTime(contractDate + "T00:00:00Z") asc,
+          _createdAt asc
         )[0] {
         name,
         slug,
