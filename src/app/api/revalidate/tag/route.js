@@ -24,21 +24,65 @@ export async function POST(req) {
     );
 
     if (!isValidSignature) {
-      const message = "Invalid signature";
       return NextResponse.json(
-        { message, isValidSignature, body },
+        { ok: false, error: "Invalid signature", body },
         { status: 401 },
       );
-    } else if (!Array.isArray(body?.tags) || !body.tags.length) {
-      const message = "Bad Request";
-      return NextResponse.json({ message, body }, { status: 400 });
+    }
+    // else if (!Array.isArray(body?.tags) || !body.tags.length) {
+    //   const message = "Bad Request";
+    //   return NextResponse.json({ message, body }, { status: 400 });
+    // }
+
+    const event = body?.event;
+    const doc = body?.document;
+    const prev = body?.previous;
+
+    // 🟥 DELETE — Sanity nie wysyła tags
+    if (event === "delete") {
+      const slug = prev?.slug?.current;
+      const category = prev?.category?.title;
+
+      if (slug) revalidateTag(`model:${slug}`);
+      if (category) revalidateTag(`category:${category}`);
+
+      return NextResponse.json({
+        ok: true,
+        event,
+        revalidated: [`model:${slug}`, `category:${category}`],
+      });
     }
 
-    body.tags.forEach((tag) => {
-      revalidateTag(tag);
-    });
+    // 🟦 CREATE / UPDATE
+    if (event === "create" || event === "update") {
+      const slug = doc?.slug?.current;
+      const category = doc?.category?.title;
 
-    return NextResponse.json({ body });
+      if (slug) revalidateTag(`model:${slug}`);
+      if (category) revalidateTag(`category:${category}`);
+    }
+
+    // 🟩 PUBLISH / UNPUBLISH
+    if (event === "publish" || event === "unpublish") {
+      const slug = doc?.slug?.current;
+      const category = doc?.category?.title;
+
+      if (slug) revalidateTag(`model:${slug}`);
+      if (category) revalidateTag(`category:${category}`);
+    }
+
+    // 🟨 Jeśli Sanity wysłało tags — też revalidujemy
+    if (Array.isArray(body?.tags) && body.tags.length > 0) {
+      body.tags.forEach((tag) => revalidateTag(tag));
+    }
+
+    return NextResponse.json({ ok: true, event });
+
+    // body.tags.forEach((tag) => {
+    //   revalidateTag(tag);
+    // });
+
+    // return NextResponse.json({ body });
   } catch (err) {
     console.error(err);
     return new Response(err.message, { status: 500 });
