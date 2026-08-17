@@ -5,7 +5,7 @@ import Link from "next/link";
 import placeholder from "@/assets/images/waste-med-logo.jpg";
 
 const t = {
-  pl: { welcome: "Zapraszmy do współpracy" },
+  pl: { welcome: "Zapraszamy do współpracy" },
   en: { welcome: "We invite you to cooperate" },
 };
 
