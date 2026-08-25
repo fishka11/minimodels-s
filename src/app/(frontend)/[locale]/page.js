@@ -4,7 +4,6 @@ import { LOCALES } from "@/lib/locales";
 import { fetchSanity } from "@/sanity/lib/client";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import imgPartnersUp from "@/assets/images/partners-up.png";
 import imgPartnersDown from "@/assets/images/partners-down.png";
 import imgCollage from "@/assets/images/mini-boy-girl.jpg";
@@ -19,16 +18,15 @@ import imgSection6Bg from "@/assets/images/szansa.jpg";
 import { SectionContent } from "@/components/sectionContent";
 import { slides } from "@/lib/logotypes";
 import { Hero } from "@/components/hero";
-import { cache } from "react";
 
-export const getData = cache(async () => {
+export async function getData() {
   const data = await fetchSanity({
     query: HOME_PAGE_QUERY,
     tags: ["homePage"],
   });
 
   return data;
-});
+}
 
 // -------------------------------------------------------
 // Metadata

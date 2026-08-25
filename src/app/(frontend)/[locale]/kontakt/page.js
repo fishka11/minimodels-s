@@ -3,20 +3,19 @@ import { CONTACT_PAGE_QUERY_WITH_TEAM } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/pageHeader";
 import RichTextRenderer from "@/components/richTextRenderer";
-import { cache } from "react";
 import { Phone } from "lucide-react";
 import Link from "next/link";
 import { lora, shadowsIntoLightTwo } from "@/lib/fonts";
 import Image from "next/image";
 
-export const getData = cache(async () => {
+export async function getData() {
   const data = await fetchSanity({
     query: CONTACT_PAGE_QUERY_WITH_TEAM,
     tags: ["contactPage"],
   });
 
   return data;
-});
+}
 
 // -------------------------------------------------------
 // Metadata
