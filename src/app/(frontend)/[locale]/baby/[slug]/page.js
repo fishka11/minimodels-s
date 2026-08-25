@@ -4,23 +4,20 @@ import {
   ALL_BABY_SLUGS_QUERY,
   MODEL_WITH_SIBLINGS_QUERY,
 } from "@/sanity/lib/queries";
+import { getCutoffDate } from "@/lib/cutoffDate";
 import { notFound } from "next/navigation";
 import { Model } from "@/components/model";
 import { LOCALES } from "@/lib/locales";
-import { cache } from "react";
 
-export const getData = cache(async (slug) => {
-  const cutoffDate = new Date();
-  cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
-
+export async function getData(slug) {
   const data = await fetchSanity({
     query: MODEL_WITH_SIBLINGS_QUERY,
-    params: { slug, cutoffDate: cutoffDate.toISOString() },
+    params: { slug, cutoffDate: getCutoffDate() },
     tags: [`model:${slug}`, `category:baby`],
   });
 
   return data;
-});
+}
 
 export async function generateStaticParams() {
   const models = await fetchSanity({ query: ALL_BABY_SLUGS_QUERY });

@@ -4,16 +4,15 @@ import { notFound } from "next/navigation";
 // import placeholder from "@/assets/images/about_bg.jpg";
 import { PageHeader } from "@/components/pageHeader";
 import FAQAccordion from "@/components/faqAccordion";
-import { cache } from "react";
 
-export const getData = cache(async () => {
+export async function getData() {
   const data = await fetchSanity({
     query: FAQ_PAGE_QUERY,
     tags: ["faqPage"],
   });
 
   return data;
-});
+}
 
 // -------------------------------------------------------
 // Metadata

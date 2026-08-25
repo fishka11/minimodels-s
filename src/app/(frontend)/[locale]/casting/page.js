@@ -4,16 +4,15 @@ import { notFound } from "next/navigation";
 import placeholder from "@/assets/images/casting_bg.jpg";
 import { PageHeader } from "@/components/pageHeader";
 import RichTextRenderer from "@/components/richTextRenderer";
-import { cache } from "react";
 
-export const getData = cache(async () => {
+export async function getData() {
   const data = await fetchSanity({
     query: CASTING_PAGE_QUERY,
     tags: ["castingPage", "teamSection"],
   });
 
   return data;
-});
+}
 
 // -------------------------------------------------------
 // Metadata

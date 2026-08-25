@@ -7,7 +7,6 @@ import { ModelCard } from "@/components/modelCard";
 import { NameColorSwitcher } from "@/lib/nameColorSwitcher";
 import placeholder from "@/assets/images/reservation_bg.jpg";
 import { PageHeader } from "@/components/pageHeader";
-import { cache } from "react";
 import { LOCALES } from "@/lib/locales";
 
 const t = {
@@ -15,7 +14,7 @@ const t = {
   en: { noModels: "No models in this category." },
 };
 
-export const getData = cache(async () => {
+export async function getData() {
   const data = await fetchSanity({
     query: MINIGIRLS_WITH_CATEGORY_QUERY,
     params: { cutoffDate: getCutoffDate() },
@@ -23,7 +22,7 @@ export const getData = cache(async () => {
   });
 
   return data;
-});
+}
 
 // -------------------------------------------------------
 // Metadata
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }) {
 // -------------------------------------------------------
 // Strona
 // -------------------------------------------------------
-export default async function MiniBoysPage({ params }) {
+export default async function MiniGirlsPage({ params }) {
   const { locale } = await params;
 
   if (!LOCALES.includes(locale)) notFound();

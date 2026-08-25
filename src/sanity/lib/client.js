@@ -1,64 +1,4 @@
 // src/sanity/lib/client.js
-// import { createClient } from "next-sanity";
-// import { apiVersion, dataset, projectId } from "../env";
-
-// export const client = createClient({
-//   projectId,
-//   dataset,
-//   apiVersion,
-//   useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation
-// });
-
-// export async function fetchSanity({
-//   query,
-//   params = {},
-//   revalidate = 60, // default revalidation time in seconds
-//   tags = [],
-// }) {
-//   return client.fetch(query, params, {
-//     next: {
-//       revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
-//       tags, // for tag-based revalidation
-//     },
-//   });
-// }
-
-// src/sanity/lib/client.js
-
-// import { apiVersion, dataset, projectId } from "@/sanity/env";
-
-// const SANITY_URL = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}`;
-
-// /**
-//  * fetchSanity — jedyne poprawne pobieranie danych z Sanity
-//  * wspierające:
-//  * - cache Next.js
-//  * - ISR
-//  * - tag-based revalidation
-//  * - statyczne strony
-//  */
-// export async function fetchSanity({
-//   query,
-//   params = {},
-//   tags = [],
-//   revalidate = 60,
-// }) {
-//   const url = new URL(SANITY_URL);
-//   url.searchParams.set("query", query);
-
-//   if (params && Object.keys(params).length > 0) {
-//     url.searchParams.set("params", JSON.stringify(params));
-//   }
-
-//   return fetch(url.toString(), {
-//     next: {
-//       tags,
-//       revalidate: tags.length ? false : revalidate,
-//     },
-//   }).then((res) => res.json());
-// }
-
-// src/sanity/lib/client.js
 import { apiVersion, dataset, projectId } from "../env";
 
 const SANITY_URL = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}`;
@@ -69,17 +9,63 @@ export async function fetchSanity({
   tags = [],
   revalidate = 60,
 }) {
-  return fetch(SANITY_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query, params }),
-    next: {
-      tags,
-      revalidate: tags.length ? false : revalidate,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data.result);
+  try {
+    // przygotowanie obiektu next tylko gdy trzeba (unikamy next: { tags: [] })
+    const nextOptions = {};
+    if (Array.isArray(tags) && tags.length > 0) {
+      nextOptions.tags = tags;
+      // gdy mamy tagi, chcemy kontrolować revalidation ręcznie przez revalidateTag
+      nextOptions.revalidate = false;
+    } else {
+      nextOptions.revalidate = revalidate;
+    }
+
+    const res = await fetch(SANITY_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query, params }),
+      next: nextOptions,
+    });
+
+    // sprawdznie statusu odpowiedzi
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      const msg = `Sanity fetch error: ${res.status} ${res.statusText} ${text}`;
+      console.error(msg);
+      throw new Error(msg);
+    }
+
+    const data = await res.json().catch((err) => {
+      console.error("Failed to parse JSON from Sanity:", err);
+      throw err;
+    });
+
+    if (!data || typeof data.result === "undefined") {
+      const msg = "Sanity response missing result field";
+      console.error(msg, data);
+      throw new Error(msg);
+    }
+
+    return data.result;
+  } catch (err) {
+    // logujowanie i przepuszczanie błędu dalej — caller może zdecydować co zrobić
+    console.error("fetchSanity error:", err);
+    throw err;
+  }
+
+  // return fetch(SANITY_URL, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ query, params }),
+  //   next: {
+  //     tags,
+  //     revalidate: tags.length ? false : revalidate,
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => data.result);
 }

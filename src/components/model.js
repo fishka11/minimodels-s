@@ -3,7 +3,6 @@ import { ModelHeader } from "@/components/modelHeader";
 import { ModelGallery } from "@/components/modelGallery";
 import { ModelData } from "@/components/modelData";
 import { ModelWorkPlace } from "./modelWorkPlace";
-import { ShareOnX } from "@/components/shareOnX";
 import { ModelSiblings } from "@/components/modelSiblings";
 import { ShareOnFacebook } from "./shareOnFacebook";
 import { TrackModelView } from "@/components/trackModelView";
