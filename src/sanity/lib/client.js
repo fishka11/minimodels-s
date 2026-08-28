@@ -12,13 +12,19 @@ export async function fetchSanity({
   try {
     // przygotowanie obiektu next tylko gdy trzeba (unikamy next: { tags: [] })
     const nextOptions = {};
-    if (Array.isArray(tags) && tags.length > 0) {
-      nextOptions.tags = tags;
-      // gdy mamy tagi, chcemy kontrolować revalidation ręcznie przez revalidateTag
-      nextOptions.revalidate = false;
-    } else {
-      nextOptions.revalidate = revalidate;
-    }
+
+    // 🔒 Obsługa tagów — zakomentowana na Netlify
+    // Jeśli kiedyś przejdzę na Vercel, trzeba odkomentować poniższy blok:
+    // if (Array.isArray(tags) && tags.length > 0) {
+    //   nextOptions.tags = tags;
+    //   // gdy mamy tagi, chcemy kontrolować revalidation ręcznie przez revalidateTag
+    //   nextOptions.revalidate = false;
+    // } else {
+    //   nextOptions.revalidate = revalidate;
+    // }
+
+    // 🔧 Netlify: używamy tylko time-based revalidation
+    nextOptions.revalidate = revalidate;
 
     const res = await fetch(SANITY_URL, {
       method: "POST",
