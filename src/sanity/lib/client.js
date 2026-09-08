@@ -7,7 +7,7 @@ export async function fetchSanity({
   query,
   params = {},
   tags = [],
-  revalidate = 3600,
+  revalidate = 21600,
 }) {
   try {
     // przygotowanie obiektu next tylko gdy trzeba (unikamy next: { tags: [] })
