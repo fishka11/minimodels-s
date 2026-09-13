@@ -1,3 +1,9 @@
+// src/app/[locale]/casting/page.js
+export const dynamic = "force-static";
+export const revalidate = false;
+
+import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
+import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
 import { fetchSanity } from "@/sanity/lib/client";
 import { CASTING_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -6,11 +12,16 @@ import { PageHeader } from "@/components/pageHeader";
 import RichTextRenderer from "@/components/richTextRenderer";
 
 export async function getData() {
+  const cached = readSanityCache();
+  if (cached) return cached;
+
   const data = await fetchSanity({
     query: CASTING_PAGE_QUERY,
-    tags: ["castingPage", "teamSection"],
+    // tags: ["castingPage", "teamSection"],
+    revalidate: false,
   });
 
+  writeSanityCache(data);
   return data;
 }
 

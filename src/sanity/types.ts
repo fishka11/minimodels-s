@@ -1540,6 +1540,17 @@ export type CONTACT_PAGE_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: EXPIRED_MODELS_QUERY
+// Query: *[    _type == "model" &&    active == true &&    defined(contractDate) &&    dateTime(contractDate + "T00:00:00Z") < dateTime($limitDate)  ]{    _id,    name,    contractDate,    slug,    "categoryTitle": category->title  }
+export type EXPIRED_MODELS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  contractDate: string | null;
+  slug: Slug;
+  categoryTitle: "baby" | "mini-boys" | "mini-girls" | "nastolatki";
+}>;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: CASTING_SECTION_QUERY
 // Query: *[_type == "castingSection"][0]{    title,    headline { pl, en },    subheadline { pl, en },    blocks[] {      internalTitle,      title { pl, en },      logo {        pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },        en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },      },      description { pl[], en[] },      button { label { pl, en }, url }    }  }
 export type CASTING_SECTION_QUERY_RESULT = {
@@ -1769,6 +1780,7 @@ declare module "@sanity/client" {
     '\n  *[_type=="aboutUsPage"][0]{\n  title,\n  seo,\n  pageTitle,\n  pageSubtitle,\n  body,\n  sections[] {\n    sectionTitle,\n    texts,\n    button,\n    video,\n    email\n  }\n}\n': ABOUTUS_PAGE_QUERY_RESULT;
     '\n  *[_type == "faqPage"][0]{\n    title,\n    seo,\n    pageTitle,\n    pageSubtitle,\n    faq[] {\n      _key,\n      question,\n      answer\n    }\n  }\n': FAQ_PAGE_QUERY_RESULT;
     '\n  *[_type == "contactPage"][0]{\n    title,\n    seo,\n    pageTitle,\n    pageSubtitle,\n    bodySections,\n    sections[] {\n      sectionTitle,\n      texts,\n      phones,\n      button,\n      video,\n      email\n    } \n  }\n': CONTACT_PAGE_QUERY_RESULT;
+    '\n  *[\n    _type == "model" &&\n    active == true &&\n    defined(contractDate) &&\n    dateTime(contractDate + "T00:00:00Z") < dateTime($limitDate)\n  ]{\n    _id,\n    name,\n    contractDate,\n    slug,\n    "categoryTitle": category->title\n  }\n': EXPIRED_MODELS_QUERY_RESULT;
     '\n  *[_type == "castingSection"][0]{\n    title,\n    headline { pl, en },\n    subheadline { pl, en },\n    blocks[] {\n      internalTitle,\n      title { pl, en },\n      logo {\n        pl { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n        en { image { asset->{_id, url, alt, metadata { dimensions { width, height, aspectRatio } }} }, alt },\n      },\n      description { pl[], en[] },\n      button { label { pl, en }, url }\n    }\n  }\n': CASTING_SECTION_QUERY_RESULT;
     '*[_type == "teamSection"][0]{\n    title{\n      pl,\n      en\n    },\n    members[]{\n      photo{\n        asset->{\n          _id,\n          url,\n          alt,\n          metadata {\n            dimensions { width, height, aspectRatio }\n          }\n        }\n      },\n      content{\n        pl{\n          name,\n          description,\n          alt,\n          active\n        },\n        en{\n          name,\n          description,\n          alt,\n          active\n        }\n      }\n    }\n  }\n': TEAM_SECTION_QUERY_RESULT;
     '\n{\n  "contactPage": *[_type == "contactPage"][0]{\n    title,\n    seo,\n    pageTitle,\n    pageSubtitle,\n    bodySections,\n    sections[]{\n      sectionTitle,\n      texts,\n      phones,\n      button,\n      video,\n      email\n    }\n  },\n  "teamSection": *[_type == "teamSection"][0]{\n    title{\n      pl,\n      en\n    },\n    members[]{\n      photo{\n        asset->{\n          _id,\n          url,\n          alt,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      },\n      content{\n        pl{\n          name,\n          description,\n          alt,\n          active\n        },\n        en{\n          name,\n          description,\n          alt,\n          active\n        }\n      }\n    }\n  }\n}\n': CONTACT_PAGE_QUERY_WITH_TEAM_RESULT;

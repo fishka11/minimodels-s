@@ -1,4 +1,7 @@
 // src/app/[locale]/mini-girls/page.js
+// export const dynamic = "force-dynamic";
+export const revalidate = 21600; // 6h
+
 import { getCutoffDate } from "@/lib/cutoffDate";
 import { fetchSanity } from "@/sanity/lib/client";
 import { TEENS_WITH_CATEGORY_QUERY } from "@/sanity/lib/queries";
