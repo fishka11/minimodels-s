@@ -307,7 +307,7 @@ export const EXPIRED_MODELS_QUERY = defineQuery(`
     name,
     contractDate,
     slug,
-    category->title
+    "categoryTitle": category->title
   }
 `);
 
