@@ -1,4 +1,9 @@
 // src/app/[locale]/page.js
+export const dynamic = "force-static";
+export const revalidate = false;
+
+import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
+import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
 import { ParallaxSection } from "@/components/parallaxSection";
 import { LOCALES } from "@/lib/locales";
 import { fetchSanity } from "@/sanity/lib/client";
@@ -20,11 +25,16 @@ import { slides } from "@/lib/logotypes";
 import { Hero } from "@/components/hero";
 
 export async function getData() {
+  const cached = readSanityCache();
+  if (cached) return cached;
+
   const data = await fetchSanity({
     query: HOME_PAGE_QUERY,
-    tags: ["homePage"],
+    // tags: ["homePage"],
+    revalidate: false, // pobierane tylko podczas builda
   });
 
+  writeSanityCache(data);
   return data;
 }
 

@@ -1,4 +1,7 @@
 // src/app/[locale]/baby/[slug]/page.js
+// export const dynamic = "force-dynamic";
+export const revalidate = 21600; // 6h
+
 import { fetchSanity } from "@/sanity/lib/client";
 import {
   ALL_BABY_SLUGS_QUERY,
@@ -19,13 +22,13 @@ export async function getData(slug) {
   return data;
 }
 
-export async function generateStaticParams() {
-  const models = await fetchSanity({ query: ALL_BABY_SLUGS_QUERY });
+// export async function generateStaticParams() {
+//   const models = await fetchSanity({ query: ALL_BABY_SLUGS_QUERY });
 
-  return models.flatMap(({ slug }) =>
-    LOCALES.map((locale) => ({ locale, slug })),
-  );
-}
+//   return models.flatMap(({ slug }) =>
+//     LOCALES.map((locale) => ({ locale, slug })),
+//   );
+// }
 
 // -------------------------------------------------------
 // Metadata

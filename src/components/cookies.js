@@ -20,7 +20,8 @@ export default function CookieConsent() {
   const handleAccept = async () => {
     setIsLoading(true);
     try {
-      await setCookieConsent("accepted");
+      document.cookie = "cookie-consent=accepted; path=/; max-age=31536000";
+      // await setCookieConsent("accepted");
       setShowBanner(false);
     } catch (error) {
       console.error("Error setting cookie:", error);
@@ -32,7 +33,8 @@ export default function CookieConsent() {
   const handleDecline = async () => {
     setIsLoading(true);
     try {
-      await setCookieConsent("declined");
+      document.cookie = "cookie-consent=declined; path=/; max-age=31536000";
+      // await setCookieConsent("declined");
       setShowBanner(false);
     } catch (error) {
       console.error("Error setting cookie:", error);

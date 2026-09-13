@@ -1,3 +1,9 @@
+// src/app/[locale]/pomoc/page.js
+export const dynamic = "force-static";
+export const revalidate = false;
+
+import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
+import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
 import { fetchSanity } from "@/sanity/lib/client";
 import { FAQ_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -6,11 +12,16 @@ import { PageHeader } from "@/components/pageHeader";
 import FAQAccordion from "@/components/faqAccordion";
 
 export async function getData() {
+  const cached = readSanityCache();
+  if (cached) return cached;
+
   const data = await fetchSanity({
     query: FAQ_PAGE_QUERY,
-    tags: ["faqPage"],
+    // tags: ["faqPage"],
+    revalidate: false,
   });
 
+  writeSanityCache(data);
   return data;
 }
 

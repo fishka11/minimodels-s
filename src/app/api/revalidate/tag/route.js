@@ -3,12 +3,6 @@ import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 import { fetchSanity } from "@/sanity/lib/client";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 const SIBLINGS_GROQ = `{
   "prev": *[_type == "model"
     && category->title == $category

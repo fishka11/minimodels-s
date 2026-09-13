@@ -1,3 +1,9 @@
+// src/app/[locale]/kontakt/page.js
+export const dynamic = "force-static";
+export const revalidate = false;
+
+import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
+import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
 import { fetchSanity } from "@/sanity/lib/client";
 import { CONTACT_PAGE_QUERY_WITH_TEAM } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -9,11 +15,16 @@ import { lora, shadowsIntoLightTwo } from "@/lib/fonts";
 import Image from "next/image";
 
 export async function getData() {
+  const cached = readSanityCache();
+  if (cached) return cached;
+
   const data = await fetchSanity({
     query: CONTACT_PAGE_QUERY_WITH_TEAM,
-    tags: ["contactPage"],
+    // tags: ["contactPage"],
+    revalidate: false,
   });
 
+  writeSanityCache(data);
   return data;
 }
 
