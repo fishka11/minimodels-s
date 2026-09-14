@@ -1,5 +1,6 @@
 // src/app/[locale]/baby/page.js
 // export const dynamic = "force-dynamic";
+export const dynamic = "error";
 export const revalidate = 21600; // 6h
 
 import { getCutoffDate } from "@/lib/cutoffDate";
