@@ -6,7 +6,7 @@ import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
 import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
 import { ParallaxSection } from "@/components/parallaxSection";
 import { LOCALES } from "@/lib/locales";
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import imgPartnersUp from "@/assets/images/partners-up.png";
@@ -28,7 +28,7 @@ export async function getData() {
   const cached = readSanityCache();
   if (cached) return cached;
 
-  const data = await fetchSanity({
+  const data = await sanityFetch({
     query: HOME_PAGE_QUERY,
     // tags: ["homePage"],
     revalidate: false, // pobierane tylko podczas builda

@@ -3,7 +3,7 @@
 export const dynamic = "error";
 export const revalidate = 21600; // 6h
 
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import {
   ALL_TEENS_SLUGS_QUERY,
   MODEL_WITH_SIBLINGS_QUERY,
@@ -14,7 +14,7 @@ import { Model } from "@/components/model";
 import { LOCALES } from "@/lib/locales";
 
 export async function getData(slug) {
-  const data = await fetchSanity({
+  const data = await sanityFetch({
     query: MODEL_WITH_SIBLINGS_QUERY,
     params: { slug, cutoffDate: getCutoffDate() },
     tags: [`model:${slug}`, `category:nastolatki`],
@@ -24,7 +24,7 @@ export async function getData(slug) {
 }
 
 // export async function generateStaticParams() {
-//   const models = await fetchSanity({ query: ALL_TEENS_SLUGS_QUERY });
+//   const models = await sanityFetch({ query: ALL_TEENS_SLUGS_QUERY });
 
 //   return models.flatMap(({ slug }) =>
 //     LOCALES.map((locale) => ({ locale, slug })),

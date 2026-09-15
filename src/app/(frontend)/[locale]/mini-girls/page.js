@@ -4,7 +4,7 @@ export const dynamic = "error";
 export const revalidate = 21600; // 6h
 
 import { getCutoffDate } from "@/lib/cutoffDate";
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { MINIGIRLS_WITH_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/modelCard";
@@ -19,7 +19,7 @@ const t = {
 };
 
 export async function getData() {
-  const data = await fetchSanity({
+  const data = await sanityFetch({
     query: MINIGIRLS_WITH_CATEGORY_QUERY,
     params: { cutoffDate: getCutoffDate() },
     tags: ["category:mini-girls"],

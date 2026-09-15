@@ -4,7 +4,7 @@ export const revalidate = false;
 
 import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
 import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { CASTING_PAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import placeholder from "@/assets/images/casting_bg.jpg";
@@ -15,7 +15,7 @@ export async function getData() {
   const cached = readSanityCache();
   if (cached) return cached;
 
-  const data = await fetchSanity({
+  const data = await sanityFetch({
     query: CASTING_PAGE_QUERY,
     // tags: ["castingPage", "teamSection"],
     revalidate: false,

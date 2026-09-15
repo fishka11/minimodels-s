@@ -1,7 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 
 const SIBLINGS_GROQ = `{
   "prev": *[_type == "model"
@@ -82,7 +82,7 @@ export async function POST(req) {
       cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
 
       // Pobieranie sąsiadów z Sanity
-      const siblings = await fetchSanity({
+      const siblings = await sanityFetch({
         query: SIBLINGS_GROQ,
         params: {
           slug: changedSlug,

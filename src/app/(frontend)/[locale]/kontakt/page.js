@@ -4,7 +4,7 @@ export const revalidate = false;
 
 import { readSanityCache, writeSanityCache } from "@/sanity/lib/fileCache";
 import { getSanityCache, setSanityCache } from "@/sanity/lib/cache";
-import { fetchSanity } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { CONTACT_PAGE_QUERY_WITH_TEAM } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/pageHeader";
@@ -18,7 +18,7 @@ export async function getData() {
   const cached = readSanityCache();
   if (cached) return cached;
 
-  const data = await fetchSanity({
+  const data = await sanityFetch({
     query: CONTACT_PAGE_QUERY_WITH_TEAM,
     // tags: ["contactPage"],
     revalidate: false,
